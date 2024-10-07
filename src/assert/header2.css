@@ -1,0 +1,145 @@
+
+.header2 {
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-right: 22px;
+    box-sizing: border-box;
+}
+
+.header__logo {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.header__logo a {
+    display: flex;
+    align-items: center;
+    color: black;
+    text-decoration: none;
+    padding: 3px;
+    margin: 10px;
+}
+
+.header__logo a em {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    animation: ani 10s 1s ease-in-out infinite;
+    display: block;
+}
+
+.header__logo a span {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #999;
+    padding: 5px;
+    border-radius: 44px;
+    flex-grow: 1;  
+    margin: 0px 50px;
+    max-width: 85vh;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 44px;
+    flex-grow: 1;
+}
+
+.search-bar button {
+    background-color: white;
+    cursor: pointer;
+    font-size: 30px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 40px;  
+}
+
+
+.user-button {
+    
+    font-size: 24px;
+    cursor: pointer;
+    color: black;
+    padding: 10px;
+}
+
+.user-button a {
+    text-decoration: none;
+    color: black;
+    transition: 0.3s;
+    
+}
+
+.user-button a:hover {
+    color: #88BAF7;
+}
+
+
+/* 로고 애니메이션 부분*/
+
+@keyframes ani {
+    0% {
+        transform: rotate(0) scale(1);
+        background-color: #88BAF7;
+    }
+
+    50% {
+        transform: rotate(2880deg) scale(0.5);
+        background-color: #88BAF7;
+        border-radius: 20px;
+    }
+
+    100% {
+        transform: rotate(1440deg) scale(1);
+        background-color: #88BAF7;
+    }
+}
+
+@media (max-width: 900px) {
+
+    .header__logo a em {
+       display: none;
+    }
+
+}
+
+@media (max-width: 690px) {
+    .search-bar input {
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 44px;
+        width: 25vh;
+    }
+
+    .search-bar button {
+        background-color: white;
+        cursor: pointer;
+        font-size: 30px;
+        margin-right: 10px;
+        border: none;
+        border-radius: 40px;  
+    }
+}
+
