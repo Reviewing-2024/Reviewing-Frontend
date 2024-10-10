@@ -55,8 +55,15 @@
     display: flex;
     justify-content: flex-start;
     padding-left: 10px;
+<<<<<<< HEAD
     position: relative;
     bottom: 0px;
+=======
+    margin-top: 20vh;
+    position: absolute;
+    
+
+>>>>>>> 819a4c0 (first)
 }
 
 .header__sns li {

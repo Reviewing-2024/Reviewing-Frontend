@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import '../../assert/css/section.css'
+import '../../assert/layout.css'
 
 import { items } from '../../data/data'
 

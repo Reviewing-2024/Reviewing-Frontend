@@ -5,8 +5,8 @@ import "../../assert/header2.css";
 
 import { CiSearch } from "react-icons/ci";
 import { FaUser } from "react-icons/fa";
-
 import { Link } from 'react-router-dom';
+
 
 const Header2 = () => {
   return (
