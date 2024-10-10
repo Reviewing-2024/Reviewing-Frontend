@@ -10,7 +10,7 @@ body, html {
     width: 250px;
     height: 100%;
     overflow-y: auto;
-    z-index: 10000;
+    z-index: 10;
     border-right: 1px solid #111;
     background-color: white; 
     margin-top: 66px;
@@ -20,7 +20,7 @@ body, html {
 #main {
     max-width: 2000px;
     min-height: 100vh;
-    background-color: #444;
+    background-color: #666;
     padding-left: 250px;
     padding-top: 66px;
     color: white

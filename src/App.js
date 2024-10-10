@@ -1,6 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import './assert/layout.css';
+
 import Header2 from './components/section/header2';
 import Header from './components/section/header';   
 import Main from './components/section/main';       
@@ -11,9 +13,9 @@ import Inflearn from './components/pages/inflearn';
 import Coddingapple from './components/pages/coddingapple';
 import Codeit from './components/pages/codeit';
 import Youtube from './components/pages/youtube';
-import User from './components/pages/user';
 import Search from './components/pages/search';
 import Detail from './components/pages/detail';
+import LoginRegister from './components/pages/LoginRegister';
  
 const App = () => {
     return (
@@ -27,7 +29,6 @@ const App = () => {
                     <Route path='/coddingapple' element={<Coddingapple />} />
                     <Route path='/codeit' element={<Codeit />} />
                     <Route path='/youtube' element={<Youtube />} />
-                    <Route path='/user' element={<User />} />
                     <Route path='/search' element={<Search />} >
                         <Route path='security' element={<div>security</div>} />
                         <Route path='chatGPT' element={<div>chatGPT</div>} />
@@ -36,6 +37,7 @@ const App = () => {
                         <Route path='data' element={<div>data</div>} />
                     </Route>
                     <Route path='/detail/:id' element={<Detail />} />
+                    <Route path='/user' element={<LoginRegister />} />
                 </Routes>
             </Main>
             <Footer />
