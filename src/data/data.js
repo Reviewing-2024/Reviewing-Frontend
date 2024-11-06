@@ -6,7 +6,7 @@ export const items = [
         genre: ["security","data"],
         rating: 3,
         src: "https://cdn.inflearn.com/public/courses/326174/cover/b0536120-7de3-4aa8-8266-97cf3881e87d?w=420",
-        rkdtk: '나'
+        teacher: '나'
     },
     {
         id: 2,
@@ -14,7 +14,7 @@ export const items = [
         overview: "퍼블리셔 취업과 퍼블리셔 실무에서 가장 경쟁력이 있는 모바일 웹 제작 능력을 향상할 수 있습니다. 퍼블리셔로서 모바일 웹을 제작하기 위한 거의 모든 제작 방법과 노하우를 다질 수 있습니다. 특히 요즘 퍼블리셔와 개발자에게 요구되는 디자인 능력을 피그마(Figma) 학습으로 많은 부분 커버할 수 있도록 피그마(Figma)로 모바일 웹 UI 디자인 작업을 하는 과정도 상세하게 설명하였습니다.",
         genre: ["chatGPT", "security"],
         rating: 5,
-        rkdtk: '나',
+        teacher: '나',
         src: "https://cdn.inflearn.com/public/courses/329477/cover/80fb90fb-0212-4eec-8fb0-7875622b198e/329477-eng.png?w=420"
     },
     {
@@ -23,7 +23,7 @@ export const items = [
         overview: "1년간 300여명의 개발자를 배출한 ‘진짜’ 부트캠프의 고농축 커리큘럼 입니다. 이 강의 하나로 여러분은 현업 주니어 개발자 수준까지 성장 가능하며, 프론트엔드 기술스택의 활용 능력과 지식을 얻게 될거에요. 누구나 사회적, 경제적, 교육적 배경에 상관없이 커리어를 쌓을 수 있도록, [인프런X코드캠프]가 준비했습니다 :)",
         genre: ["python", "chatGPT", "uxui"],
         rating: 4,
-        rkdtk: '너',
+        teacher: '너',
         src: "https://cdn.inflearn.com/public/courses/329963/cover/26550c58-624a-41c8-86dc-fea75b6c3b22/thumbnail-frontnew.png?w=420"
     },
     {
@@ -32,7 +32,7 @@ export const items = [
         overview: "본 강의에서는 테스트가 필요한 경우와 테스트를 할 때의 장점을 Jest 프레임워크를 통해 보여드립니다. 리액트, Express 등에 유닛테스트, 통합테스트를 적용해봅니다.",
         genre: ["uxui", "chatGPT"],
         rating: 4,
-        rkdtk: '냐',
+        teacher: '냐',
         src: "https://cdn.inflearn.com/public/courses/334799/cover/e0d936e8-5a68-4eea-a678-9d7dd4350b24/334799.png?w=420"
     },
     {
@@ -41,7 +41,7 @@ export const items = [
         overview: "풀스택 개발에 날개를 달아줄 Supabase! 3가지의 클론 프로젝트를 통해 Next.js 14와 Supabase로 실무 수준의 풀스택 개발을 하는 법을 속성으로 배우게 됩니다.",
         genre: ["data", "security"],
         rating: 4,
-        rkdtk: '니',
+        teacher: '니',
         src: "https://cdn.inflearn.com/public/courses/332907/cover/2975d3d7-5dcc-4e2a-977c-98b11134cfb6/332907.jpg?w=420"
     },
     {
@@ -50,7 +50,7 @@ export const items = [
         overview: "생각을 다룹니다. 자바스크립트 핵심과 근본을 논리적으로 정리할 수 있습니다. 자바스크립트 경험, 생각을 스스로 정리할 수 있습니다. 자바스크립트 기술 논리를 정립할 수 있습니다. 자바스크립트 전체를 보는 시야를 넓힐 수 있습니다. 자바스크립트 기술 면접 문제에 대비할 수 있습니다.",
         genre: ["data","python"],
         rating: 2,
-        rkdtk: '뇨',
+        teacher: '뇨',
         src: "https://cdn.inflearn.com/public/courses/334871/cover/9eda6be0-ea9e-4c39-bd14-0d211ac95229/334871.png?w=420"
     },
     {
