@@ -16,45 +16,75 @@ export const headerMenus = [
         color: "#00c471"
     },
     {
-        title: "코딩 애플",
+        title: "노마드코더",
         icon: <FaAppleAlt />,
-        src: "/coddingapple",
+        src: "/nomad",
         color: "#dc143c"
     },
     {
-        title: "1234",
+        title: "유데미",
         icon: <BsCCircleFill />,
-        src: "/codeit",
+        src: "/udemy",
         color: "#93f"
     },
     {
-        title: "Youtube",
+        title: "패스트 캠퍼스",
         icon: <IoLogoYoutube />,
-        src: "/youtube",
+        src: "/fastcampus",
+        color: "#c4302b" 
+    },
+    {
+        title: "코드잇",
+        icon: <BsCCircleFill />,
+        src: "/codeit",
+        color: "#93f" 
+    },
+    {
+        title: "K-MOOC",
+        icon: <IoLogoYoutube />,
+        src: "/kmooc",
+        color: "#c4302b" 
+    },
+    {
+        title: "생활코딩",
+        icon: <IoLogoYoutube />,
+        src: "/spartacoding",
         color: "#c4302b" 
     }
 ];
 
 export const searchKeyword = [
     {
-        title: "보안",
-        src: "/security"
+        title: "프론트엔드",
+        src: "/frontend"
     },
     {
-        title: "chatGPT",
-        src: "/chatGPT"
+        title: "백엔드",
+        src: "/backend"
     },
     {
-        title: "파이썬",
-        src: "/python"
+        title: "풀스택",
+        src: "/fullstack"
     },
     {
-        title: "UX / UI",
-        src: "/uxui"
+        title: "모바일 앱 개발",
+        src: "/mobileapp"
     },
     {
-        title: "데이터",
-        src: "/data"
+        title: "데이터베이스",
+        src: "/database"
+    },
+    {
+        title: "게임 개발",
+        src: "/game"
+    },
+    {
+        title: "데브옵스-인프라",
+        src: "/infra"
+    },
+    {
+        title: "기타",
+        src: "/etc"
     }
 ];
 

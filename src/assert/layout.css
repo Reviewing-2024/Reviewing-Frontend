@@ -3,12 +3,14 @@ body, html {
     padding: 0;
 }
 
+
+
 #header {
     position: fixed;
     left: 0;
     top: 0;
-    width: 250px;
-    height: 100%;
+    width: 290px;
+    height: 90vh;
     overflow-y: auto;
     z-index: 10;
     background-color: #fdfdfd; 
@@ -20,7 +22,7 @@ body, html {
     max-width: 2000px;
     min-height: 100vh;
     background-color: #fdfdfd;
-    padding-left: 250px;
+    padding-left: 300px;
     padding-top: 66px;
     color: #1b1c1d
 }
@@ -28,22 +30,22 @@ body, html {
 #footer {
     text-align: center;
     color: #1b1c1d;
-    padding: 20px 20px 20px 250px;
+    padding: 20px 20px 20px 290px;
     background-color: #fdfdfd;
 }
 
 @media (max-width: 900px) {
     #header {
-        width: 175px;
+        width: 220px;
         margin-top: 66px;
     }
 
     #main {
-        padding-left: 175px;
+        padding-left: 220px;
     }
 
     #footer {
-        padding: 20px 20px 20px 175px;
+        padding: 20px 20px 20px 220px;
     }
 
 }

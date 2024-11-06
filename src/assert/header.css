@@ -1,3 +1,7 @@
+#header::-webkit-scrollbar {
+    display: none;
+}
+
 .header__menu .menu {
     border-bottom: 1px solid #88BAF7;
     padding: 5px 0;
@@ -60,14 +64,11 @@
     display: flex;
     justify-content: flex-start;
     padding-left: 10px;
-    position: relative;
-    margin-top: 1vh;
-    position: absolute;
 }
 
 .header__sns li {
     list-style: none;
-    margin-right: 22px;
+    margin-right: 30px;
     
 }
 
@@ -95,10 +96,7 @@
     
 
     .header__menu li a {
-        justify-content: center; 
         padding: 9px;
-        text-align: center;
-        display: block;
         font-size: 18px;
         font-weight: 900;      
     }
@@ -127,7 +125,8 @@
         color: black;
         height: 10px;
         width: 10px;
-        margin-left: 8px;
+        margin-left: 12px;
+        margin-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: center;

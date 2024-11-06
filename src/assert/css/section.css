@@ -4,6 +4,16 @@
     justify-content: center;
 }
 
+.sort-dropdown select{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 20vh;
+    height: 6vh;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 10px;
+}
+
 .item {
     padding: 26px;
     width: 242px;
