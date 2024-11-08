@@ -1,7 +1,9 @@
 import { IoLeaf } from "react-icons/io5";
-import { IoLogoYoutube } from "react-icons/io";
-import { FaAppleAlt } from "react-icons/fa";
 import { BsCCircleFill } from "react-icons/bs";
+import { SiUdemy } from "react-icons/si";
+import { IoInfiniteSharp } from "react-icons/io5";
+import { SiDota2 } from "react-icons/si";
+import { SiNuxtdotjs } from "react-icons/si";
 
 import { AiFillGithub } from "react-icons/ai";
 import { FaPinterest } from "react-icons/fa";
@@ -17,21 +19,21 @@ export const headerMenus = [
     },
     {
         title: "노마드코더",
-        icon: <FaAppleAlt />,
+        icon: <SiNuxtdotjs />,
         src: "/nomad",
-        color: "#dc143c"
+        color: "#E0B800"
     },
     {
         title: "유데미",
-        icon: <BsCCircleFill />,
+        icon: <SiUdemy />,
         src: "/udemy",
-        color: "#93f"
+        color: "#A435F0"
     },
     {
         title: "패스트 캠퍼스",
-        icon: <IoLogoYoutube />,
+        icon: <SiDota2 />,
         src: "/fastcampus",
-        color: "#c4302b" 
+        color: "#D4003A" 
     },
     {
         title: "코드잇",
@@ -41,15 +43,15 @@ export const headerMenus = [
     },
     {
         title: "K-MOOC",
-        icon: <IoLogoYoutube />,
+        icon: <IoInfiniteSharp />,
         src: "/kmooc",
-        color: "#c4302b" 
+        color: "#009488" 
     },
     {
         title: "생활코딩",
-        icon: <IoLogoYoutube />,
+        icon:  <BsCCircleFill />,
         src: "/spartacoding",
-        color: "#c4302b" 
+        color: "#666" 
     }
 ];
 

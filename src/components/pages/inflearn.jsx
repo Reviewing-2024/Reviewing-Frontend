@@ -45,8 +45,8 @@ const Inflearn = () => {
               <div className='item-inner'>
                 <img src={item.src} alt={item.title} onClick={() => handleNavigate(item.id)} />
                 <span onClick={() => handleNavigate(item.id)}>{item.title}</span>
-                <div className='item-rkdtk'>
-                  <p>강사: {item.rkdtk}</p>
+                <div className='item-information'>
+                  <p>강사: {item.teacher}</p>
                   <p>별점: {item.rating}</p>
                   {/* <span className='wishlist'><FaHeart /></span> */}
                 </div>

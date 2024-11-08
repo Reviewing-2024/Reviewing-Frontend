@@ -4,6 +4,12 @@
     justify-content: center;
 }
 
+.sort-dropdown {
+    display: flex;
+    justify-content: right;
+    padding-right: 30px;
+}
+
 .sort-dropdown select{
     margin-top: 10px;
     margin-left: 10px;
@@ -12,6 +18,7 @@
     font-size: 18px;
     font-weight: 900;
     border-radius: 10px;
+    border-color: #fdfdfd;
 }
 
 .item {
@@ -31,32 +38,20 @@
     text-align: center;
     font-size: 19px;
     cursor: pointer;
-    
+    font-weight: 900;
 }
 
 
-.item-rkdtk {
+.item-information {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.item-rkdtk p {
-    font-weight: 900;
-    font-size: 12px;
-
+.item-information p {
+    font-size: 13px;
 }
 
-.item-rkdtk span {
-    font-weight: 900;
-    font-size: 17px;
-    /* color: #88BAF7; */
-}
-
-.item-rkdtk span:hover {
-    color: red;
-    cursor: pointer;
-}
 
 
 
