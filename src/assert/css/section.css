@@ -13,9 +13,9 @@
 .sort-dropdown select{
     margin-top: 10px;
     margin-left: 10px;
-    width: 20vh;
+    width: 13vw;
     height: 6vh;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 900;
     border-radius: 10px;
     border-color: #fdfdfd;
@@ -36,9 +36,9 @@
 
 .item-inner {
     text-align: center;
-    font-size: 19px;
+    font-size: 1rem;
     cursor: pointer;
-    font-weight: 900;
+    font-weight: 600;
 }
 
 
@@ -49,10 +49,8 @@
 }
 
 .item-information p {
-    font-size: 13px;
+    font-size: 0.8rem;
 }
-
-
 
 
 

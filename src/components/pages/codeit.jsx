@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+import '../../assert/css/section.css';
+import '../../assert/layout.css';
 
 function Users() {
   const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [sortCriteria, setSortCriteria] = useState();
+  const navigate = useNavigate();
 
   const fetchUsers = async () => {
     try {
@@ -12,7 +18,7 @@ function Users() {
       setItems(null);
       setLoading(true);
       const response = await axios.get(
-        'http://localhost:8080/topics'
+        'http://localhost:8080'
       );
       setItems(response.data);
     } catch (e) {
@@ -32,18 +38,53 @@ function Users() {
 
   if (!items) return null;
 
+
+
+  const sortedItems = [...items].sort((a, b) => {
+    if (sortCriteria === 'fundamental') {
+      return 0;
+    }
+    else if (sortCriteria === 'highestRating') {
+      return b.rating - a.rating;
+    }
+    // else if (sortCriteria === 'mostReviews') {
+    //   return b.review - a.review;
+    // }
+    return 0;
+  });
+
+  const handleNavigate = (id) => {
+    navigate(`/detail/${id}`);
+  };
+
+
   return (
-      <>
-       <ul>
-         {items.map(items => (
-           <li key={items.id}>
-             {items.title}
-           </li>
-         ))}
-       </ul>
-         // button을 클릭하면 API를 다시 불러와줍니다.
-         <button onClick={ fetchUsers }>다시 불러오기</button>
-      </>
+    <section id='codeit'>
+    <div className="sort-dropdown">
+        <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
+        <option value="fundamental">기본 순</option>
+          <option value="highestRating">별점 높은 순</option>
+          <option value="mostReviews">리뷰 많은 순</option>
+        </select>
+      </div>
+    <div className='inflearn__inner'>
+      {
+        sortedItems.map((item) => (
+          <div key={item.id} className='item'>
+            <div className='item-inner'>
+              <img src={item.thumbnailImage} alt={item.title} onClick={() => handleNavigate(item.id)} />
+              <span onClick={() => handleNavigate(item.id)}>{item.title}</span>
+              <div className='item-information'>
+                <p>강사: {item.teacher}</p>
+                <p>별점: {item.rating}</p>
+                {/* <span className='wishlist'><FaHeart /></span> */}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
   );
 }
 

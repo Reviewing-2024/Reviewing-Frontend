@@ -5,13 +5,15 @@ import { KAKAO_AUTH_URL } from './OAuth.js';
 
 const KakaoLogin = () => {
 
-  const kakaoLoginButton = '/img/kakao_login_medium_narrow.png';
+  const handleLogin = ()=>{
+    window.location.href = KAKAO_AUTH_URL
+}
 
   return (
     <div>
-      <a href={KAKAO_AUTH_URL} className="kakaobtn">
-        <img src= { kakaoLoginButton } />
-      </a>
+      <p onClick={handleLogin} className="kakaobtn">
+        <img src= '/img/kakao_login_medium_narrow.png' />
+      </p>
     </div>
   );
 };

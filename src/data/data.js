@@ -3,7 +3,7 @@ export const items = [
         id: 1,
         title: "비전공자를 위한 진짜 입문 올인원 개발 부트캠프",
         overview: "왕초보도 할 수 있는 웹, 서버, 모바일 앱, 머신러닝까지 익히는 끝판왕 풀스택 강의!! 개발을 어디서부터 시작할지 막막했다면 이 강의를 강력 추천할게요. Javascript 하나로 진행합니다!",
-        genre: ["security","data"],
+        genre: ["frontend","data"],
         rating: 3,
         src: "https://cdn.inflearn.com/public/courses/326174/cover/b0536120-7de3-4aa8-8266-97cf3881e87d?w=420",
         teacher: '나'
@@ -30,7 +30,7 @@ export const items = [
         id: 4,
         title: "테스트 with Jest: 제로초에게 제대로 배우기",
         overview: "본 강의에서는 테스트가 필요한 경우와 테스트를 할 때의 장점을 Jest 프레임워크를 통해 보여드립니다. 리액트, Express 등에 유닛테스트, 통합테스트를 적용해봅니다.",
-        genre: ["uxui", "chatGPT"],
+        genre: ["frontend", "chatGPT"],
         rating: 4,
         teacher: '냐',
         src: "https://cdn.inflearn.com/public/courses/334799/cover/e0d936e8-5a68-4eea-a678-9d7dd4350b24/334799.png?w=420"
@@ -57,7 +57,7 @@ export const items = [
         id: 7,
         title: "한 입 크기로 잘라먹는 Next.js(15+)",
         overview: "한입 시리즈의 3번째 작품! 세상에서 가장 친절하고 디테일 한 Next.js(15+)강의 입니다. App Router 뿐만 아니라 Page Router까지 프로젝트를 통해 살펴봅니다.",
-        genre: "uxui",
+        genre: "frontend",
         rating: 3,
         src: "https://cdn.inflearn.com/public/courses/333250/cover/e3f951fc-a1d7-4de4-a065-85bb507b737f/333250.png?w=420"
     }

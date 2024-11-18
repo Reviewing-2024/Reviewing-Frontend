@@ -18,10 +18,9 @@ const Detail = () => {
   return (
     <div className='detail'>
       <h2>{item.title}</h2>
-      <img src={item.src} alt='img'/>
+      <img src={item.thumbnailImage} alt='img'/>
       <h2>overview</h2>
       <br/>
-      {item.overview}
     </div>
   )
 }
