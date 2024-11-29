@@ -134,3 +134,26 @@
         transition: color 0.3s;
     }
 }
+
+.review-button {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  
+  .review-button button {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background-color: #88BAF7;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .review-button button:hover {
+    background-color: #659BE3;
+  }
+  

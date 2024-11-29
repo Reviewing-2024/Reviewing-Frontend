@@ -12,7 +12,7 @@ function Users() {
       setItems(null);
       setLoading(true);
       const response = await axios.get(
-        'http://localhost:8080/topics'
+        'http://localhost:8080/codeit'
       );
       setItems(response.data);
     } catch (e) {
