@@ -1,0 +1,385 @@
+.admin-page {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+
+.category-tabs, .sub-category-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+.category-tabs button, .sub-category-tabs button {
+  padding: 10px 20px;
+  border: 1px solid #88baf7;
+  border-radius: 30px;
+  background-color: white;
+  color: #88baf7;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.category-tabs button.active, .sub-category-tabs button.active {
+  background-color: #88baf7;
+  color: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-tabs button:hover, .sub-category-tabs button:hover {
+  background-color: #f0f8ff;
+  color: #0056b3;
+}
+
+/* 리뷰 목록 */
+.review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.review-item {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.review-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.review-item.expanded {
+  border: 2px solid #88baf7;
+  background-color: #f9f9f9;
+}
+
+.review-expanded {
+  margin-top: 15px;
+}
+
+
+.review-expanded p {
+  font-size: 1em;
+  line-height: 1.5;
+  color: #555;
+}
+
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.review-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.review-header img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 리뷰 이미지 */
+.review-expanded img {
+  width: calc(100% - 2rem);
+  max-width: 500px;
+  height: auto;
+  border-radius: 5px;
+  margin-top: 10px;
+  object-fit: cover;
+  transition: width 0.3s ease, transform 0.3s ease;
+}
+
+/* 버튼 */
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.accept-btn, .reject-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.accept-btn {
+  background-color: #6eace6;
+  color: white;
+}
+
+.reject-btn {
+  background-color: #f0795b;
+  color: white;
+}
+
+.accept-btn:hover {
+  background-color: #004f99;
+}
+
+.reject-btn:hover {
+  background-color: #f55c36;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+  .category-tabs button, .sub-category-tabs button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+
+  .review-header img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .review-item {
+    padding: 12px;
+    font-size: 0.95em;
+  }
+
+  .review-expanded img {
+    max-width: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .category-tabs button, .sub-category-tabs button {
+    padding: 8px 12px;
+    font-size: 0.85em;
+  }
+
+  .review-header img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .review-item {
+    padding: 10px;
+    font-size: 0.9em;
+  }
+
+  .review-expanded img {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-tabs button, .sub-category-tabs button {
+    padding: 6px 10px;
+    font-size: 0.8em;
+  }
+
+  .review-header img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .review-item {
+    padding: 8px;
+    font-size: 0.85em;
+  }
+
+  .review-expanded img {
+    max-width: 90%;
+    transform: scale(0.95);
+  }
+}
+
+@media (max-width: 320px) {
+  .category-tabs button, .sub-category-tabs button {
+    padding: 5px 8px;
+    font-size: 0.75em;
+  }
+
+  .review-header img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .review-item {
+    padding: 6px;
+    font-size: 0.8em;
+  }
+
+  .review-expanded img {
+    max-width: 85%;
+    transform: scale(0.9);
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out; 
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px 15px; 
+  border-radius: 15px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+  width: 85%; 
+  max-width: 360px; 
+  max-height: 80%;
+  overflow-y: auto;
+  animation: scaleUp 0.3s ease-in-out;
+  text-align: center; 
+}
+
+.modal-content h3 {
+  margin-bottom: 15px; 
+  font-size: 1.4em;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content li {
+  margin: 10px 0;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.modal-content input[type="radio"] {
+  margin-right: 10px;
+}
+
+.modal-content input[type="text"] {
+  display: block;
+  width: 90%; 
+  max-width: 250px;
+  margin: 10px auto; 
+  padding: 5px 10px; 
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+}
+
+.modal-content button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  font-size: 0.9em;
+  cursor: pointer;
+  margin: 10px 5px;
+  transition: all 0.3s ease;
+}
+
+.modal-content button:first-child {
+  background-color: #6eace6;
+  color: white;
+}
+
+.modal-content button:last-child {
+  background-color: #f0795b;
+  color: white;
+}
+
+.modal-content button:hover:first-child {
+  background-color: #004f99;
+}
+
+.modal-content button:hover:last-child {
+  background-color: #f55c36;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    max-height: 75%;
+  }
+
+  .modal-content h3 {
+    font-size: 1.2em;
+  }
+
+  .modal-content button {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+    max-height: 70%;
+  }
+
+  .modal-content h3 {
+    font-size: 1.1em;
+  }
+
+  .modal-content button {
+    padding: 8px 12px;
+    font-size: 0.8em;
+  }
+
+}
+
+/* 애니메이션 효과 */
+@keyframes fadeIn {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

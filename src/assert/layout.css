@@ -1,3 +1,4 @@
+/* 기본 스타일 */
 body, html {
     margin: 0;
     padding: 0;
@@ -14,6 +15,11 @@ body, html {
     background-color: #fdfdfd; 
     margin-top: 66px;
     color: #1b1c1d;
+}
+
+/* detail 페이지에서는 헤더 제거 */
+body.detail-page #header {
+    display: none;
 }
 
 #main {
@@ -46,4 +52,12 @@ body, html {
         padding: 20px 20px 20px 220px;
     }
 
+    /* detail 페이지에서 반응형 조정 */
+    body.detail-page #main {
+        padding-left: 0;
+    }
+
+    body.detail-page #footer {
+        padding: 20px;
+    }
 }

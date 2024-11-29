@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 import './assert/layout.css';
-
 import Header2 from './components/section/header2';
 import Header from './components/section/header';
 import Main from './components/section/main';
