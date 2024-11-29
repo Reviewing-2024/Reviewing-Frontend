@@ -39,6 +39,12 @@
     font-size: 1rem;
     cursor: pointer;
     font-weight: 600;
+    text-decoration-line: none;
+}
+
+.item-title {
+    text-decoration-line: none;
+    color: #111;
 }
 
 

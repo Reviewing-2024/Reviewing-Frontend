@@ -21,7 +21,7 @@ body, html {
     min-height: 100vh;
     background-color: #fdfdfd;
     padding-left: 300px;
-    padding-top: 90px;
+    padding-top: 80px;
     color: #1b1c1d
 }
 
@@ -32,10 +32,10 @@ body, html {
     background-color: #fdfdfd;
 }
 
+
 @media (max-width: 900px) {
     #header {
         width: 220px;
-        margin-top: 66px;
     }
 
     #main {
