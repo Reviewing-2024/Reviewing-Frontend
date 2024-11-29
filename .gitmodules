@@ -1,0 +1,3 @@
+[submodule "src/components/section/kakao/OAuth"]
+	path = src/components/section/kakao/OAuth
+	url = https://github.com/Reviewing-2024/reviewing-front-config.git
