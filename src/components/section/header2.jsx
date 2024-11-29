@@ -8,7 +8,6 @@ import { CiSearch } from "react-icons/ci";
 import KakaoLogin from './kakao/KakaoLogin';
 import { useNavigate } from 'react-router-dom'
 
-import KakaoLogin from './kakao/KakaoLogin';
 
 const Header2 = () => {
 
