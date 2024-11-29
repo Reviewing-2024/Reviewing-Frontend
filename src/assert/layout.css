@@ -8,8 +8,8 @@ body, html {
     position: fixed;
     left: 0;
     top: 0;
-    width: 250px;
-    height: 100%;
+    width: 290px;
+    height: 90vh;
     overflow-y: auto;
     z-index: 10;
     background-color: #fdfdfd; 
@@ -26,41 +26,30 @@ body.detail-page #header {
     max-width: 2000px;
     min-height: 100vh;
     background-color: #fdfdfd;
-    padding-left: 250px;
-    padding-top: 66px;
-    color: #1b1c1d;
-}
-
-/* detail 페이지에서 메인 패딩 제거 */
-body.detail-page #main {
-    padding-left: 0;
+    padding-left: 300px;
+    padding-top: 80px;
+    color: #1b1c1d
 }
 
 #footer {
     text-align: center;
     color: #1b1c1d;
-    padding: 20px 20px 20px 250px;
+    padding: 20px 20px 20px 290px;
     background-color: #fdfdfd;
 }
 
-/* detail 페이지에서 푸터 패딩 조정 */
-body.detail-page #footer {
-    padding: 20px;
-}
 
-/* 반응형 디자인 */
 @media (max-width: 900px) {
     #header {
-        width: 175px;
-        margin-top: 66px;
+        width: 220px;
     }
 
     #main {
-        padding-left: 175px;
+        padding-left: 220px;
     }
 
     #footer {
-        padding: 20px 20px 20px 175px;
+        padding: 20px 20px 20px 220px;
     }
 
     /* detail 페이지에서 반응형 조정 */

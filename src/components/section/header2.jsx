@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import "../../assert/layout.css";
 import "../../assert/header2.css";
 
 import { CiSearch } from "react-icons/ci";
 
-import { ImProfile } from "react-icons/im"; // Profile icon
-import { FaUserShield } from "react-icons/fa"; // Admin icon
+import KakaoLogin from './kakao/KakaoLogin';
+import { useNavigate } from 'react-router-dom'
 
 import KakaoLogin from './kakao/KakaoLogin';
 
 const Header2 = () => {
+
+    const [searchKeyword, setSearchKeyword] = useState('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        if (searchKeyword) {
+            navigate(`/search/${searchKeyword}`);
+            setSearchKeyword('');
+        }
+    };
 
   return (
     <div className='header2'>
@@ -22,15 +32,22 @@ const Header2 = () => {
           </a>
         </h1>
         <div className='search-bar'>
-          <input
-            type='text'
-            placeholder='검색어를 입력하세요...'>
-          </input>
-          <button><CiSearch /></button>
+          <input 
+              type='search' 
+              id='searchInput' 
+              placeholder='검색어를 입력해주세요' 
+              autoComplete='off' 
+              className='searchinput' 
+              onChange={e => setSearchKeyword(e.target.value)}
+              onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    handleSearch();
+                  }
+              }}
+            />
+          <button onClick={handleSearch}><CiSearch /></button>
         </div>
-        <div>
           <KakaoLogin />
-        </div>
       </div>
     </div>
   );

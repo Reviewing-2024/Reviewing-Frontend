@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 import './assert/layout.css';
@@ -10,55 +10,61 @@ import Footer from './components/section/footer';
 import Home from './components/pages/home';
 import Inflearn from './components/pages/inflearn';
 import InflearnGenre from './components/pages/inflearnGenre';
-import Coddingapple from './components/pages/coddingapple';
+import Nomad from './components/pages/nomad';
 import Codeit from './components/pages/codeit';
-import Youtube from './components/pages/youtube';
-import Search from './components/pages/search';
+import Udemy from './components/pages/udemy';
+import Fastcampus from './components/pages/fastcampus';
+import Kmooc from './components/pages/kmooc';
+import Spartacoding from './components/pages/spartacoding';
+import Search from './components/section/search';
 import Detail from './components/pages/detail';
-import LoginRegister from './components/pages/LoginRegister';
-import Review from './components/pages/review';
-import AdminPage from './components/pages/AdminPage';
+import LoginHandeler from './components/section/kakao/LoginHandeler';
+import Mypage from './components/pages/mypage/mypage';
+import Wishlist from './components/pages/mypage/wishlist';
+import MypageStatus from './components/pages/mypage/mypagestatus';
+import Chatbot from './components/pages/Chatbot';
 
-const App = () => {
+
+const Layout = () => {
     const location = useLocation();
-
-    useEffect(() => {
-        if (
-            location.pathname.startsWith("/admin") ||
-            /^\/[^/]+\/[^/]+$/.test(location.pathname) 
-        ) {
-            document.body.classList.add("detail-page");
-        } else {
-            document.body.classList.remove("detail-page");
-        }
-    }, [location.pathname]);
+    const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/wait', '/mypage/recognize', '/mypage/refuse' ];
 
     return (
         <>
             <Header2 />
-            {!/^\/[^/]+\/[^/]+$/.test(location.pathname) && <Header />}
+            {!hideHeaderPaths.includes(location.pathname) && <Header />}
+            
             <Main>
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/inflearn" element={<Inflearn />} />
-                    <Route path="/inflearn/:genre" element={<InflearnGenre />} />
-                    <Route path="/coddingapple" element={<Coddingapple />} />
-                    <Route path="/codeit" element={<Codeit />} />
-                    <Route path="/youtube" element={<Youtube />} />
-                    <Route path="/security" element={<Search />} />
-                    <Route path="/chatGPT" element={<Search />} />
-                    <Route path="/python" element={<Search />} />
-                    <Route path="/uxui" element={<Search />} />
-                    <Route path="/data" element={<Search />} />
-                    <Route path="/:platform/:id" element={<Detail />} />
-                    <Route path="/user" element={<LoginRegister />} />
-                    <Route path="/review" element={<Review />} />
-                    <Route path="/admin" element={<AdminPage />} />
-                    <Route path="*" element={<div>404 Not Found</div>} />
+                    <Route path='/' element={<Home />} />
+                    <Route path='/inflearn' element={<Inflearn />} />
+                    <Route path='/inflearn/:genre' element={<InflearnGenre />} />
+                    <Route path='/nomad' element={<Nomad />} />
+                    <Route path='/codeit' element={<Codeit />} />
+                    <Route path='/udemy' element={<Udemy />} />
+                    <Route path='/fastcampus' element={<Fastcampus />} />
+                    <Route path='/kmooc' element={<Kmooc />} />
+                    <Route path='/spartacoding' element={<Spartacoding />} />
+                    <Route path='/search/:searchKeyword' element={<Search />} />
+                    <Route path='/detail/:id' element={<Detail />} />
+                    <Route path='/login/callback/kakao' element={<LoginHandeler />} />
+                    <Route path='/mypage' element={<Mypage />} />
+                    <Route path='/wishlist' element={<Wishlist />} />
+                    <Route path="/mypage/:status" element={<MypageStatus />} />
+                    <Route path="/chatbot" element={<Chatbot />} />
                 </Routes>
             </Main>
             <Footer />
         </>
+
+    );
+};
+
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Layout />
+        </BrowserRouter>
     );
 };
 

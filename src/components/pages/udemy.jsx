@@ -1,11 +1,11 @@
 import React from 'react'
 
-const user = () => {
+const udemy = () => {
   return (
     <div>
-      user
+      udemy
     </div>
   )
 }
 
-export default user
+export default udemy

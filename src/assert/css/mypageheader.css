@@ -1,0 +1,105 @@
+#mypageheader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-height: 110vh;
+    width: 290px;
+    /* box-shadow: 0px 0px 20px  rgb(0, 0, 0.1); */
+}
+
+.mypageheader {
+    padding-top: 90px;
+    
+}
+
+.mypageheader img {
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 120px;
+    border-radius: 50%;
+    margin-left: 90px;
+}
+
+.mypageheader-inner {
+    margin: 30px 30px 30px 115px; 
+}
+
+.mypageheader-inner a {
+    font-size: 25px;
+    font-weight: 600;
+    
+}
+
+
+.edit span {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 50px;
+    font-size: 19px;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    gap: 13px;
+}
+
+
+.mypage-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 80px ;
+}
+
+.mypage-menu li {
+    text-decoration-line: none;
+    padding: 0 5px;
+    
+}
+
+.mypage-menu li a {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 50px;
+    color: #111;
+    text-decoration: none;
+    font-size: 19px;
+    border-radius: 10px;
+    margin-top: 20px;
+    gap: 13px;
+    
+    
+}
+
+.logout {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 15px;
+    padding: 30px;
+    margin-top: 70px;
+}
+
+.logout p {
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    #mypageheader {
+        width: 220px;
+    }
+
+    .mypageheader img {
+        justify-content: center;
+        align-items: center;
+        width: 130px;
+        height: 120px;
+        border-radius: 50%;
+        margin-left: 55px;
+    }
+
+    .mypageheader-inner {
+        margin: 30px 30px 30px 80px; 
+    }
+}

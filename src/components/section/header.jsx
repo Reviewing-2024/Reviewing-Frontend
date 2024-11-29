@@ -12,11 +12,9 @@ const Header = () => {
 
     const handleKeywordClick = (keyword) => {
         if (activeIndex !== null) {
-            // 메뉴가 선택된 경우
             const selectedMenu = headerMenus[activeIndex].src;
             navigate(`${selectedMenu}/${keyword}`);
         } else {
-            // 메뉴가 선택되지 않은 경우
             navigate(`/${keyword}`);
         }
     };
