@@ -54,6 +54,7 @@ function Codeit() {
   });
 
 
+
   return (
     <section id='codeit'>
     <div className="sort-dropdown">
@@ -68,7 +69,12 @@ function Codeit() {
         <div key={item.id} className='item'>
           <div className='item-inner'>
             <Link className='item-title' to={`/detail/${item.id}`} state={{ item }}>
-              <img src={item.thumbnailImage} alt={item.title} />
+            {item.thumbnailImage ?(
+                <img src={item.thumbnailImage} alt={item.title} />
+                  ) : (
+                <img src='/img/nothing.png' alt='없다' />
+              )
+            }
               <span>{item.title}</span>
             </Link>
             <div className='item-information'>

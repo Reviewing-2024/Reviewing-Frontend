@@ -26,7 +26,7 @@ const Header2 = () => {
       <div className="header__content">
         <h1 className='header__logo'>
           <a href="/">
-            <em>로고</em>
+            <em></em>
             <span>Reviewing</span>
           </a>
         </h1>

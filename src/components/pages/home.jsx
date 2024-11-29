@@ -6,7 +6,7 @@ const Home = () => {
     return (
         <div className='home'>
             <div className='banner'>
-                <img className='image' src='https://codeit-static.codeit.com/_main/production/_next/static/media/hero.bb9277ee.webp'></img>
+                <img className='image' alt='이미지' src='https://codeit-static.codeit.com/_main/production/_next/static/media/hero.bb9277ee.webp'></img>
                 <div className='banner-sb'>
                     <h1>리뷰잉</h1>
                     <h2>IT 인재로 성장하는 치트키</h2>

@@ -23,7 +23,7 @@ import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
 import MypageStatus from './components/pages/mypage/mypagestatus';
-// import Chatbot from './components/pages/chatbot';
+import Chatbot from './components/pages/Chatbot';
 
 
 const Layout = () => {
@@ -52,6 +52,7 @@ const Layout = () => {
                     <Route path='/mypage' element={<Mypage />} />
                     <Route path='/wishlist' element={<Wishlist />} />
                     <Route path="/mypage/:status" element={<MypageStatus />} />
+                    <Route path="/chatbot" element={<Chatbot />} />
                 </Routes>
             </Main>
             <Footer />
