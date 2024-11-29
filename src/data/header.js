@@ -1,7 +1,9 @@
 import { IoLeaf } from "react-icons/io5";
-import { IoLogoYoutube } from "react-icons/io";
-import { FaAppleAlt } from "react-icons/fa";
 import { BsCCircleFill } from "react-icons/bs";
+import { SiUdemy } from "react-icons/si";
+import { IoInfiniteSharp } from "react-icons/io5";
+import { SiDota2 } from "react-icons/si";
+import { SiNuxtdotjs } from "react-icons/si";
 
 import { AiFillGithub } from "react-icons/ai";
 import { FaPinterest } from "react-icons/fa";
@@ -16,45 +18,75 @@ export const headerMenus = [
         color: "#00c471"
     },
     {
-        title: "코딩 애플",
-        icon: <FaAppleAlt />,
-        src: "/coddingapple",
-        color: "#dc143c"
+        title: "노마드코더",
+        icon: <SiNuxtdotjs />,
+        src: "/nomad",
+        color: "#E0B800"
+    },
+    {
+        title: "유데미",
+        icon: <SiUdemy />,
+        src: "/udemy",
+        color: "#A435F0"
+    },
+    {
+        title: "패스트 캠퍼스",
+        icon: <SiDota2 />,
+        src: "/fastcampus",
+        color: "#D4003A" 
     },
     {
         title: "코드잇",
         icon: <BsCCircleFill />,
         src: "/codeit",
-        color: "#93f"
+        color: "#93f" 
     },
     {
-        title: "Youtube",
-        icon: <IoLogoYoutube />,
-        src: "/youtube",
-        color: "#c4302b" 
+        title: "K-MOOC",
+        icon: <IoInfiniteSharp />,
+        src: "/kmooc",
+        color: "#009488" 
+    },
+    {
+        title: "생활코딩",
+        icon:  <BsCCircleFill />,
+        src: "/spartacoding",
+        color: "#666" 
     }
 ];
 
 export const searchKeyword = [
     {
-        title: "보안",
-        src: "/security"
+        title: "프론트엔드",
+        src: "/frontend"
     },
     {
-        title: "chatGPT",
-        src: "/chatGPT"
+        title: "백엔드",
+        src: "/backend"
     },
     {
-        title: "파이썬",
-        src: "/python"
+        title: "풀스택",
+        src: "/fullstack"
     },
     {
-        title: "UX / UI",
-        src: "/uxui"
+        title: "모바일 앱 개발",
+        src: "/mobileapp"
     },
     {
-        title: "데이터",
-        src: "/data"
+        title: "데이터베이스",
+        src: "/database"
+    },
+    {
+        title: "게임 개발",
+        src: "/game"
+    },
+    {
+        title: "데브옵스-인프라",
+        src: "/infra"
+    },
+    {
+        title: "기타",
+        src: "/etc"
     }
 ];
 

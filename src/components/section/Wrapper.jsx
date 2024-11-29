@@ -1,12 +1,11 @@
 import React from 'react'
 
-const search = () => {
+function Wrapper() {
   return (
     <div>
-      search페이지
       
     </div>
   )
 }
 
-export default search
+export default Wrapper

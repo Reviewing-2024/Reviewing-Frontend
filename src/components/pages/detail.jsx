@@ -1,29 +1,21 @@
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-
-import { items } from '../../data/data.js'
-
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const Detail = () => {
-
   useEffect(() => {
-    window.scrollTo( 0 , 0 );
+    window.scrollTo(0, 0);
   }, []);
 
-  const { id } = useParams();
-
-
-  const item = items.find(item => item.id === parseInt(id));
+  const location = useLocation();
+  const { item } = location.state || {};
 
   return (
     <div className='detail'>
       <h2>{item.title}</h2>
-      <img src={item.src} alt='img'/>
-      <h2>overview</h2>
-      <br/>
-      {item.overview}
+      <img src={item.thumbnailImage} alt='img' />
     </div>
-  )
-}
+  );
+};
 
-export default Detail
+
+export default Detail;
