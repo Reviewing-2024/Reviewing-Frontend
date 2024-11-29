@@ -5,7 +5,6 @@ import { FaHeart, FaThumbsDown, FaThumbsUp } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../assert/detailpage.css';
-import axios from 'axios';
 
 
 // 리뷰 작성 모달
@@ -149,7 +148,7 @@ const Detail = () => {
     }
   
     try {
-      const method = likedByUser ? 'DELETE' : 'POST'; // 좋아요 상태에 따라 메서드 결정
+      const method = likedByUser ? 'DELETE' : 'POST'; 
       const response = await fetch(`/reviews/${reviewId}/like`, {
         method,
         headers: { Authorization: `Bearer ${token}` },
@@ -175,7 +174,7 @@ const Detail = () => {
     }
   
     try {
-      const method = dislikedByUser ? 'DELETE' : 'POST'; // 싫어요 상태에 따라 메서드 결정
+      const method = dislikedByUser ? 'DELETE' : 'POST'; 
       const response = await fetch(`/reviews/${reviewId}/dislike`, {
         method,
         headers: { Authorization: `Bearer ${token}` },

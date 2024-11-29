@@ -96,7 +96,6 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* 리뷰 이미지 */
 .review-expanded img {
   width: calc(100% - 2rem);
   max-width: 500px;
@@ -107,7 +106,6 @@
   transition: width 0.3s ease, transform 0.3s ease;
 }
 
-/* 버튼 */
 .action-buttons {
   display: flex;
   gap: 10px;
@@ -363,7 +361,7 @@
 
 }
 
-/* 애니메이션 효과 */
+
 @keyframes fadeIn {
   from {
     background: rgba(0, 0, 0, 0);
