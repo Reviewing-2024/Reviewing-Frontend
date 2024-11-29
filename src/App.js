@@ -56,7 +56,6 @@ const Layout = () => {
             </Main>
             <Footer />
         </>
-
     );
 };
 
