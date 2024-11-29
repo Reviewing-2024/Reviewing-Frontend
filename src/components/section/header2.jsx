@@ -5,8 +5,10 @@ import "../../assert/header2.css";
 
 import { CiSearch } from "react-icons/ci";
 
-import KakaoLogin from './kakao/KakaoLogin';
+import { ImProfile } from "react-icons/im"; // Profile icon
+import { FaUserShield } from "react-icons/fa"; // Admin icon
 
+import KakaoLogin from './kakao/KakaoLogin';
 
 const Header2 = () => {
 

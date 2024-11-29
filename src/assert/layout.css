@@ -1,3 +1,4 @@
+/* 기본 스타일 */
 body, html {
     margin: 0;
     padding: 0;
@@ -16,13 +17,23 @@ body, html {
     color: #1b1c1d;
 }
 
+/* detail 페이지에서는 헤더 제거 */
+body.detail-page #header {
+    display: none;
+}
+
 #main {
     max-width: 2000px;
     min-height: 100vh;
     background-color: #fdfdfd;
     padding-left: 250px;
     padding-top: 66px;
-    color: #1b1c1d
+    color: #1b1c1d;
+}
+
+/* detail 페이지에서 메인 패딩 제거 */
+body.detail-page #main {
+    padding-left: 0;
 }
 
 #footer {
@@ -32,6 +43,12 @@ body, html {
     background-color: #fdfdfd;
 }
 
+/* detail 페이지에서 푸터 패딩 조정 */
+body.detail-page #footer {
+    padding: 20px;
+}
+
+/* 반응형 디자인 */
 @media (max-width: 900px) {
     #header {
         width: 175px;
@@ -46,4 +63,12 @@ body, html {
         padding: 20px 20px 20px 175px;
     }
 
+    /* detail 페이지에서 반응형 조정 */
+    body.detail-page #main {
+        padding-left: 0;
+    }
+
+    body.detail-page #footer {
+        padding: 20px;
+    }
 }
