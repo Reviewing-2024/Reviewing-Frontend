@@ -1,11 +1,11 @@
 import React from 'react'
 
-const youtube = () => {
+const kmooc = () => {
   return (
     <div>
-      youtube
+      kmooc
     </div>
   )
 }
 
-export default youtube
+export default kmooc
