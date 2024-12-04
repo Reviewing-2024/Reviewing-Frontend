@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../../../assert/kakao.css';
-import { KAKAO_AUTH_URL } from './OAuth.js';
+import { KAKAO_AUTH_URL } from './OAuth/OAuth.js';
 import { useNavigate } from 'react-router-dom';
 
 const KakaoLogin = () => {
