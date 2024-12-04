@@ -17,10 +17,6 @@ body, html {
     color: #1b1c1d;
 }
 
-/* detail 페이지에서는 헤더 제거 */
-body.detail-page #header {
-    display: none;
-}
 
 #main {
     max-width: 2000px;
@@ -52,7 +48,7 @@ body.detail-page #header {
         padding: 20px 20px 20px 220px;
     }
 
-    /* detail 페이지에서 반응형 조정 */
+
     body.detail-page #main {
         padding-left: 0;
     }

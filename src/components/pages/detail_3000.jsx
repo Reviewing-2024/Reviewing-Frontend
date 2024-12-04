@@ -9,7 +9,6 @@ import { FaHeart, FaCartPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// 리뷰 작성 모달
 const ReviewModal = ({ isOpen, onClose, onSubmit, onChange, ratingChanged, newReview }) => {
   if (!isOpen) return null;
   return (

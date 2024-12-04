@@ -23,7 +23,7 @@ import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
 import MypageStatus from './components/pages/mypage/mypagestatus';
 import Chatbot from './components/pages/Chatbot';
-
+import AdminPage from './components/pages/AdminPage';
 
 const Layout = () => {
     const location = useLocation();
@@ -52,6 +52,8 @@ const Layout = () => {
                     <Route path='/wishlist' element={<Wishlist />} />
                     <Route path="/mypage/:status" element={<MypageStatus />} />
                     <Route path="/chatbot" element={<Chatbot />} />
+                    <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/review" element={<review />} />
                 </Routes>
             </Main>
             <Footer />
