@@ -27,8 +27,8 @@ import AdminPage from './components/pages/AdminPage';
 
 const Layout = () => {
     const location = useLocation();
-    const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/wait', '/mypage/recognize', '/mypage/refuse' ];
-
+    const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/pending', '/mypage/approved', '/mypage/rejected' ];
+    const hideFooterPaths = ['/chatbot'];
     return (
         <>
             <Header2 />
@@ -56,7 +56,7 @@ const Layout = () => {
                     <Route path="/review" element={<review />} />
                 </Routes>
             </Main>
-            <Footer />
+            {!hideFooterPaths.includes(location.pathname) && <Footer />}
         </>
     );
 };

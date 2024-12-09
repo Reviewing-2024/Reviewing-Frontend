@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+
+import '../../assert/chatbot.css';
+
+import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 const Chatbot = () => {
    const [messages, setMessages] = useState([]);
    const [userInput, setUserInput] = useState('');
    const [loading, setLoading] = useState(false);
 
-   const apiKey = '';
+   const chatEndRef = useRef(null);
+
+   const apiKey = '없음';
    const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
 
    const addMessage = (sender, message) => {
       setMessages(prevMessages => [...prevMessages, { sender, message }]);
    };
+
+   const scrollToBottom = () => {
+      chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+   };
+
+   useEffect(() => {
+      scrollToBottom();
+   }, [messages]);
 
    const handleSendMessage = async () => {
       const message = userInput.trim();
@@ -44,7 +58,7 @@ const Chatbot = () => {
          addMessage('bot', aiResponse);
       } catch (error) {
          console.error('오류 발생!', error);
-         addMessage('오류 발생!');
+         addMessage('bot', '오류 발생!');
       } finally {
          setLoading(false);
       }
@@ -63,9 +77,10 @@ const Chatbot = () => {
             {loading && <span className="messageWait">답변을 기다리고 있습니다</span>}
             {messages.map((msg, index) => (
                <div key={index} className={`message ${msg.sender}`}>
-                  {`${msg.sender === 'user' ? '나' : '챗봇'} : ${msg.message}`}
+                  <span>{` ${msg.message} `}</span>
                </div>
             ))}
+            <div ref={chatEndRef}></div>
          </div>
          <div className='inputDiv'>
             <input
@@ -73,7 +88,7 @@ const Chatbot = () => {
                value={userInput} onChange={(e) => setUserInput(e.target.value)}
                onKeyDown={handleKeyDown}
             />
-            <button onClick={handleSendMessage}>전송</button>
+            <button onClick={handleSendMessage}><IoChatboxEllipsesOutline /></button>
          </div>
       </div>
    );

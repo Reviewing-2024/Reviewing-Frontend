@@ -26,7 +26,7 @@ const Header2 = () => {
       <div className="header__content">
         <h1 className='header__logo'>
           <a href="/">
-            <em></em>
+            <img className='logo' src='/img/Logo.png'></img>
             <span>Reviewing</span>
           </a>
         </h1>

@@ -59,14 +59,14 @@ export const user =
         },
         {
             title: "검토중 리뷰",
-            src: "/wait"
+            src: "/pending"
         },
         {
             title: "승인된 리뷰",
-            src: "/recognize"
+            src: "/approved"
         },
         {
             title: "거절된 리뷰",
-            src: "/refuse"
+            src: "/rejected"
         },
     ];

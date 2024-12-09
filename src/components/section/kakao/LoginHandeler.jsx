@@ -17,10 +17,15 @@ const LoginHandeler = () => {
           "Content-Type": "application/json;charset=utf-8",
           "Access-Control-Allow-Origin": "*"
         },
-      }).then((res) => {
+      })
+      .then((res) => {
         console.log(res);
-        navigate(-1);
-        localStorage.setItem('name', res.data.nickname);      
+        let token = res.headers.get('Authorization');
+        console.log(token); 
+        
+        localStorage.setItem('Authorization', token);
+        localStorage.setItem('name', res.data.nickname); 
+        navigate(-1);     
       });
     };
     kakaoLogin();

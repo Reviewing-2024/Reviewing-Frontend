@@ -69,16 +69,25 @@ function Codeit() {
         <div key={item.id} className='item'>
           <div className='item-inner'>
             <Link className='item-title' to={`/detail/${item.id}`} state={{ item }}>
-            {item.thumbnailImage ?(
+            {
+              item.thumbnailImage ? (
                 <img src={item.thumbnailImage} alt={item.title} />
-                  ) : (
-                <img src='/img/nothing.png' alt='없다' />
+              ) : item.thumbnailVideo ? (
+                <img src={item.thumbnailVideo} alt={item.title} />
+              ) : (
+                <img src='/img/nothing.png' alt={item.title} />
               )
             }
               <span>{item.title}</span>
             </Link>
             <div className='item-information'>
-              <p>강사: {item.teacher}</p>
+              {
+                item.teacher ? (
+                <p>강사: {item.teacher}</p> 
+                ):(
+                <p>강사: 미상</p> 
+                )
+              }
               <p>별점: {item.rating}</p>
             </div>
           </div>

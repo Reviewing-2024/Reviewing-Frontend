@@ -87,3 +87,19 @@
 .dropdown-menu {
   animation: dropdown-fade 0.2s ease;
 }
+
+
+.name-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 0 16px;
+  text-align: center;
+  border: 2px solid #000;
+}
+.name-display {
+  
+  font-size: 16px;
+  font-weight: 900;
+  margin: 10px 0;
+  cursor: pointer;
+}

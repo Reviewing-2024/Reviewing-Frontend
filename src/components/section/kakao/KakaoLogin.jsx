@@ -21,6 +21,7 @@ const KakaoLogin = () => {
   
   const handleLogout = () => {
     localStorage.removeItem('name');
+    localStorage.removeItem('Authorization');
     setName(null);
     window.location.reload();
 };
