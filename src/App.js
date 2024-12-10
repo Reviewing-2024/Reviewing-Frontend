@@ -21,10 +21,12 @@ import Detail from './components/pages/detail';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
-import MypageStatus from './components/pages/mypage/mypagestatus';
+import Mypagepending from './components/pages/mypage/mypagepending';
+import Mypagerejected from './components/pages/mypage/mypagerejected';
+import Mypageapproved from './components/pages/mypage/mypageapproved';
 import Chatbot from './components/pages/Chatbot';
 import AdminPage from './components/pages/AdminPage';
-import Test from './components/pages/test';
+import Reviews from './components/pages/reviews';
 
 const Layout = () => {
     const location = useLocation();
@@ -51,10 +53,13 @@ const Layout = () => {
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
                     <Route path='/mypage' element={<Mypage />} />
                     <Route path='/wishlist' element={<Wishlist />} />
-                    <Route path="/mypage/:status" element={<MypageStatus />} />
+                    <Route path="/mypage/pending" element={<Mypagepending />} />
+                    <Route path="/mypage/approved" element={<Mypageapproved />} />
+                    <Route path="/mypage/rejected" element={<Mypagerejected />} />
                     <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/test" element={<Test />} />
+                    <Route path="/review" element={<review />} />
+                    <Route path='/reviews/:courseId' element={<Reviews />} />
                 </Routes>
             </Main>
             {!hideFooterPaths.includes(location.pathname) && <Footer />}

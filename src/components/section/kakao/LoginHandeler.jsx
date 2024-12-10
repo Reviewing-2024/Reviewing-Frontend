@@ -25,7 +25,8 @@ const LoginHandeler = () => {
         
         localStorage.setItem('Authorization', token);
         localStorage.setItem('name', res.data.nickname); 
-        navigate(-1);     
+        navigate('/');     
+        window.location.reload();
       });
     };
     kakaoLogin();
