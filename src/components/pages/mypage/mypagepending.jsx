@@ -1,0 +1,75 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+
+import '../../../assert/css/mypage.css';
+
+import { review_category } from '../../../data/review.js';
+import Mypageheader from '../../section/mypageheader.jsx';
+
+const Mypagepending = () => {
+    const [items, setItems] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    const fetchUsers = async () => {
+        try {
+        setError(null);
+        setItems(null);
+        setLoading(true);
+        const response = await axios.get(
+            'http://localhost:8080/my/reviews?status=pending'
+        );
+        setItems(response.data);
+        } catch (e) {
+        setError(e);
+        }
+        setLoading(false);
+    };
+
+    console.log(items);
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    if (loading) return <div>로딩중..</div>;
+    if (error) return <div>에러가 발생했습니다</div>;
+
+    if (!items) return null;
+
+    return (
+        <div className='mypage'>
+            <Mypageheader /> 
+                <div className='review_category'>
+                    <ul>
+                        {review_category.map((review_category, key) => (
+                            <li key={key}>
+                                <Link to={`/mypage${review_category.src}`}>
+                                    {review_category.title}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            <div className='review'>
+                <p className='title'>{review_category.src}</p>
+                <div className='review-inner'>
+                    {items.map((item) => (
+                        <div key={item.id} className='reviews'>
+                        {/* <div className='status' /> */}
+                        <div className='content'>
+                            <p>{item.user}</p> 
+                            <p>{item.content}</p>
+                            <span>{item.likes}</span>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+            </div>
+            <div className='footer' />
+        </div>
+    );
+};
+
+export default Mypagepending;
