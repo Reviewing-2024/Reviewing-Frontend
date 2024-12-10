@@ -26,6 +26,7 @@ import Mypagerejected from './components/pages/mypage/mypagerejected';
 import Mypageapproved from './components/pages/mypage/mypageapproved';
 import Chatbot from './components/pages/Chatbot';
 import AdminPage from './components/pages/AdminPage';
+import Reviews from './components/pages/reviews';
 
 const Layout = () => {
     const location = useLocation();
@@ -58,6 +59,7 @@ const Layout = () => {
                     <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/review" element={<review />} />
+                    <Route path='/reviews/:courseId' element={<Reviews />} />
                 </Routes>
             </Main>
             {!hideFooterPaths.includes(location.pathname) && <Footer />}
