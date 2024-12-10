@@ -68,18 +68,18 @@ function Kmooc() {
       {sortedItems.map(item => (
         <div key={item.id} className='item'>
           <div className='item-inner'>
-            <Link className='item-title' to={`/detail/${item.id}`} state={{ item }}>
+          <Link className='item-title' to={`/reviews/${item.id}`} state={{ item }}>
             {
               item.thumbnailImage ? (
-                <img src={item.thumbnailImage} alt={item.title} />
-              ) : item.thumbnailVideo ? (
-                <img src={item.thumbnailVideo} alt={item.title} />
-              ) : (
-                <img src='/img/nothing.png' alt={item.title} />
-              )
+            <img src={item.thumbnailImage} alt={item.title} />
+            ) : item.thumbnailVideo ? (
+            <img src={item.thumbnailVideo} alt={item.title} />
+            ) : (
+            <img src='/img/nothing.png' alt={item.title} />
+            )
             }
-              <span>{item.title}</span>
-            </Link>
+            <span>{item.title}</span>
+          </Link>
             <div className='item-information'>
               {
                 item.teacher ? (
