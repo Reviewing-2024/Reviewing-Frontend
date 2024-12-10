@@ -24,6 +24,7 @@ import Wishlist from './components/pages/mypage/wishlist';
 import MypageStatus from './components/pages/mypage/mypagestatus';
 import Chatbot from './components/pages/Chatbot';
 import AdminPage from './components/pages/AdminPage';
+import Test from './components/pages/test';
 
 const Layout = () => {
     const location = useLocation();
@@ -53,7 +54,7 @@ const Layout = () => {
                     <Route path="/mypage/:status" element={<MypageStatus />} />
                     <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/review" element={<review />} />
+                    <Route path="/test" element={<Test />} />
                 </Routes>
             </Main>
             {!hideFooterPaths.includes(location.pathname) && <Footer />}

@@ -1,198 +1,112 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
-import StarRatingComponent from 'react-rating-stars-component';
-import { FaThumbsDown, FaThumbsUp, FaCartPlus } from 'react-icons/fa';
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
-import { MdScreenSearchDesktop } from 'react-icons/md';
-import '../../assert/detailpage.css';
+import { useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Detail = () => {
-  const { slug } = useParams();
+  const { courseId } = useParams();
   const location = useLocation();
   const { item } = location.state || {};
-  const [course, setCourse] = useState(item || null);
   const [reviews, setReviews] = useState([]);
-  const [sortOption, setSortOption] = useState('latest');
-  const [likedReviews, setLikedReviews] = useState({});
-  const [dislikedReviews, setDislikedReviews] = useState({});
+  const [newReview, setNewReview] = useState({ rating: '', comment: '', certificationFile: null });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const isUserLoggedIn = () => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('로그인을 하셔야 해당 기능을 사용할 수 있습니다!');
-      return false;
+  const accessToken = localStorage.getItem('accessToken');
+
+
+  useEffect(() => {
+    if (!accessToken) {
+      alert('로그인이 필요합니다. 로그인 후 다시 시도해주세요.');
+      return;
     }
-    return true;
-  };
 
-  useEffect(() => {
-    const fetchCourse = async () => {
-      try {
-        const response = await axios.get(`/courses/${slug}`);
-        setCourse(response.data);
-      } catch (error) {
-        console.error(error);
-        alert('강의 정보를 불러오는 중 문제가 발생했습니다.');
-      }
-    };
+    if (courseId) {
+      console.log('Access Token:', accessToken);
+      console.log('courseId:', courseId);
+      fetchReviews();
+      console.log('Authorization Header:', `Bearer ${accessToken}`);
+      console.log('Request URL:', `http://localhost:8080/reviews/${courseId}`);
 
-    if (!course) fetchCourse();
-  }, [slug, course]);
+    }
+  }, [courseId]);
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      try {
-        const dummyReviews = [
-          {
-            id: 1,
-            nickname: '유저1',
-            contents: '정말 유익한 강의였습니다.',
-            rating: 5,
-            likes: 10,
-            dislikes: 2,
-            likedByUser: true,
-            dislikedByUser: false,
-          },
-          {
-            id: 2,
-            nickname: '유저2',
-            contents: '조금 아쉬웠지만 괜찮았어요.',
-            rating: 4,
-            likes: 5,
-            dislikes: 1,
-            likedByUser: false,
-            dislikedByUser: true,
-          },
-        ];
-        setReviews(dummyReviews);
-      } catch (error) {
-        console.error(error);
-        alert('리뷰를 불러오는 중 문제가 발생했습니다.');
-      }
-    };
-
-    fetchReviews();
-  }, [slug]);
-
-  const handleCart = () => {
-    if (!isUserLoggedIn()) return;
-    alert('강의가 찜 목록에 추가되었습니다!');
-  };
-
-  const handleView = () => {
-    window.open(course.url, '_blank');
-  };
-
-  const handleLikeDislike = async (reviewId, type, isLiked) => {
-    if (!isUserLoggedIn()) return;
-
-    const method = isLiked ? 'DELETE' : 'POST';
+  const fetchReviews = async () => {
     try {
-      await axios({
-        method,
-        url: `/reviews/${reviewId}/${type}`,
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      setLoading(true);
+      const response = await axios.get(`http://localhost:8080/reviews/${courseId}`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
       });
-
-      setReviews((prev) =>
-        prev.map((review) =>
-          review.id === reviewId
-            ? {
-                ...review,
-                likes: type === 'like' ? review.likes + (isLiked ? -1 : 1) : review.likes,
-                dislikes: type === 'dislike' ? review.dislikes + (isLiked ? -1 : 1) : review.dislikes,
-                likedByUser: type === 'like' ? !isLiked : review.likedByUser,
-                dislikedByUser: type === 'dislike' ? !isLiked : review.dislikedByUser,
-              }
-            : review
-        )
-      );
-    } catch (error) {
-      console.error(error);
-      alert(`${type === 'like' ? '좋아요' : '싫어요'} 처리 중 문제가 발생했습니다.`);
+      setReviews(response.data);
+    } catch (e) {
+      setError(e);
+      console.error('리뷰 가져오기 오류:', e.response);
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (!course) return <div>로딩 중...</div>;
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    if (!accessToken) {
+      alert('로그인이 필요합니다. 로그인 후 다시 시도해주세요.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('rating', newReview.rating);
+    formData.append('comment', newReview.comment);
+    if (newReview.certificationFile) {
+      formData.append('certificationFile', newReview.certificationFile);
+    }
+
+    try {
+      const response = await axios.post(`http://localhost:8080/reviews/${courseId}`, formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('리뷰가 성공적으로 작성되었습니다!');
+      fetchReviews();
+      setNewReview({ rating: '', comment: '', certificationFile: null });
+    } catch (error) {
+      console.error('리뷰 작성 오류:', error.response);
+      alert('리뷰 작성 중 문제가 발생했습니다.');
+    }
+  };
 
   return (
-    <div className="detail-page">
-      <header className="header-section">
-        <div className="course-thumbnail">
-          <img src={course.thumbnailImage || '/img/nothing.png'} alt="강의 썸네일" className="course-image" />
-        </div>
-        <div className="course-info">
-          <h2 className="course-title">{course.title}</h2>
-          <p className="instructor-name">{course.teacher || '강사 없음'} 강사</p>
-          <div className="course-actions">
-            <button className="btn btn-cart" onClick={handleCart}>
-              <FaCartPlus /> 
-            </button>
-            <button className="btn btn-view" onClick={handleView}>
-              <MdScreenSearchDesktop /> 
-            </button>
-          </div>
-<div className="course-rating">
-  평점:{" "}
-  <div className="course-rating-stars">
-    {Array.from({ length: 5 }, (_, index) => {
-      const starValue = index + 1;
-      const starColor =
-        course.rating >= starValue
-          ? course.rating >= 4
-            ? "#4caf50" 
-            : course.rating >= 3
-            ? "#ff9800" 
-            : "#f44336" 
-          : "#ddd"; 
-      if (course.rating >= starValue) {
-        return <FaStar key={index} color={starColor} />;
-      } else if (course.rating >= starValue - 0.5) {
-        return <FaStarHalfAlt key={index} color={starColor} />;
-      } else {
-        return <FaRegStar key={index} color={starColor} />;
-      }
-    })}
-  </div>
-</div>
-        </div>
-      </header>
-      <section className="review-section">
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-          <button className="btn btn-primary" onClick={() => alert('로그인을 하셔야 해당 기능을 사용할 수 있습니다!')}>
-            리뷰 작성
-          </button>
-        </div>
-        <div className="review-list">
-  {reviews.map((review) => (
-    <div key={review.id} className="review-item">
-      <p>{review.nickname}</p>
-      <p>{review.contents}</p>
-      <div className="review-rating">
-        {Array.from({ length: 5 }, (_, index) => {
-          const starValue = index + 1;
-          if (review.rating >= starValue) {
-            return <FaStar key={index} color="#ffd700" />;
-          } else if (review.rating >= starValue - 0.5) {
-            return <FaStarHalfAlt key={index} color="#ffd700" />;
-          } else {
-            return <FaRegStar key={index} color="#ffd700" />;
-          }
-        })}
-      </div>
-      <div className="review-likes">
-        <button onClick={() => handleLikeDislike(review.id, 'like', review.likedByUser)}>
-          <FaThumbsUp color={review.likedByUser ? '#88BAF7' : 'black'} /> {review.likes}
-        </button>
-        <button onClick={() => handleLikeDislike(review.id, 'dislike', review.dislikedByUser)}>
-          <FaThumbsDown color={review.dislikedByUser ? '#88BAF7' : 'black'} /> {review.dislikes}
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
-      </section>
+    <div>
+      <h2>{item?.title || '강의 상세 페이지'}</h2>
+      <form onSubmit={handleReviewSubmit}>
+        <h3>리뷰 작성</h3>
+        <label>
+          별점:
+          <input
+            type="number"
+            step="0.1"
+            min="0"
+            max="5"
+            value={newReview.rating}
+            onChange={(e) => setNewReview({ ...newReview, rating: e.target.value })}
+          />
+        </label>
+        <label>
+          코멘트:
+          <textarea
+            value={newReview.comment}
+            onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
+          />
+        </label>
+        <label>
+          인증 파일:
+          <input
+            type="file"
+            onChange={(e) => setNewReview({ ...newReview, certificationFile: e.target.files[0] })}
+          />
+        </label>
+        <button type="submit">리뷰 작성</button>
+      </form>
     </div>
   );
 };
