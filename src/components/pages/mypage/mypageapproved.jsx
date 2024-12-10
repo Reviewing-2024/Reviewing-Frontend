@@ -1,16 +1,42 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import '../../../assert/css/mypage.css';
 
-import { review, review_category } from '../../../data/review.js';
+import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
 
-const MypageStatus = () => {
-    const { status } = useParams();
+const Mypageapproved = () => {
+    const [items, setItems] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
-    const filteredReviews = status ? 
-        review.filter((item) => item.status === status) : review;
+    const fetchUsers = async () => {
+        try {
+        setError(null);
+        setItems(null);
+        setLoading(true);
+        const response = await axios.get(
+            'http://localhost:8080/my/reviews?status=approved'
+        );
+        setItems(response.data);
+        } catch (e) {
+        setError(e);
+        }
+        setLoading(false);
+    };
+
+    console.log(items);
+
+    useEffect(() => {
+        fetchUsers();
+    }, []);
+
+    if (loading) return <div>로딩중..</div>;
+    if (error) return <div>에러가 발생했습니다</div>;
+
+    if (!items) return null;
 
     return (
         <div className='mypage'>
@@ -27,9 +53,9 @@ const MypageStatus = () => {
                     </ul>
                 </div>
             <div className='review'>
-                <p className='title'>{status}</p>
+                <p className='title'>{review_category.src}</p>
                 <div className='review-inner'>
-                    {filteredReviews.map((item) => (
+                    {items.map((item) => (
                         <div key={item.id} className='reviews'>
                         {/* <div className='status' /> */}
                         <div className='content'>
@@ -46,4 +72,4 @@ const MypageStatus = () => {
     );
 };
 
-export default MypageStatus;
+export default Mypageapproved;
