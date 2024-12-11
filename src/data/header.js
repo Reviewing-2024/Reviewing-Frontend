@@ -137,7 +137,7 @@ export const codingsite = [
 export const snsLink = [
     {
         title: "github",
-        url: "https://github.com",
+        url: "https://github.com/Reviewing-2024",
         icon: <AiFillGithub />
     },
     {

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import '../../assert/chatbot.css';
 
@@ -20,10 +20,6 @@ const Chatbot = () => {
    const scrollToBottom = () => {
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
    };
-
-   useEffect(() => {
-      scrollToBottom();
-   }, [messages]);
 
    const randomIntroMessage = () => {
       const intros = [
@@ -65,8 +61,10 @@ const Chatbot = () => {
                   <h3>${course.courseTitle}</h3>
                   <p><strong>강사:</strong> ${course.courseTeacher || '정보 없음'}</p>
                   <p><a href='${course.courseUrl}' target='_blank'>강의 URL</a></p>
+                 
                </div>`
             )).join('');
+
             // <p><a href='${course.reviewingUrl}' target='_blank'>리뷰 URL</a></p>
 
          addMessage('bot', formattedResponse);
@@ -75,6 +73,7 @@ const Chatbot = () => {
          addMessage('bot', '오류 발생!');
       } finally {
          setLoading(false);
+         scrollToBottom();
       }
    };
 

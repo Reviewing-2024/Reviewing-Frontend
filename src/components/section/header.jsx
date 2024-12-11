@@ -102,8 +102,18 @@ const Header = () => {
                     </div>
                 )}
             </div>
+            {/* <div className='header__sns'>
+                <ul>
+                    {snsLink.map((sns, key) => (
+                        <li key={key}>
+                            <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.title}>
+                                <span>{sns.icon}</span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div> */}
             <div className="header__codingsite">
-                <h2>관련 사이트</h2>
                 <ul className="codingsite">
                     {codingsite.map((codingsite, key) => (
                         <li key={key}>
@@ -115,18 +125,7 @@ const Header = () => {
                 </ul>
             </div>
 
-            <div className='header__sns'>
-            <h2>SNS</h2>
-                <ul>
-                    {snsLink.map((sns, key) => (
-                        <li key={key}>
-                            <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.title}>
-                                <span>{sns.icon}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            
         </header>
     );
 };
