@@ -58,7 +58,7 @@ const Reviews = () => {
   }, [slug]);
 
   const handleCreateReview = async () => {
-    console.log('리뷰 상태 확인:', newReview); // 상태 확인 추가
+    console.log('리뷰 상태 확인:', newReview); 
     const token = localStorage.getItem('Authorization');
     if (!token) {
       alert('로그인을 하셔야 해당 기능을 사용할 수 있습니다!');
@@ -71,7 +71,7 @@ const Reviews = () => {
     }
   
     const reviewRequestDto = {
-      rating: newReview.rating, // 상태에서 값 가져오기
+      rating: newReview.rating, 
       comment: newReview.comments,
     };
   
@@ -237,7 +237,7 @@ const Reviews = () => {
           id="rating"
           value={newReview.rating}
           onChange={(e) => {
-            const value = Math.min(5, Math.max(0, parseFloat(e.target.value) || 0)); // 0 ~ 5 제한
+            const value = Math.min(5, Math.max(0, parseFloat(e.target.value) || 0));
             setNewReview((prev) => ({ ...prev, rating: value }));
           }}
           placeholder="0 ~ 5"
