@@ -119,16 +119,16 @@ const Reviews = () => {
     try {
       const response = await axios.post(
         `http://localhost:8080/courses/${courseId}/wish`,
-        null, // Body가 필요 없으므로 null
+        null, 
         {
-          params: { wished }, // wished=true 또는 wished=false
+          params: { wished }, 
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
   
-      // 서버에서 반환된 업데이트된 코스 데이터로 상태를 갱신
+    
       const updatedCourse = response.data;
   
       setCourse((prev) => ({
