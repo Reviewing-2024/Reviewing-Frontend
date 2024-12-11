@@ -149,59 +149,39 @@ const Reviews = () => {
     window.open(course.url, '_blank');
   };
 
-  const handleLikeDislike = async (reviewId, type, currentState) => {
+  const handleLikeDislike = async (reviewId, liked) => {
     const token = localStorage.getItem('Authorization');
     if (!token) {
       alert('로그인이 필요합니다.');
       return;
     }
-  
-    const url = `http://localhost:8080/reviews/${reviewId}/${type}`;
-    const newState = !currentState;
-  
+
+
+    const initialLiked = reviews.find((review) => review.id === reviewId)?.liked ?? false;
+    const newLikedState = !initialLiked;
+
     try {
       const response = await axios.post(
-        url,
-        {},
+        `http://localhost:8080/reviews/${reviewId}/like`,
+        null,
         {
-          params: {
-            [type === 'like' ? 'liked' : 'disliked']: newState,
-          },
+          params: { liked: newLikedState },
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-  
-      const updatedLikes = response.data.likes;
-      const updatedDislikes = response.data.dislikes;
-  
+
+      const updatedReview = response.data;
       setReviews((prev) =>
-        prev.map((review) => {
-          if (review.id === reviewId) {
-            if (type === 'like') {
-              return {
-                ...review,
-                liked: newState,
-                likes: updatedLikes, 
-              };
-            }
-            if (type === 'dislike') {
-              return {
-                ...review,
-                disliked: newState,
-                dislikes: updatedDislikes, 
-              };
-            }
-          }
-          return review;
-        })
+        prev.map((review) => (review.id === reviewId ? { ...review, ...updatedReview } : review))
       );
     } catch (error) {
-      console.error(`${type === 'like' ? '좋아요' : '싫어요'} 처리 중 오류:`, error);
-      alert('오류가 발생했습니다. 다시 시도해주세요.');
+      console.error('좋아요 처리 중 오류:', error.response?.data || error.message);
+      alert(`좋아요 처리 중 오류가 발생했습니다: ${error.response?.data?.message || error.message}`);
     }
   };
+  
     
 
   if (!course) return <div>로딩 중...</div>;
@@ -259,12 +239,12 @@ const Reviews = () => {
             <p className="review-content">{review.contents}</p>
             <div className="review-actions">
             <div className="review-actions">
-  <button
-    className={`btn-icon ${review.liked ? 'active' : ''}`}
-    onClick={() => handleLikeDislike(review.id, 'like', review.liked)}
-  >
-    <FaThumbsUp /> 좋아요 {review.likes}
-  </button>
+            <button
+                  className={`btn-icon ${review.liked ? 'active' : ''}`}
+                  onClick={() => handleLikeDislike(review.id, !review.liked)}
+                >
+                  <FaThumbsUp /> 좋아요 {review.likes}
+                </button>
   <button
     className={`btn-icon ${review.disliked ? 'active' : ''}`}
     onClick={() => handleLikeDislike(review.id, 'dislike', review.disliked)}
