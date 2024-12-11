@@ -1,240 +1,432 @@
+/*
+import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import StarRatingComponent from "react-rating-stars-component";
+import { FaThumbsDown, FaThumbsUp, FaCartPlus } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { MdScreenSearchDesktop } from "react-icons/md";
+import "../../assert/detailpage.css";
+import axios from "axios";
 
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { items } from '../../data/data';
-import StarRatingComponent from 'react-rating-stars-component';  
-import '../../assert/detailpage.css';    
-import { GoReport } from "react-icons/go";
-import { FaHeart, FaCartPlus } from "react-icons/fa";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
-const ReviewModal = ({ isOpen, onClose, onSubmit, onChange, ratingChanged, newReview }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3 className="form-title">리뷰를 작성해주세요</h3>
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label htmlFor="rating">Rating</label>
-            <StarRatingComponent
-              count={5}
-              onChange={ratingChanged}
-              size={24}
-              isHalf={true}
-              value={newReview.rating}
-              activeColor="#ffd700"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="content">Feedback</label>
-            <textarea
-              id="content"
-              name="content"
-              rows="4"
-              value={newReview.content}
-              onChange={onChange}
-              placeholder="Write your review here"
-              className="form-control"
-            ></textarea>
-          </div>
-          <div className="form-group">
-            <label htmlFor="attachment">Attachment</label>
-            <input
-              type="file"
-              id="attachment"
-              name="attachment"
-              onChange={(e) => onChange({ target: { name: 'attachment', value: e.target.files[0] } })}
-              className="form-control"
-            />
-          </div>
-          <div className="form-actions">
-            <button type="button" className="btn btn-secondary" onClick={onClose}>취소</button>
-            <button type="submit" className="btn btn-primary">게시하기</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-};
-
-// 신고하기 모달
-const ReportModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h3>신고 사유</h3>
-        <textarea placeholder="신고 사유를 작성해주세요" rows="4" className="report-textarea"></textarea>
-        <div className="form-actions">
-          <button onClick={onClose} className="btn btn-primary">제출</button>
-          <button onClick={onClose} className="btn btn-secondary">닫기</button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const Detail = () => {
+const Reviews = () => {
+  const { slug } = useParams();
+  const location = useLocation();
+  const { item } = location.state || {};
+  const [course, setCourse] = useState(item || null);
+  const [reviews, setReviews] = useState([]);
+  const [sortOption, setSortOption] = useState("latest");
+  const [likedReviews, setLikedReviews] = useState({});
+  const [dislikedReviews, setDislikedReviews] = useState({});
+  const [newReview, setNewReview] = useState({
+    rating: 0,
+    contents: "",
+    file: null,
+  });
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [showReportModal, setShowReportModal] = useState(false);
-  const [reviews, setReviews] = useState([
-    { user: 'User1', content: '정말 집에가고 싶은 강의네요.', likes: 350, date: new Date(2023, 5, 12) },
-    { user: 'User2', content: '이번 강의는 마음에 들어요 다른 강의도 들어보고 싶어여', likes: 50, date: new Date(2023, 6, 15) },
-    { user: 'User3', content: '정말 형편없는 강의네요', likes: 35, date: new Date(2023, 7, 20) },
-  ]);
-  const [newReview, setNewReview] = useState({ rating: 5, content: '', attachment: null });
-  const [sortOption, setSortOption] = useState('latest');
-  const { id } = useParams();
-  const item = items.find((item) => item.id === parseInt(id));
 
-  const toggleReviewModal = () => setShowReviewModal(!showReviewModal);
-  const toggleReportModal = () => setShowReportModal(!showReportModal);
+  const isUserLoggedIn = () => {
+    const token = localStorage.getItem("Authorization");
+    console.log("저장된 토큰:", token);
 
-  const handleSortChange = (e) => {
-    const option = e.target.value;
-    setSortOption(option);
-
-    const sortedReviews = [...reviews];
-    if (option === 'latest') {
-      sortedReviews.sort((a, b) => b.date - a.date);
-    } else if (option === 'likes') {
-      sortedReviews.sort((a, b) => b.likes - a.likes);
+    if (!token || token.trim() === "") {
+      alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
+      return false;
     }
-    setReviews(sortedReviews);
+    return true;
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setReviews([...reviews, { user: 'New User', content: newReview.content, likes: 0, date: new Date() }]);
-    setNewReview({ rating: 5, content: '', attachment: null });
-    setShowReviewModal(false);
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewReview((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const ratingChanged = (newRating) => setNewReview((prev) => ({ ...prev, rating: newRating }));
 
   useEffect(() => {
-    const initPattern = () => {
-      const canvas = document.getElementById('canvas');
-      const context = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = 300;
-
-      const spacingX = 55;
-      const spacingY = 35;
-      const offsetVariance = 13;
-      const baseRadius = 55;
-      const points = [];
-
-      const preparePoints = () => {
-        for (let i = spacingY; i < canvas.height; i += spacingY) {
-          const pointSet = [];
-          for (let j = spacingX; j < canvas.width; j += spacingX) {
-            const offsetX = Math.round(Math.random() * offsetVariance * 2 - offsetVariance);
-            const offsetY = Math.round(Math.random() * offsetVariance * 2 - offsetVariance);
-            const offsetR = Math.round(Math.random() * offsetVariance * 2 - offsetVariance);
-            pointSet.push({ x: j + offsetX, y: i + offsetY, radius: baseRadius + offsetR });
-          }
-          points.push(pointSet);
-        }
-      };
-
-      const createPattern = () => {
-        points.forEach((pointSet) => {
-          pointSet.forEach((point) => {
-            for (let k = point.radius; k > 0; k -= 3) {
-              context.beginPath();
-              context.arc(point.x, point.y, k, 0, Math.PI * 2, true);
-              context.closePath();
-              context.fillStyle = '#ffffff';
-              context.strokeStyle = '#9FCFE3';
-              context.fill();
-              context.stroke();
-            }
-          });
+    const fetchCourse = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/courses/${slug}`,
+        );
+        const courseData = response.data;
+        setCourse({
+          ...courseData,
+          wished: courseData.wished ?? false, // 초기 상태 설정
         });
-      };
-
-      preparePoints();
-      createPattern();
+      } catch (error) {
+        console.error("Error fetching course:", error.message);
+        alert("강의 정보를 불러오는 중 문제가 발생했습니다.");
+      }
     };
 
-    initPattern();
-  }, []);
+    if (!course) fetchCourse();
+  }, [slug]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/reviews/${course.id}`,
+        );
+        const updatedReviews = response.data.map((review) => ({
+          ...review,
+          liked: review.liked ?? false,
+          disliked: review.disliked ?? false,
+        }));
+        setReviews(updatedReviews);
+      } catch (error) {
+        console.error(error);
+        alert("리뷰를 불러오는 중 문제가 발생했습니다.");
+      }
+    };
+
+    fetchReviews();
+  }, [course.id]);
+
+  const handleCreateReview = async () => {
+    console.log("리뷰 상태 확인:", newReview);
+    const token = localStorage.getItem("Authorization");
+    if (!token) {
+      alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
+      return;
+    }
+
+    if (!course || !course.id) {
+      alert("강의 정보가 없습니다. 다시 시도해주세요.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append(
+      "reviewRequestDto",
+      new Blob(
+        [
+          JSON.stringify({
+            rating: newReview.rating,
+            contents: newReview.contents,
+          }),
+        ],
+        { type: "application/json" },
+      ),
+    );
+    if (newReview.file) {
+      formData.append("certificationFile", newReview.file);
+    }
+
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/reviews/${course.id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `${token}`,
+          },
+        },
+      );
+
+      console.log("리뷰 작성 성공:", response.data);
+      alert("리뷰가 작성되었습니다!");
+      setReviews((prev) => [...prev, response.data]);
+      setShowReviewModal(false);
+      setNewReview({ rating: 0, contents: "", file: null });
+    } catch (error) {
+      console.error("리뷰 작성 에러:", error.response?.data || error.message);
+      alert(
+        "리뷰 작성 중 문제가 발생했습니다: " +
+          (error.response?.data?.message || error.message),
+      );
+    }
+  };
+
+  const handleCart = () => {
+    if (!isUserLoggedIn()) return;
+    alert("강의가 찜 목록에 추가되었습니다!");
+  };
+
+  const handleWish = async (courseId, currentWishedState) => {
+    const token = localStorage.getItem("Authorization");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    // 반전된 상태로 요청
+    const newWishedState = !currentWishedState;
+
+    try {
+      console.log(`Sending wish request: wished=${newWishedState}`);
+      const response = await axios.post(
+        `http://localhost:8080/courses/${courseId}/wish`,
+        null,
+        {
+          params: { wished: newWishedState },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      const updatedCourse = response.data;
+      setCourse((prev) => ({
+        ...prev,
+        ...updatedCourse,
+        wished: newWishedState, // 반전된 상태로 업데이트
+      }));
+    } catch (error) {
+      console.error(
+        "찜하기 처리 중 오류:",
+        error.response?.data || error.message,
+      );
+      alert(
+        `찜하기 처리 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`,
+      );
+    }
+  };
+
+  const handleView = () => {
+    window.open(course.url, "_blank");
+  };
+
+  const handleLike = async (reviewId, liked) => {
+    const token = localStorage.getItem("Authorization");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+  
+    // 반전된 liked 상태로 요청
+    const newLikedState = !liked;
+  
+    try {
+      console.log(`현재 liked 상태: ${liked}`);
+      console.log(`보낼 liked 상태: ${newLikedState}`);
+  
+      const response = await axios.post(
+        `http://localhost:8080/reviews/${reviewId}/like`,
+        null,
+        {
+          params: { liked: newLikedState },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("서버 응답:", response.data);
+  
+      // 리뷰 상태 업데이트
+      setReviews((prevReviews) =>
+        prevReviews.map((review) =>
+          review.id === reviewId ? { ...review, liked: newLikedState } : review
+        )
+      );
+    } catch (error) {
+      console.error("좋아요 상태 업데이트 중 오류:", error.response || error.message);
+      alert(
+        `좋아요 상태 업데이트 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`
+      );
+    }
+  };
+  
+  const handleDislike = async (reviewId, disliked) => {
+    const token = localStorage.getItem("Authorization");
+    if (!token) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+  
+    // 반전된 disliked 상태로 요청
+    const newDislikedState = !disliked;
+  
+    try {
+      console.log(`현재 disliked 상태: ${disliked}`);
+      console.log(`보낼 disliked 상태: ${newDislikedState}`);
+  
+      const response = await axios.post(
+        `http://localhost:8080/reviews/${reviewId}/dislike`,
+        null,
+        {
+          params: { disliked: newDislikedState },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      console.log("서버 응답:", response.data);
+  
+      // 리뷰 상태 업데이트
+      setReviews((prevReviews) =>
+        prevReviews.map((review) =>
+          review.id === reviewId
+            ? { ...review, disliked: newDislikedState }
+            : review
+        )
+      );
+    } catch (error) {
+      console.error("싫어요 상태 업데이트 중 오류:", error.response || error.message);
+      alert(
+        `싫어요 상태 업데이트 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`
+      );
+    }
+  };
+  
+  if (!course) return <div>로딩 중...</div>;
 
   return (
     <div className="detail-page">
       <header className="header-section">
-        <canvas id="canvas" className="canvas-background"></canvas>
-        <div className="header-content">
-          <img src={item.src} alt="Course Thumbnail" className="course-image" />
-          <div className="header-meta">
-            <h2 className="course-title">{item.title}</h2>
-            <div className="instructor-info">
-              <h3 className="instructor-name">강사명: {item.instructor}</h3>
-            </div>
-            <div className="action-buttons">
-              <span className="like-count">
-                <FaHeart /> {item.likes}
-              </span>
-              <button onClick={() => toast('위시리스트에 저장했습니다')} className="Cart-icon-button">
-                <FaCartPlus />
-              </button>
-            </div>
-            <a href={item.link} className="course-link">
-              강의로 이동
-            </a>
+        <div className="course-thumbnail">
+          <img
+            src={course.thumbnailImage || "/img/nothing.png"}
+            alt="강의 썸네일"
+            className="course-image"
+          />
+        </div>
+        <div className="course-info">
+          <h2 className="course-title">{course.title}</h2>
+          <p className="instructor-name">
+            {course.teacher || "강사 없음"} 강사
+          </p>
+          <div className="course-actions">
+            <button
+              className="btn btn-wish"
+              onClick={() => handleWish(course.id, course.wished)}
+            >
+              {course.wished ? (
+                <FaStar color="#ffd700" size={24} /> // 찜 상태: 노란 별
+              ) : (
+                <FaRegStar color="#ccc" size={24} /> // 찜 취소 상태: 빈 별
+              )}
+            </button>
+
+            <button className="btn btn-cart" onClick={handleCart}>
+              <FaCartPlus />
+            </button>
+            <button className="btn btn-view" onClick={handleView}>
+              <MdScreenSearchDesktop />
+            </button>
           </div>
         </div>
       </header>
       <section className="review-section">
-        <div className="review-write">
-          <span className="review-count">총 {reviews.length}개 리뷰</span>
-          <button onClick={toggleReviewModal} className="btn btn-primary">리뷰 작성</button>
-          <select value={sortOption} onChange={handleSortChange} className="sort-select">
-            <option value="latest">최신순</option>
-            <option value="likes">좋아요순</option>
-          </select>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            marginBottom: "20px",
+          }}
+        >
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowReviewModal(true)}
+          >
+            리뷰 작성
+          </button>
         </div>
-
         <div className="review-list">
-          {reviews.map((review, index) => (
-            <div key={index} className="review-item">
-              <div className="review-user">{review.user}</div>
-              <div className="review-content">{review.content}</div>
-              <div className="review-likes">
-                <FaHeart /> {review.likes}
-                <button onClick={toggleReportModal} className="report-icon-button">
-                  <GoReport />
-                </button>
+          {reviews.map((review) => (
+            <div key={review.id} className="review-card">
+              <div className="review-header">
+                <p className="review-author">{review.nickname}</p>
+                <div className="review-rating">
+                  {Array.from({ length: 5 }, (_, index) => {
+                    const starValue = index + 1;
+                    if (review.rating >= starValue) {
+                      return <FaStar key={index} color="#ffd700" />;
+                    } else if (review.rating >= starValue - 0.5) {
+                      return <FaStarHalfAlt key={index} color="#ffd700" />;
+                    } else {
+                      return <FaRegStar key={index} color="#ffd700" />;
+                    }
+                  })}
+                </div>
+              </div>
+              <p className="review-content">{review.contents}</p>
+              <div className="review-actions">
+                <div className="review-actions">
+                  <button
+                    className={`btn-icon ${review.liked ? "active" : ""}`}
+                    onClick={() => handleLike(review.id, review.liked)}
+                  >
+                    <FaThumbsUp /> 좋아요 {review.likes}
+                  </button>
+                  <button
+                    className={`btn-icon ${review.disliked ? "active" : ""}`}
+                    onClick={() => handleDislike(review.id, review.disliked)}
+                  >
+                    <FaThumbsDown /> 싫어요 {review.dislikes}
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <ReviewModal
-        isOpen={showReviewModal}
-        onClose={toggleReviewModal}
-        onSubmit={handleSubmit}
-        onChange={handleChange}
-        ratingChanged={ratingChanged}
-        newReview={newReview}
-      />
-
-      <ReportModal
-        isOpen={showReportModal}
-        onClose={toggleReportModal}
-      />
+      {showReviewModal && (
+        <div className="review-modal">
+          <div className="review-modal-content">
+            <h3>리뷰 작성</h3>
+            <div className="modal-input-group">
+              <label htmlFor="rating">평점:</label>
+              <input
+                type="number"
+                id="rating"
+                value={newReview.rating}
+                onChange={(e) => {
+                  const value = Math.min(
+                    5,
+                    Math.max(0, parseFloat(e.target.value) || 0),
+                  );
+                  setNewReview((prev) => ({ ...prev, rating: value }));
+                }}
+                placeholder="0 ~ 5"
+                step="0.5"
+                min="0"
+                max="5"
+              />
+            </div>
+            <div className="modal-input-group">
+              <label htmlFor="contents">리뷰 내용:</label>
+              <textarea
+                id="contents"
+                value={newReview.contents}
+                onChange={(e) =>
+                  setNewReview({ ...newReview, contents: e.target.value })
+                }
+                placeholder="리뷰 내용을 입력하세요."
+              />
+            </div>
+            <div className="modal-input-group">
+              <label htmlFor="file">파일 선택:</label>
+              <input
+                type="file"
+                id="file"
+                accept="image/*"
+                onChange={(e) =>
+                  setNewReview({ ...newReview, file: e.target.files[0] })
+                }
+              />
+            </div>
+            <div className="review-modal-buttons">
+              <button className="btn-submit" onClick={handleCreateReview}>
+                리뷰 제출
+              </button>
+              <button
+                className="btn-cancel"
+                onClick={() => setShowReviewModal(false)}
+              >
+                취소
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Detail;
+export default Reviews;
 
+*/

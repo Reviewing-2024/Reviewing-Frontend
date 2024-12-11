@@ -26,6 +26,7 @@ const Reviews = () => {
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("Authorization");
     console.log("저장된 토큰:", token);
+
     if (!token || token.trim() === "") {
       alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
       return false;
@@ -39,15 +40,19 @@ const Reviews = () => {
         const response = await axios.get(
           `http://localhost:8080/courses/${slug}`,
         );
-        setCourse(response.data);
+        const courseData = response.data;
+        setCourse({
+          ...courseData,
+          wished: courseData.wished ?? false, // 초기 상태 설정
+        });
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching course:", error.message);
         alert("강의 정보를 불러오는 중 문제가 발생했습니다.");
       }
     };
 
     if (!course) fetchCourse();
-  }, [slug, course]);
+  }, [slug]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -131,19 +136,23 @@ const Reviews = () => {
     alert("강의가 찜 목록에 추가되었습니다!");
   };
 
-  const handleWish = async (courseId, wished) => {
+  const handleWish = async (courseId, currentWishedState) => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
     }
 
+    // 반전된 상태로 요청
+    const newWishedState = !currentWishedState;
+
     try {
+      console.log(`Sending wish request: wished=${newWishedState}`);
       const response = await axios.post(
         `http://localhost:8080/courses/${courseId}/wish`,
         null,
         {
-          params: { wished },
+          params: { wished: newWishedState },
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -151,15 +160,18 @@ const Reviews = () => {
       );
 
       const updatedCourse = response.data;
-
       setCourse((prev) => ({
         ...prev,
         ...updatedCourse,
+        wished: newWishedState, // 반전된 상태로 업데이트
       }));
     } catch (error) {
-      console.error("찜 처리 중 오류:", error.response?.data || error.message);
+      console.error(
+        "찜하기 처리 중 오류:",
+        error.response?.data || error.message,
+      );
       alert(
-        `찜 처리 중 오류가 발생했습니다: ${
+        `찜하기 처리 중 오류가 발생했습니다: ${
           error.response?.data?.message || error.message
         }`,
       );
@@ -176,62 +188,88 @@ const Reviews = () => {
       alert("로그인이 필요합니다.");
       return;
     }
-
+  
+    // 반전된 liked 상태로 요청
+    const newLikedState = !liked;
+  
     try {
+      console.log(`현재 liked 상태: ${liked}`);
+      console.log(`보낼 liked 상태: ${newLikedState}`);
+  
       const response = await axios.post(
         `http://localhost:8080/reviews/${reviewId}/like`,
         null,
         {
-          params: { liked },
+          params: { liked: newLikedState },
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
-
-      const updatedReview = response.data;
+  
+      console.log("서버 응답:", response.data);
+  
+      // 리뷰 상태 업데이트
       setReviews((prevReviews) =>
         prevReviews.map((review) =>
-          review.id === reviewId ? { ...review, ...updatedReview } : review,
-        ),
+          review.id === reviewId ? { ...review, liked: newLikedState } : review
+        )
       );
     } catch (error) {
-      console.error("Error updating like status:", error);
-      alert("좋아요 상태를 업데이트하는 중 오류가 발생했습니다.");
+      console.error("좋아요 상태 업데이트 중 오류:", error.response || error.message);
+      alert(
+        `좋아요 상태 업데이트 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`
+      );
     }
   };
-
+  
   const handleDislike = async (reviewId, disliked) => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
     }
-
+  
+    // 반전된 disliked 상태로 요청
+    const newDislikedState = !disliked;
+  
     try {
+      console.log(`현재 disliked 상태: ${disliked}`);
+      console.log(`보낼 disliked 상태: ${newDislikedState}`);
+  
       const response = await axios.post(
         `http://localhost:8080/reviews/${reviewId}/dislike`,
         null,
         {
-          params: { disliked },
+          params: { disliked: newDislikedState },
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        },
+        }
       );
-
-      const updatedReview = response.data;
+  
+      console.log("서버 응답:", response.data);
+  
+      // 리뷰 상태 업데이트
       setReviews((prevReviews) =>
         prevReviews.map((review) =>
-          review.id === reviewId ? { ...review, ...updatedReview } : review,
-        ),
+          review.id === reviewId
+            ? { ...review, disliked: newDislikedState }
+            : review
+        )
       );
     } catch (error) {
-      console.error("Error updating dislike status:", error);
-      alert("싫어요 상태를 업데이트하는 중 오류가 발생했습니다.");
+      console.error("싫어요 상태 업데이트 중 오류:", error.response || error.message);
+      alert(
+        `싫어요 상태 업데이트 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`
+      );
     }
   };
-
+  
   if (!course) return <div>로딩 중...</div>;
 
   return (
@@ -251,11 +289,16 @@ const Reviews = () => {
           </p>
           <div className="course-actions">
             <button
-              className={`btn btn-wish ${course.wished ? "active" : ""}`}
-              onClick={() => handleWish(course.id, !course.wished)}
+              className="btn btn-wish"
+              onClick={() => handleWish(course.id, course.wished)}
             >
-              {course.wished ? "찜 취소" : "찜하기"} {course.wishes}
+              {course.wished ? (
+                <FaStar color="#ffd700" size={24} /> // 찜 상태: 노란 별
+              ) : (
+                <FaRegStar color="#ccc" size={24} /> // 찜 취소 상태: 빈 별
+              )}
             </button>
+
             <button className="btn btn-cart" onClick={handleCart}>
               <FaCartPlus />
             </button>
