@@ -5,7 +5,7 @@ import axios from "axios";
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const correctPassword = "review1234##"; 
+  const correctPassword = "review1234##";
 
   const [activeCategory, setActiveCategory] = useState("pending");
   const [subCategory, setSubCategory] = useState("requests");
@@ -13,7 +13,7 @@ const AdminPage = () => {
   const [expandedReview, setExpandedReview] = useState(null);
   const [rejectReason, setRejectReason] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [currentReviewId, setCurrentReviewId] = useState(null); 
+  const [currentReviewId, setCurrentReviewId] = useState(null);
 
   axios.defaults.baseURL = "http://localhost:8080";
 
@@ -43,7 +43,7 @@ const AdminPage = () => {
   const handleExpandReview = (id) => {
     if (reviews.length > 0) {
       setExpandedReview(expandedReview === id ? null : id);
-      console.log("Expanded Review ID:", id); 
+      console.log("Expanded Review ID:", id);
     }
   };
 
@@ -54,8 +54,7 @@ const AdminPage = () => {
 
   const handleReviewAction = async (reviewId, action) => {
     console.log("Action:", action);
-    console.log("Review ID for Action:", reviewId); 
-
+    console.log("Review ID for Action:", reviewId);
 
     if (!reviewId) {
       alert("리뷰 ID가 유효하지 않습니다. 다시 시도해주세요.");
@@ -63,15 +62,20 @@ const AdminPage = () => {
     }
 
     const url = `/admin/reviews/${reviewId}/${action}`;
-    const payload = action === "reject" ? { rejectionReason: rejectReason } : {};
+    const payload =
+      action === "reject" ? { rejectionReason: rejectReason } : {};
 
-    console.log("Payload:", payload); 
+    console.log("Payload:", payload);
 
     try {
       await axios.patch(url, payload);
-      alert(action === "approve" ? "리뷰가 승인되었습니다!" : "리뷰가 거절되었습니다!");
-      fetchReviews(); 
-      closeModal(); 
+      alert(
+        action === "approve"
+          ? "리뷰가 승인되었습니다!"
+          : "리뷰가 거절되었습니다!",
+      );
+      fetchReviews();
+      closeModal();
       setExpandedReview(null);
     } catch (error) {
       console.error(`Error ${action}ing review:`, error);
@@ -174,17 +178,22 @@ const AdminPage = () => {
                 <div className="review-actions">
                   <button
                     className="accept-btn"
-                    onClick={() => handleReviewAction(review.reviewId, "approve")}
+                    onClick={() =>
+                      handleReviewAction(review.reviewId, "approve")
+                    }
                   >
                     Accept
                   </button>
                   <button
                     className="reject-btn"
                     onClick={() => {
-                      console.log("Reject Button Clicked, Review ID:", review.reviewId);
-                      setRejectReason(""); 
-                      setCurrentReviewId(review.reviewId); 
-                      setShowModal(true); 
+                      console.log(
+                        "Reject Button Clicked, Review ID:",
+                        review.reviewId,
+                      );
+                      setRejectReason("");
+                      setCurrentReviewId(review.reviewId);
+                      setShowModal(true);
                     }}
                   >
                     Reject
@@ -247,8 +256,11 @@ const AdminPage = () => {
             </ul>
             <button
               onClick={() => {
-                console.log("Submitting Reject for Review ID:", currentReviewId);
-                handleReviewAction(currentReviewId, "reject"); 
+                console.log(
+                  "Submitting Reject for Review ID:",
+                  currentReviewId,
+                );
+                handleReviewAction(currentReviewId, "reject");
               }}
             >
               예
