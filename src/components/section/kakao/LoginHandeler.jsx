@@ -20,10 +20,10 @@ const LoginHandeler = () => {
       })
       .then((res) => {
         console.log(res);
-        let token = res.headers.get('Authorization');
-        console.log(token); 
+        const token = res.headers.get('Authorization');
+        const accessToken = token.replace('Bearer ', '');
         
-        localStorage.setItem('Authorization', token);
+        localStorage.setItem('Authorization', accessToken);
         localStorage.setItem('name', res.data.nickname); 
         navigate('/');     
         window.location.reload();

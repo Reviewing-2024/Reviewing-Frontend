@@ -8,7 +8,7 @@ body, html {
     position: fixed;
     left: 0;
     top: 0;
-    width: 290px;
+    width: 270px;
     height: 90vh;
     overflow-y: auto;
     z-index: 10;
@@ -22,7 +22,7 @@ body, html {
     max-width: 2000px;
     min-height: 100vh;
     background-color: #fdfdfd;
-    padding-left: 300px;
+    padding-left: 280px;
     padding-top: 80px;
     color: #1b1c1d
 }
@@ -30,7 +30,7 @@ body, html {
 #footer {
     text-align: center;
     color: #1b1c1d;
-    padding: 20px 20px 20px 290px;
+    padding: 20px 20px 20px 250px;
     background-color: #fdfdfd;
 }
 

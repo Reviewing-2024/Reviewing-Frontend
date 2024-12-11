@@ -28,6 +28,7 @@
     border: 2px solid #fdfdfd;
 }
 
+
 .header__keyword .keyword {
     border-bottom: 1px solid #88BAF7;
     padding: 9px;
@@ -59,6 +60,11 @@
     cursor: pointer;
 }
 
+.header__codingsite {
+    display: flex;
+    border-bottom: 1px solid #88BAF7;
+}
+
 
 .header__sns ul {
     display: flex;
@@ -87,6 +93,7 @@
 .header__sns li a:hover {
     color: #88BAF7;
 }
+
 
 
 
@@ -155,4 +162,5 @@
   .review-button button:hover {
     background-color: #659BE3;
   }
+  
   

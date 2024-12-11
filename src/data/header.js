@@ -18,6 +18,18 @@ export const headerMenus = [
         color: "#00c471"
     },
     {
+        title: "패스트캠퍼스",
+        icon: <SiDota2 />,
+        src: "/fastcampus",
+        color: "#D4003A" 
+    },
+    {
+        title: "코드잇",
+        icon: <BsCCircleFill />,
+        src: "/codeit",
+        color: "#93f" 
+    },
+    {
         title: "노마드코더",
         icon: <SiNuxtdotjs />,
         src: "/nomad",
@@ -28,18 +40,6 @@ export const headerMenus = [
         icon: <SiUdemy />,
         src: "/udemy",
         color: "#A435F0"
-    },
-    {
-        title: "패스트 캠퍼스",
-        icon: <SiDota2 />,
-        src: "/fastcampus",
-        color: "#D4003A" 
-    },
-    {
-        title: "코드잇",
-        icon: <BsCCircleFill />,
-        src: "/codeit",
-        color: "#93f" 
     },
     {
         title: "K-MOOC",
@@ -57,36 +57,69 @@ export const headerMenus = [
 
 export const searchKeyword = [
     {
+        title: "웹 개발",
+        src: "/web-dev"
+    },
+    {
         title: "프론트엔드",
-        src: "/frontend"
+        src: "/front-end"
     },
     {
         title: "백엔드",
-        src: "/backend"
+        src: "/back-end"
+    }
+];
+
+export const fastKeyword = [
+    {
+        title: "프론트엔드 개발",
+        src: "/front"
     },
     {
-        title: "풀스택",
-        src: "/fullstack"
+        title: "백엔드 개발",
+        src: "/back"
     },
     {
         title: "모바일 앱 개발",
-        src: "/mobileapp"
+        src: "/app"
     },
     {
-        title: "데이터베이스",
-        src: "/database"
+        title: "DevOps/Infra",
+        src: "/devops"
+    }
+];
+
+export const codeitKeyword = [
+    {
+        title: "프론트엔드",
+        src: "/FRONTEND"
     },
     {
-        title: "게임 개발",
-        src: "/game"
+        title: "백엔드",
+        src: "/BACKEND"
     },
     {
-        title: "데브옵스-인프라",
-        src: "/infra"
+        title: "풀스텍",
+        src: "/FULLSTACK"
+    }
+];
+
+export const codingsite = [
+    {
+        title: "Programmers",
+        src: "https://programmers.co.kr/"
     },
     {
-        title: "기타",
-        src: "/etc"
+        title: "LeetCode",
+        src: "https://leetcode.com/problemset/"
+    },
+    {
+        title: "BAEKJOON",
+        src: "https://www.acmicpc.net/"
+    },
+    {
+        title: "CodeUp",
+        src: "https://codeup.kr/"
     }
 ];
 
