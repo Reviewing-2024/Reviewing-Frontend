@@ -131,7 +131,7 @@ const Reviews = () => {
     alert("강의가 찜 목록에 추가되었습니다!");
   };
 
-  const handleWish = async (courseId, wished) => {
+  const handleWish = async (courseId) => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
@@ -139,32 +139,43 @@ const Reviews = () => {
     }
 
     try {
+      console.log("보낼 wished 상태: false");
+
       const response = await axios.post(
         `http://localhost:8080/courses/${courseId}/wish`,
         null,
         {
-          params: { wished },
+          params: { wished: false },
           headers: {
             Authorization: `Bearer ${token}`,
           },
         },
       );
 
-      const updatedCourse = response.data;
+      console.log("서버 응답:", response.data);
 
-      setCourse((prev) => ({
-        ...prev,
-        ...updatedCourse,
-      }));
+      setCourse((prevCourse) => {
+        if (prevCourse && prevCourse.id === courseId) {
+          return {
+            ...prevCourse,
+            wished: response.data.wished,
+          };
+        }
+        return prevCourse;
+      });
     } catch (error) {
-      console.error("찜 처리 중 오류:", error.response?.data || error.message);
+      console.error(
+        "찜하기 처리 중 오류:",
+        error.response?.data || error.message,
+      );
       alert(
-        `찜 처리 중 오류가 발생했습니다: ${
+        `찜하기 처리 중 오류가 발생했습니다: ${
           error.response?.data?.message || error.message
         }`,
       );
     }
   };
+
 
   const handleView = () => {
     window.open(course.url, "_blank");
@@ -250,15 +261,24 @@ const Reviews = () => {
             {course.teacher || "강사 없음"} 강사
           </p>
           <div className="course-actions">
-            <button
-              className={`btn btn-wish ${course.wished ? "active" : ""}`}
-              onClick={() => handleWish(course.id, !course.wished)}
+          <button
+              className="btn btn-wish"
+              style={{
+                backgroundColor: course.wished ? "#fff" : "#fff",
+                border: "1px solid #ffd700",
+                borderRadius: "5px",
+                padding: "10px",
+                cursor: "pointer",
+              }}
+              onClick={() => handleWish(course.id)}
             >
-              {course.wished ? "찜 취소" : "찜하기"} {course.wishes}
+              {course.wished ? (
+                <FaStar color="#ffd700" size={12} />
+              ) : (
+                <FaRegStar color="#ffd700" size={12} />
+              )}
             </button>
-            <button className="btn btn-cart" onClick={handleCart}>
-              <FaCartPlus />
-            </button>
+
             <button className="btn btn-view" onClick={handleView}>
               <MdScreenSearchDesktop />
             </button>
