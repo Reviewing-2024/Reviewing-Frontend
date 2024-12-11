@@ -61,8 +61,31 @@
 }
 
 .header__codingsite {
-    display: flex;
     border-bottom: 1px solid #88BAF7;
+    text-decoration-line: none;
+}
+
+.codingsite {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+
+.codingsite li {
+    list-style: none;
+    margin: 0px 16px;
+}
+
+
+.codingsite img {
+    width: 35px;
+    height: 35px;
+    transition: 0.5s;
+}
+
+.codingsite img:hover {
+    transform: scale(1.3);
 }
 
 

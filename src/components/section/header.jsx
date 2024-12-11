@@ -103,12 +103,12 @@ const Header = () => {
                 )}
             </div>
             <div className="header__codingsite">
-                <h2>관련 <br />사이트</h2>
+                <h2>관련 사이트</h2>
                 <ul className="codingsite">
                     {codingsite.map((codingsite, key) => (
                         <li key={key}>
-                            <Link target="_blank" to={codingsite.src}>
-                                <div className="menu-title">{codingsite.title}</div>
+                            <Link target="_blank" to={codingsite.src}>       
+                                <img  src= {codingsite.icon} /> 
                             </Link>
                         </li>
                     ))}
@@ -116,6 +116,7 @@ const Header = () => {
             </div>
 
             <div className='header__sns'>
+            <h2>SNS</h2>
                 <ul>
                     {snsLink.map((sns, key) => (
                         <li key={key}>
