@@ -16,7 +16,7 @@ const Reviews = () => {
   const [sortOption, setSortOption] = useState('latest');
   const [likedReviews, setLikedReviews] = useState({});
   const [dislikedReviews, setDislikedReviews] = useState({});
-  const [newReview, setNewReview] = useState({ rating: 0, comments: '', file: null });
+  const [newReview, setNewReview] = useState({ rating: 0, contents: '', file: null });
   const [showReviewModal, setShowReviewModal] = useState(false);
 
   const isUserLoggedIn = () => {
@@ -58,7 +58,7 @@ const Reviews = () => {
   }, [slug]);
 
   const handleCreateReview = async () => {
-    console.log('리뷰 상태 확인:', newReview); 
+    console.log('리뷰 상태 확인:', newReview);
     const token = localStorage.getItem('Authorization');
     if (!token) {
       alert('로그인을 하셔야 해당 기능을 사용할 수 있습니다!');
@@ -70,19 +70,22 @@ const Reviews = () => {
       return;
     }
   
-    const reviewRequestDto = {
-      rating: newReview.rating, 
-      comment: newReview.comments,
-    };
+    const formData = new FormData();
+    formData.append('reviewRequestDto', new Blob([JSON.stringify({
+      rating: newReview.rating,
+      contents: newReview.contents, 
+    })], { type: 'application/json' }));
+    if (newReview.file) {
+      formData.append('certificationFile', newReview.file);
+    }
   
-    console.log('요청 데이터:', reviewRequestDto);
     try {
       const response = await axios.post(
         `http://localhost:8080/reviews/${course.id}`,
-        reviewRequestDto,
+        formData,
         {
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'multipart/form-data',
             Authorization: `${token}`,
           },
         }
@@ -92,7 +95,7 @@ const Reviews = () => {
       alert('리뷰가 작성되었습니다!');
       setReviews((prev) => [...prev, response.data]);
       setShowReviewModal(false);
-      setNewReview({ rating: 0, comments: '', file: null });
+      setNewReview({ rating: 0, contents: '', file: null }); 
     } catch (error) {
       console.error('리뷰 작성 에러:', error.response?.data || error.message);
       alert('리뷰 작성 중 문제가 발생했습니다: ' + (error.response?.data?.message || error.message));
@@ -106,6 +109,42 @@ const Reviews = () => {
     alert('강의가 찜 목록에 추가되었습니다!');
   };
 
+  const handleWish = async (courseId, wished) => {
+    const token = localStorage.getItem('Authorization');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+  
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/courses/${courseId}/wish`,
+        null, // Body가 필요 없으므로 null
+        {
+          params: { wished }, // wished=true 또는 wished=false
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
+      // 서버에서 반환된 업데이트된 코스 데이터로 상태를 갱신
+      const updatedCourse = response.data;
+  
+      setCourse((prev) => ({
+        ...prev,
+        ...updatedCourse,
+      }));
+    } catch (error) {
+      console.error('찜 처리 중 오류:', error.response?.data || error.message);
+      alert(
+        `찜 처리 중 오류가 발생했습니다: ${
+          error.response?.data?.message || error.message
+        }`
+      );
+    }
+  };
+  
   const handleView = () => {
     window.open(course.url, '_blank');
   };
@@ -134,26 +173,36 @@ const Reviews = () => {
         }
       );
   
+      const updatedLikes = response.data.likes;
+      const updatedDislikes = response.data.dislikes;
+  
       setReviews((prev) =>
-        prev.map((review) =>
-          review.id === reviewId
-            ? {
+        prev.map((review) => {
+          if (review.id === reviewId) {
+            if (type === 'like') {
+              return {
                 ...review,
-                likes: response.data.likes,
-                dislikes: response.data.dislikes,
-                liked: type === 'like' ? !review.liked : review.liked,
-                disliked: type === 'dislike' ? !review.disliked : review.disliked,
-              }
-            : review
-        )
+                liked: newState,
+                likes: updatedLikes, 
+              };
+            }
+            if (type === 'dislike') {
+              return {
+                ...review,
+                disliked: newState,
+                dislikes: updatedDislikes, 
+              };
+            }
+          }
+          return review;
+        })
       );
     } catch (error) {
       console.error(`${type === 'like' ? '좋아요' : '싫어요'} 처리 중 오류:`, error);
       alert('오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
-  
-  
+    
 
   if (!course) return <div>로딩 중...</div>;
 
@@ -167,13 +216,20 @@ const Reviews = () => {
           <h2 className="course-title">{course.title}</h2>
           <p className="instructor-name">{course.teacher || '강사 없음'} 강사</p>
           <div className="course-actions">
-            <button className="btn btn-cart" onClick={handleCart}>
-              <FaCartPlus />
-            </button>
-            <button className="btn btn-view" onClick={handleView}>
-              <MdScreenSearchDesktop />
-            </button>
-          </div>
+  <button
+    className={`btn btn-wish ${course.wished ? 'active' : ''}`}
+    onClick={() => handleWish(course.id, !course.wished)}
+  >
+    {course.wished ? '찜 취소' : '찜하기'} {course.wishes}
+  </button>
+  <button className="btn btn-cart" onClick={handleCart}>
+    <FaCartPlus />
+  </button>
+  <button className="btn btn-view" onClick={handleView}>
+    <MdScreenSearchDesktop />
+  </button>
+</div>
+
         </div>
       </header>
       <section className="review-section">
@@ -202,23 +258,23 @@ const Reviews = () => {
             </div>
             <p className="review-content">{review.contents}</p>
             <div className="review-actions">
-              <div className="review-action">
-                <button
-                  className={`btn-icon ${review.likedByUser ? 'active' : ''}`}
-                  onClick={() => handleLikeDislike(review.id, 'like', review.likedByUser)}
-                >
-                  <FaThumbsUp /> 좋아요 {review.likes}
-                </button>
-              </div>
-              <div className="review-action">
-                <button
-                  className={`btn-icon ${review.dislikedByUser ? 'active' : ''}`}
-                  onClick={() => handleLikeDislike(review.id, 'dislike', review.dislikedByUser)}
-                >
-                  <FaThumbsDown /> 싫어요 {review.dislikes}
-                </button>
-              </div>
-            </div>
+            <div className="review-actions">
+  <button
+    className={`btn-icon ${review.liked ? 'active' : ''}`}
+    onClick={() => handleLikeDislike(review.id, 'like', review.liked)}
+  >
+    <FaThumbsUp /> 좋아요 {review.likes}
+  </button>
+  <button
+    className={`btn-icon ${review.disliked ? 'active' : ''}`}
+    onClick={() => handleLikeDislike(review.id, 'dislike', review.disliked)}
+  >
+    <FaThumbsDown /> 싫어요 {review.dislikes}
+  </button>
+</div>
+
+</div>
+
           </div>
   ))}
 </div>
@@ -247,11 +303,11 @@ const Reviews = () => {
         />
       </div>
       <div className="modal-input-group">
-        <label htmlFor="comments">리뷰 내용:</label>
+        <label htmlFor="contents">리뷰 내용:</label>
         <textarea
-          id="comments"
-          value={newReview.comments}
-          onChange={(e) => setNewReview({ ...newReview, comments: e.target.value })}
+          id="contents"
+          value={newReview.contents}
+          onChange={(e) => setNewReview({ ...newReview, contents: e.target.value })}
           placeholder="리뷰 내용을 입력하세요."
         />
       </div>
