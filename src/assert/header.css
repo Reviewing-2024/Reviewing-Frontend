@@ -28,6 +28,7 @@
     border: 2px solid #fdfdfd;
 }
 
+
 .header__keyword .keyword {
     border-bottom: 1px solid #88BAF7;
     padding: 9px;
@@ -87,6 +88,7 @@
 .header__sns li a:hover {
     color: #88BAF7;
 }
+
 
 
 

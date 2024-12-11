@@ -24,8 +24,8 @@ const Mypageheader = () => {
         localStorage.removeItem('name');
         localStorage.removeItem('Authorization');
         setName(null);
-        navigate('/');
         window.location.reload();
+        navigate('/');
     };
 
     const handleEditToggle = () => {
@@ -36,13 +36,13 @@ const Mypageheader = () => {
     const handleNicknameChange = async () => {
         try {
             const token = localStorage.getItem('Authorization');
-            const response = await axios.post(
-                '/my/nickname',
+            const response = await axios.put(
+                'http://localhost:8080/my/nickname',
                 { nickName: newName },
                 {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `${token}`,
+                        'Authorization': `Bearer ${token}`,
                     },
                 }
             );
@@ -51,12 +51,13 @@ const Mypageheader = () => {
                 setName(newName);
                 localStorage.setItem('name', newName);
                 setIsEditing(false);
-                alert('Nickname updated successfully!');
+                window.location.reload();
+                alert('닉네임 변경에 성공하였습니다!');
             } else {
-                alert('Failed to update nickname.');
+                alert('닉네임 변경에 실패하였습니다.');
             }
         } catch (error) {
-            console.error('Error updating nickname:', error);
+            console.error( error);
             alert('닉네임 변경 중 오류가 발생 하였습니다.');
         }
     };

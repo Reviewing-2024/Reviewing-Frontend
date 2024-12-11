@@ -9,7 +9,7 @@ import Footer from './components/section/footer';
 
 import Home from './components/pages/home';
 import Inflearn from './components/pages/inflearn';
-import InflearnGenre from './components/pages/inflearnGenre';
+import CoursesPage from './components/pages/coursesPage';
 import Nomad from './components/pages/nomad';
 import Codeit from './components/pages/codeit';
 import Udemy from './components/pages/udemy';
@@ -41,7 +41,7 @@ const Layout = () => {
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/inflearn' element={<Inflearn />} />
-                    <Route path='/inflearn/:genre' element={<InflearnGenre />} />
+                    <Route path="/courses/:platform/:category" element={<CoursesPage />} />
                     <Route path='/nomad' element={<Nomad />} />
                     <Route path='/codeit' element={<Codeit />} />
                     <Route path='/udemy' element={<Udemy />} />
