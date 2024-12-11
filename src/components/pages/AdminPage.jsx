@@ -13,6 +13,7 @@ const AdminPage = () => {
   const [expandedReview, setExpandedReview] = useState(null);
   const [rejectReason, setRejectReason] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [currentReviewId, setCurrentReviewId] = useState(null); // 현재 선택된 리뷰 ID
 
   axios.defaults.baseURL = "http://localhost:8080";
 
@@ -42,6 +43,7 @@ const AdminPage = () => {
   const handleExpandReview = (id) => {
     if (reviews.length > 0) {
       setExpandedReview(expandedReview === id ? null : id);
+      console.log("Expanded Review ID:", id); // 디버깅
     }
   };
 
@@ -51,14 +53,25 @@ const AdminPage = () => {
   };
 
   const handleReviewAction = async (reviewId, action) => {
+    console.log("Action:", action);
+    console.log("Review ID for Action:", reviewId); // 디버깅
+
+    if (!reviewId) {
+      alert("리뷰 ID가 유효하지 않습니다. 다시 시도해주세요.");
+      return;
+    }
+
     const url = `/admin/reviews/${reviewId}/${action}`;
+    const payload = action === "reject" ? { rejectionReason: rejectReason } : {};
+
+    console.log("Payload:", payload); // 디버깅
 
     try {
-      await axios.patch(url, { reason: rejectReason });
+      await axios.patch(url, payload);
       alert(action === "approve" ? "리뷰가 승인되었습니다!" : "리뷰가 거절되었습니다!");
-      fetchReviews();
-      closeModal();
-      setExpandedReview(null);
+      fetchReviews(); // 리뷰 목록 갱신
+      closeModal(); // 모달 닫기
+      setExpandedReview(null); // 확장된 리뷰 초기화
     } catch (error) {
       console.error(`Error ${action}ing review:`, error);
       alert("요청을 처리하는 중 오류가 발생했습니다. 다시 시도해주세요.");
@@ -166,7 +179,12 @@ const AdminPage = () => {
                   </button>
                   <button
                     className="reject-btn"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                      console.log("Reject Button Clicked, Review ID:", review.reviewId); // 디버깅
+                      setRejectReason(""); // 이유 초기화
+                      setCurrentReviewId(review.reviewId); // 현재 리뷰 ID 저장
+                      setShowModal(true); // 모달 열기
+                    }}
                   >
                     Reject
                   </button>
@@ -226,7 +244,12 @@ const AdminPage = () => {
                 </label>
               </li>
             </ul>
-            <button onClick={() => handleReviewAction(expandedReview, "reject")}>
+            <button
+              onClick={() => {
+                console.log("Submitting Reject for Review ID:", currentReviewId); // 디버깅
+                handleReviewAction(currentReviewId, "reject"); // 현재 리뷰 ID 전달
+              }}
+            >
               예
             </button>
             <button onClick={closeModal}>취소</button>

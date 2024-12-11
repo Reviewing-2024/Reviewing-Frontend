@@ -58,7 +58,7 @@ const Reviews = () => {
   }, [slug]);
 
   const handleCreateReview = async () => {
-    // 수정된 토큰 가져오기
+    console.log('리뷰 상태 확인:', newReview); // 상태 확인 추가
     const token = localStorage.getItem('Authorization');
     if (!token) {
       alert('로그인을 하셔야 해당 기능을 사용할 수 있습니다!');
@@ -70,46 +70,37 @@ const Reviews = () => {
       return;
     }
   
-    // FormData 생성
-    const formData = new FormData();
-  
-    // reviewRequestDto를 JSON으로 추가
     const reviewRequestDto = {
-      rating: newReview.rating, // 명세에 따른 필드 이름
-      comment: newReview.comments, // 명세에 따른 필드 이름
+      rating: newReview.rating, // 상태에서 값 가져오기
+      comment: newReview.comments,
     };
-    formData.append('reviewRequestDto', new Blob([JSON.stringify(reviewRequestDto)], { type: 'application/json' }));
   
-    // 파일 추가
-    if (newReview.file) {
-      formData.append('certificationFile', newReview.file);
-    }
-  
+    console.log('요청 데이터:', reviewRequestDto);
     try {
-      // 요청 전송
       const response = await axios.post(
         `http://localhost:8080/reviews/${course.id}`,
-        formData,
+        reviewRequestDto,
         {
           headers: {
+            'Content-Type': 'application/json',
             Authorization: `${token}`,
-            'Content-Type': 'multipart/form-data',
           },
         }
       );
   
       console.log('리뷰 작성 성공:', response.data);
       alert('리뷰가 작성되었습니다!');
-      setReviews((prev) => [...prev, response.data]); // 리뷰 목록 갱신
-      setShowReviewModal(false); // 모달 닫기
-      setNewReview({ rating: 0, comments: '', file: null }); // 입력값 초기화
+      setReviews((prev) => [...prev, response.data]);
+      setShowReviewModal(false);
+      setNewReview({ rating: 0, comments: '', file: null });
     } catch (error) {
       console.error('리뷰 작성 에러:', error.response?.data || error.message);
       alert('리뷰 작성 중 문제가 발생했습니다: ' + (error.response?.data?.message || error.message));
     }
   };
   
-  
+
+    
   const handleCart = () => {
     if (!isUserLoggedIn()) return;
     alert('강의가 찜 목록에 추가되었습니다!');
@@ -119,35 +110,50 @@ const Reviews = () => {
     window.open(course.url, '_blank');
   };
 
-  const handleLikeDislike = async (reviewId, type, isLiked) => {
-    if (!isUserLoggedIn()) return;
-
-    const method = isLiked ? 'DELETE' : 'POST';
+  const handleLikeDislike = async (reviewId, type, currentState) => {
+    const token = localStorage.getItem('Authorization');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+  
+    const url = `http://localhost:8080/reviews/${reviewId}/${type}`;
+    const newState = !currentState;
+  
     try {
-      await axios({
-        method,
-        url: `/reviews/${reviewId}/${type}`,
-        headers: { Authorization: `Bearer ${localStorage.getItem('Token')}` },
-      });
-
+      const response = await axios.post(
+        url,
+        {},
+        {
+          params: {
+            [type === 'like' ? 'liked' : 'disliked']: newState,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+  
       setReviews((prev) =>
         prev.map((review) =>
           review.id === reviewId
             ? {
                 ...review,
-                likes: type === 'like' ? review.likes + (isLiked ? -1 : 1) : review.likes,
-                dislikes: type === 'dislike' ? review.dislikes + (isLiked ? -1 : 1) : review.dislikes,
-                likedByUser: type === 'like' ? !isLiked : review.likedByUser,
-                dislikedByUser: type === 'dislike' ? !isLiked : review.dislikedByUser,
+                likes: response.data.likes,
+                dislikes: response.data.dislikes,
+                liked: type === 'like' ? !review.liked : review.liked,
+                disliked: type === 'dislike' ? !review.disliked : review.disliked,
               }
             : review
         )
       );
     } catch (error) {
-      console.error(error);
-      alert(`${type === 'like' ? '좋아요' : '싫어요'} 처리 중 문제가 발생했습니다.`);
+      console.error(`${type === 'like' ? '좋아요' : '싫어요'} 처리 중 오류:`, error);
+      alert('오류가 발생했습니다. 다시 시도해주세요.');
     }
   };
+  
+  
 
   if (!course) return <div>로딩 중...</div>;
 
@@ -177,10 +183,10 @@ const Reviews = () => {
           </button>
         </div>
         <div className="review-list">
-          {reviews.map((review) => (
-            <div key={review.id} className="review-item">
-              <p>{review.nickname}</p>
-              <p>{review.comments}</p>
+  {reviews.map((review) => (
+            <div key={review.id} className="review-card">
+            <div className="review-header">
+              <p className="review-author">{review.nickname}</p>
               <div className="review-rating">
                 {Array.from({ length: 5 }, (_, index) => {
                   const starValue = index + 1;
@@ -194,31 +200,82 @@ const Reviews = () => {
                 })}
               </div>
             </div>
-          ))}
-        </div>
+            <p className="review-content">{review.contents}</p>
+            <div className="review-actions">
+              <div className="review-action">
+                <button
+                  className={`btn-icon ${review.likedByUser ? 'active' : ''}`}
+                  onClick={() => handleLikeDislike(review.id, 'like', review.likedByUser)}
+                >
+                  <FaThumbsUp /> 좋아요 {review.likes}
+                </button>
+              </div>
+              <div className="review-action">
+                <button
+                  className={`btn-icon ${review.dislikedByUser ? 'active' : ''}`}
+                  onClick={() => handleLikeDislike(review.id, 'dislike', review.dislikedByUser)}
+                >
+                  <FaThumbsDown /> 싫어요 {review.dislikes}
+                </button>
+              </div>
+            </div>
+          </div>
+  ))}
+</div>
+
+
       </section>
 
       {showReviewModal && (
-        <div className="review-modal">
-          <h3>리뷰 작성</h3>
-          <textarea
-            value={newReview.comment}
-            onChange={(e) => setNewReview({ ...newReview, comments: e.target.value })}
-            placeholder="리뷰 내용을 입력하세요."
-          />
-          <StarRatingComponent
-            value={newReview.rating}
-            onStarClick={(nextValue) => setNewReview({ ...newReview, rating: nextValue })}
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setNewReview({ ...newReview, file: e.target.files[0] })}
-          />
-          <button onClick={handleCreateReview}>리뷰 제출</button>
-          <button onClick={() => setShowReviewModal(false)}>취소</button>
-        </div>
-      )}
+  <div className="review-modal">
+    <div className="review-modal-content">
+      <h3>리뷰 작성</h3>
+      <div className="modal-input-group">
+        <label htmlFor="rating">평점:</label>
+        <input
+          type="number"
+          id="rating"
+          value={newReview.rating}
+          onChange={(e) => {
+            const value = Math.min(5, Math.max(0, parseFloat(e.target.value) || 0)); // 0 ~ 5 제한
+            setNewReview((prev) => ({ ...prev, rating: value }));
+          }}
+          placeholder="0 ~ 5"
+          step="0.5"
+          min="0"
+          max="5"
+        />
+      </div>
+      <div className="modal-input-group">
+        <label htmlFor="comments">리뷰 내용:</label>
+        <textarea
+          id="comments"
+          value={newReview.comments}
+          onChange={(e) => setNewReview({ ...newReview, comments: e.target.value })}
+          placeholder="리뷰 내용을 입력하세요."
+        />
+      </div>
+      <div className="modal-input-group">
+        <label htmlFor="file">파일 선택:</label>
+        <input
+          type="file"
+          id="file"
+          accept="image/*"
+          onChange={(e) => setNewReview({ ...newReview, file: e.target.files[0] })}
+        />
+      </div>
+      <div className="review-modal-buttons">
+        <button className="btn-submit" onClick={handleCreateReview}>
+          리뷰 제출
+        </button>
+        <button className="btn-cancel" onClick={() => setShowReviewModal(false)}>
+          취소
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
