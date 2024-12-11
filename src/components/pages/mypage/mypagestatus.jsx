@@ -81,6 +81,7 @@ const Mypagestatus = () => {
                                 <span><PiThumbsUpDuotone /> {item.likes}</span>
                                 <span><PiThumbsDownDuotone /> {item.dislikes}</span>
                                 <span className="review-rating">별점: {item.rating}</span>
+                                {item.status === "REJECTED" ?(<span>거절 사유: {item.rejectionReason}</span>):('')}
                                 </div>
                             </div>
                         ))}
