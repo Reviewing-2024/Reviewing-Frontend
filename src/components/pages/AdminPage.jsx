@@ -13,6 +13,7 @@ const AdminPage = () => {
   const [expandedReview, setExpandedReview] = useState(null);
   const [rejectReason, setRejectReason] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [currentReviewId, setCurrentReviewId] = useState(null); 
 
   axios.defaults.baseURL = "http://localhost:8080";
 
@@ -42,6 +43,7 @@ const AdminPage = () => {
   const handleExpandReview = (id) => {
     if (reviews.length > 0) {
       setExpandedReview(expandedReview === id ? null : id);
+      console.log("Expanded Review ID:", id); 
     }
   };
 
@@ -51,13 +53,25 @@ const AdminPage = () => {
   };
 
   const handleReviewAction = async (reviewId, action) => {
+    console.log("Action:", action);
+    console.log("Review ID for Action:", reviewId); 
+
+
+    if (!reviewId) {
+      alert("리뷰 ID가 유효하지 않습니다. 다시 시도해주세요.");
+      return;
+    }
+
     const url = `/admin/reviews/${reviewId}/${action}`;
+    const payload = action === "reject" ? { rejectionReason: rejectReason } : {};
+
+    console.log("Payload:", payload); 
 
     try {
-      await axios.patch(url, { reason: rejectReason });
+      await axios.patch(url, payload);
       alert(action === "approve" ? "리뷰가 승인되었습니다!" : "리뷰가 거절되었습니다!");
-      fetchReviews();
-      closeModal();
+      fetchReviews(); 
+      closeModal(); 
       setExpandedReview(null);
     } catch (error) {
       console.error(`Error ${action}ing review:`, error);
@@ -166,7 +180,12 @@ const AdminPage = () => {
                   </button>
                   <button
                     className="reject-btn"
-                    onClick={() => setShowModal(true)}
+                    onClick={() => {
+                      console.log("Reject Button Clicked, Review ID:", review.reviewId);
+                      setRejectReason(""); 
+                      setCurrentReviewId(review.reviewId); 
+                      setShowModal(true); 
+                    }}
                   >
                     Reject
                   </button>
@@ -226,7 +245,12 @@ const AdminPage = () => {
                 </label>
               </li>
             </ul>
-            <button onClick={() => handleReviewAction(expandedReview, "reject")}>
+            <button
+              onClick={() => {
+                console.log("Submitting Reject for Review ID:", currentReviewId);
+                handleReviewAction(currentReviewId, "reject"); 
+              }}
+            >
               예
             </button>
             <button onClick={closeModal}>취소</button>
