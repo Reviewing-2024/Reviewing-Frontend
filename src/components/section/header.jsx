@@ -102,20 +102,7 @@ const Header = () => {
                     </div>
                 )}
             </div>
-            <div className="header__codingsite">
-                <h2>관련 <br />사이트</h2>
-                <ul className="codingsite">
-                    {codingsite.map((codingsite, key) => (
-                        <li key={key}>
-                            <Link target="_blank" to={codingsite.src}>
-                                <div className="menu-title">{codingsite.title}</div>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            <div className='header__sns'>
+            {/* <div className='header__sns'>
                 <ul>
                     {snsLink.map((sns, key) => (
                         <li key={key}>
@@ -125,7 +112,20 @@ const Header = () => {
                         </li>
                     ))}
                 </ul>
+            </div> */}
+            <div className="header__codingsite">
+                <ul className="codingsite">
+                    {codingsite.map((codingsite, key) => (
+                        <li key={key}>
+                            <Link target="_blank" to={codingsite.src}>       
+                                <img  src= {codingsite.icon} /> 
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
+
+            
         </header>
     );
 };

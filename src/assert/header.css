@@ -61,8 +61,31 @@
 }
 
 .header__codingsite {
+    text-decoration-line: none;
+}
+
+.codingsite {
     display: flex;
-    border-bottom: 1px solid #88BAF7;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+
+.codingsite li {
+    list-style: none;
+    margin: 0px 16px;
+}
+
+
+.codingsite img {
+    width: 35px;
+    height: 35px;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+
+.codingsite img:hover {
+    transform: scale(1.3);
 }
 
 
@@ -138,6 +161,16 @@
         align-items: center;
         justify-content: center;
         transition: color 0.3s;
+    }
+    .codingsite li {
+        list-style: none;
+        margin: 0px 10px;
+    }
+    
+    
+    .codingsite img {
+        width: 30px;
+        height: 30px;
     }
 }
 

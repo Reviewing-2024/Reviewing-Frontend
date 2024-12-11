@@ -47,12 +47,21 @@
     z-index: 2;
 }
 
+.content span {
+    margin: 0px 10px;
+}
+.content p {
+    height: 50px;
+}
+
 .status {
-    position: absolute;
-    border-radius: 20px;
-    width: 100px;
-    height: 139px;
-    background-color: red;
-    margin-left: 8px;
-    z-index: 1;
+    float: right;
+}
+
+.delete {
+    font-size: 20px;
+}
+
+.delete:hover {
+    color: red;
 }

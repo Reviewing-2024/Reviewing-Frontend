@@ -21,9 +21,7 @@ import Detail from './components/pages/detail';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
-import Mypagepending from './components/pages/mypage/mypagepending';
-import Mypagerejected from './components/pages/mypage/mypagerejected';
-import Mypageapproved from './components/pages/mypage/mypageapproved';
+import Mypagestatus from './components/pages/mypage/mypagestatus';
 import Chatbot from './components/pages/Chatbot';
 import AdminPage from './components/pages/AdminPage';
 import Reviews from './components/pages/reviews';
@@ -53,9 +51,7 @@ const Layout = () => {
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
                     <Route path='/mypage' element={<Mypage />} />
                     <Route path='/wishlist' element={<Wishlist />} />
-                    <Route path="/mypage/pending" element={<Mypagepending />} />
-                    <Route path="/mypage/approved" element={<Mypageapproved />} />
-                    <Route path="/mypage/rejected" element={<Mypagerejected />} />
+                    <Route path="/mypage/:status" element={<Mypagestatus />} />
                     <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/review" element={<review />} />

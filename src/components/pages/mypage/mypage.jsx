@@ -7,6 +7,9 @@ import '../../../assert/css/mypage.css';
 import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
 
+import { PiThumbsUpDuotone } from "react-icons/pi";
+import { PiThumbsDownDuotone } from "react-icons/pi";
+
 const Mypage = () => {
     const [items, setItems] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -92,13 +95,13 @@ const Mypage = () => {
                 <div className='review-inner'>
                     {items.map((item) => (
                         <div key={item.id} className='reviews'>
-                            <div className='content'>
-                                <p>{item.createdAt}</p>
+                            <div className="content">
+                                <span className='createdAt'>{item.createdAt}</span>
+                                <span className='status'>{item.status}</span>
                                 <p>{item.contents}</p>
-                                <span>{item.likes}</span>
-                                <span>{item.dislikes}</span>
-                                <span>{item.rating}</span>
-                                <span>{item.status}</span>
+                                <span><PiThumbsUpDuotone /> {item.likes}</span>
+                                <span><PiThumbsDownDuotone /> {item.dislikes}</span>
+                                <span className="review-rating">별점: {item.rating}</span>
                             </div>
                         </div>
                     ))}

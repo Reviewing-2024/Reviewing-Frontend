@@ -24,8 +24,9 @@ const Mypageheader = () => {
         localStorage.removeItem('name');
         localStorage.removeItem('Authorization');
         setName(null);
-        window.location.reload();
         navigate('/');
+        window.location.reload();
+        
     };
 
     const handleEditToggle = () => {
