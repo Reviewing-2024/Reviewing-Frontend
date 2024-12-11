@@ -57,3 +57,11 @@
 .status {
     float: right;
 }
+
+.delete {
+    font-size: 20px;
+}
+
+.delete:hover {
+    color: red;
+}

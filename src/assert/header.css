@@ -81,6 +81,7 @@
     width: 35px;
     height: 35px;
     transition: 0.5s;
+    border-radius: 10px;
 }
 
 .codingsite img:hover {
@@ -160,6 +161,16 @@
         align-items: center;
         justify-content: center;
         transition: color 0.3s;
+    }
+    .codingsite li {
+        list-style: none;
+        margin: 0px 10px;
+    }
+    
+    
+    .codingsite img {
+        width: 30px;
+        height: 30px;
     }
 }
 

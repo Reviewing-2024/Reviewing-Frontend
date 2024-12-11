@@ -23,11 +23,12 @@ const KakaoLogin = () => {
     localStorage.removeItem('name');
     localStorage.removeItem('Authorization');
     setName(null);
+    navigate('/');
     window.location.reload();
 };
   
 const handleNavigate = () => {
-    navigate(`/mypage`);
+    navigate('/mypage');
     setDropdownVisible(false);
   };
 
