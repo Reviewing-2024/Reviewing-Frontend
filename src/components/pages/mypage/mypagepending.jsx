@@ -63,34 +63,37 @@ const Mypagepending = () => {
 
     return (
         <div className='mypage'>
-            <Mypageheader />
-            <div className='review_category'>
-                <ul>
-                    {review_category.map((review_category, key) => (
-                        <li key={key}>
-                            <Link to={`/mypage${review_category.src}`}>
-                                {review_category.title}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className='review'>
-                <p className='title'>Pending Reviews</p>
-                <div className='review-inner'>
-                    {items.map((item) => (
-                        <div key={item.id} className='reviews'>
-                            <div className='content'>
-                                <p>{item.user}</p>
-                                <p>{item.content}</p>
-                                <span>{item.likes}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
-            <div className='footer' />
+        <Mypageheader />
+        <div className='review_category'>
+            <ul>
+                {review_category.map((review_category, key) => (
+                    <li key={key}>
+                        <Link to={`/mypage${review_category.src}`}>
+                            {review_category.title}
+                        </Link>
+                    </li>
+                ))}
+            </ul>
         </div>
+        <div className='review'>
+            <p className='title'>Reviews</p>
+            <div className='review-inner'>
+                {items.map((item) => (
+                    <div key={item.id} className='reviews'>
+                        <div className='content'>
+                            <p>{item.createdAt}</p>
+                            <p>{item.contents}</p>
+                            <span>{item.likes}</span>
+                            <span>{item.dislikes}</span>
+                            <span>{item.rating}</span>
+                            <span>{item.status}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+        <div className='footer' />
+    </div>
     );
 };
 

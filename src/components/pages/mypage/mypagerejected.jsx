@@ -88,14 +88,17 @@ const Mypagerejected = () => {
                 </ul>
             </div>
             <div className='review'>
-                <p className='title'>Rejected Reviews</p>
+                <p className='title'>Reviews</p>
                 <div className='review-inner'>
                     {items.map((item) => (
                         <div key={item.id} className='reviews'>
                             <div className='content'>
-                                <p>{item.user}</p>
-                                <p>{item.content}</p>
+                                <p>{item.createdAt}</p>
+                                <p>{item.contents}</p>
                                 <span>{item.likes}</span>
+                                <span>{item.dislikes}</span>
+                                <span>{item.rating}</span>
+                                <span>{item.status}</span>
                             </div>
                         </div>
                     ))}

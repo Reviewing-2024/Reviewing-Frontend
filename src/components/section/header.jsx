@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headerMenus, searchKeyword, fastKeyword, codeitKeyword, snsLink } from "../../data/header";
+import { headerMenus, searchKeyword, fastKeyword, codeitKeyword, snsLink, codingsite } from "../../data/header";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../../assert/header.css";
@@ -9,6 +9,7 @@ const Header = () => {
     const [activeIndex, setActiveIndex] = useState(null);
     const [activeKeywordIndex, setActiveKeywordIndex] = useState(null);
     const [keywordsToDisplay, setKeywordsToDisplay] = useState(null);
+    const [hoverIndex, setHoverIndex] = useState(null);
     const [coursesData, setCoursesData] = useState([]);
     const navigate = useNavigate();
 
@@ -48,6 +49,14 @@ const Header = () => {
         }
     };
 
+    const handleMouseEnter = (index) => {
+        setHoverIndex(index);
+    };
+
+    const handleMouseLeave = () => {
+        setHoverIndex(null);
+    };
+
     return (
         <header id='header' role='banner'>
             <div className='header__menu'>
@@ -55,14 +64,16 @@ const Header = () => {
                     {headerMenus.map((menu, key) => (
                         <li
                             key={key}
-                            className={activeIndex === key ? 'active' : ''}
+                            className={activeIndex === key || hoverIndex === key ? 'active' : ''}
                             onClick={() => handleMenuClick(key)}
+                            onMouseEnter={() => handleMouseEnter(key)}
+                            onMouseLeave={handleMouseLeave}
                         >
                             <Link
                                 to={menu.src}
                                 style={{
-                                    color: activeIndex === key ? menu.color : '#000',
-                                    borderColor: activeIndex === key ? menu.color : 'transparent',
+                                    color: activeIndex === key || hoverIndex === key ? menu.color : '#000',
+                                    borderColor: activeIndex === key || hoverIndex === key ? menu.color : 'transparent',
                                 }}
                             >
                                 <div>{menu.icon}</div>
@@ -90,6 +101,18 @@ const Header = () => {
                         </ul>
                     </div>
                 )}
+            </div>
+            <div className="header__codingsite">
+                <h2>관련 <br />사이트</h2>
+                <ul className="codingsite">
+                    {codingsite.map((codingsite, key) => (
+                        <li key={key}>
+                            <Link target="_blank" to={codingsite.src}>
+                                <div className="menu-title">{codingsite.title}</div>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             <div className='header__sns'>

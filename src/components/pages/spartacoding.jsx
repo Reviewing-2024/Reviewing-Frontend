@@ -17,7 +17,7 @@ function Spartacoding() {
       setError(null);
       setLoading(true);
 
-      const url = `http://localhost:8080/courses/노마드코더${sort !== 'fundamental' ? `?sort=${sort}` : ''}`;
+      const url = `http://localhost:8080/courses/생활코딩${sort !== 'fundamental' ? `?sort=${sort}` : ''}`;
 
       const response = await axios.get(url);
       setItems(response.data);

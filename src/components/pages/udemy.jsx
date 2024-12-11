@@ -17,7 +17,7 @@ function Udemy() {
       setError(null);
       setLoading(true);
 
-      const url = `http://localhost:8080/courses/노마드코더${sort !== 'fundamental' ? `?sort=${sort}` : ''}`;
+      const url = `http://localhost:8080/courses/유데미${sort !== 'fundamental' ? `?sort=${sort}` : ''}`;
 
       const response = await axios.get(url);
       setItems(response.data);

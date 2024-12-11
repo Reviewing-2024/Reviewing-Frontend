@@ -104,6 +104,25 @@ export const codeitKeyword = [
     }
 ];
 
+export const codingsite = [
+    {
+        title: "Programmers",
+        src: "https://programmers.co.kr/"
+    },
+    {
+        title: "LeetCode",
+        src: "https://leetcode.com/problemset/"
+    },
+    {
+        title: "BAEKJOON",
+        src: "https://www.acmicpc.net/"
+    },
+    {
+        title: "CodeUp",
+        src: "https://codeup.kr/"
+    }
+];
+
 export const snsLink = [
     {
         title: "github",
