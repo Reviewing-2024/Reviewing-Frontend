@@ -16,11 +16,7 @@ const Reviews = () => {
   const [sortOption, setSortOption] = useState("latest");
   const [likedReviews, setLikedReviews] = useState({});
   const [dislikedReviews, setDislikedReviews] = useState({});
-  const [newReview, setNewReview] = useState({
-    rating: 0,
-    contents: "",
-    file: null,
-  });
+  const [newReview, setNewReview] = useState({});
   const [showReviewModal, setShowReviewModal] = useState(false);
 
   const isUserLoggedIn = () => {
@@ -113,10 +109,11 @@ const Reviews = () => {
       );
 
       console.log("리뷰 작성 성공:", response.data);
-      alert("리뷰가 작성되었습니다!");
-      setReviews((prev) => [...prev, response.data]);
       setShowReviewModal(false);
-      setNewReview({ rating: 0, contents: "", file: null });
+      setNewReview({});
+      setReviews((prev) => [...prev, response.data]);
+      window.location.reload();
+      alert("리뷰가 작성되었습니다!"); 
     } catch (error) {
       console.error("리뷰 작성 에러:", error.response?.data || error.message);
       alert(
@@ -244,6 +241,7 @@ const Reviews = () => {
   };
 
   if (!course) return <div>로딩 중...</div>;
+  
 
   return (
     <div className="detail-page">
