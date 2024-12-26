@@ -20,14 +20,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
-.home-title {
-    margin-left: 10px;
-    background-color: #fdfdfd;
-    width: 200px;
-    height: 40px;
-    border-radius: 20px 20px 0 0 ;
-}
 
-.home-title h3 {
-    padding: 10px;
+.home-title {
+    margin: 15px;
 }

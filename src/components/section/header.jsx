@@ -112,20 +112,7 @@ const Header = () => {
                         </li>
                     ))}
                 </ul>
-            </div> */}
-            <div className="header__codingsite">
-                <ul className="codingsite">
-                    {codingsite.map((codingsite, key) => (
-                        <li key={key}>
-                            <Link target="_blank" to={codingsite.src}>       
-                                <img  src= {codingsite.icon} /> 
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-
-            
+            </div> */}           
         </header>
     );
 };

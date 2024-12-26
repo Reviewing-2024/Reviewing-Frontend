@@ -80,7 +80,12 @@ const Mypageheader = () => {
                             <button onClick={handleEditToggle}>Cancel</button>
                         </div>
                     ) : (
-                        <a className='name'>{name}</a>
+                        <div>
+                        <a className='name'>{name} </a>  
+                        <span className='edit' onClick={handleEditToggle}>
+                            <FaRegEdit />
+                        </span>
+                        </div>         
                     )}
                 </div>
             </div>
@@ -94,15 +99,10 @@ const Mypageheader = () => {
                         </li>
                     ))}
                 </ul>
-                <div className='edit'>
-                    <span onClick={handleEditToggle}>
-                        <FaRegEdit /> Edit
-                    </span>
-                </div>
             </div>
-            <div className='logout'>
+            {/* <div className='logout'>
                 <RiLogoutBoxRLine /> <p onClick={handleLogout}> Logout </p>
-            </div>
+            </div> */}
         </header>
     );
 };
