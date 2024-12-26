@@ -9,22 +9,21 @@
 
 .mypageheader {
     padding-top: 90px;
-    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .mypageheader img {
-    justify-content: center;
-    align-items: center;
     width: 130px;
     height: 120px;
     border-radius: 50%;
-    margin-left: 75px;
 }
 
 .mypageheader-inner {
     justify-content: center;
     text-align: center;
-    margin: 40px; 
+    padding: 30px; 
 }
 
 .mypageheader-inner input {
@@ -51,23 +50,11 @@
 }
 
 
-.edit span {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 50px;
-    font-size: 19px;
-    border-radius: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    gap: 13px;
-}
-
 
 .mypage-menu {
     list-style: none;
     padding: 0;
-    margin-top: 80px ;
+    margin-top: 20px ;
 }
 
 .mypage-menu li {
@@ -77,7 +64,7 @@
 }
 
 .mypage-menu li a {
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     display: flex;
     height: 50px;
@@ -85,19 +72,19 @@
     text-decoration: none;
     font-size: 19px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin: 10px 0 0 20px;
     gap: 13px;
     
     
 }
 
 .logout {
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     display: flex;
     font-size: 15px;
     padding: 30px;
-    margin-top: 30px;
+    margin-top: 90px;
 }
 
 .logout p {

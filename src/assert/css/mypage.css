@@ -29,7 +29,7 @@
     font-size: 30px;
     font-weight: 900;
     text-transform: capitalize;
-    margin-left: 20px;
+    margin-left: 40px;
 }
 
 .review-inner {
@@ -51,7 +51,8 @@
     margin: 0px 10px;
 }
 .content p {
-    height: 50px;
+    height: 30px;
+    padding: 13px;
 }
 
 .status {
@@ -62,6 +63,7 @@
     font-size: 20px;
 }
 
-.delete:hover {
+.delete span:hover {
     color: red;
+    cursor: pointer;
 }

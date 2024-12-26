@@ -40,12 +40,12 @@ export const user =
     
     export const category = [
         {
-            title: "My Reviews",
+            title: "작성한 리뷰",
             src: "/mypage",
             icon:<GoCodeReview />
         },
         {
-            title: "Wishlist",
+            title: "찜한 강의",
             src: "/wishlist",
             icon:<FaRegBookmark />
         }

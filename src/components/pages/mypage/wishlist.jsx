@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../../assert/css/mypage.css';
 import { Link } from 'react-router-dom';
+
 import Mypageheader from '../../section/mypageheader.jsx';
+
+import '../../../assert/css/mypage.css';
+import '../../../assert/css/section.css';
+
 import { FaRegTrashCan } from "react-icons/fa6";
 
 const Wishlist = () => {
@@ -64,10 +68,18 @@ const Wishlist = () => {
                 <span>{item.title}</span>
                 </Link>
                 <div className='item-information'>
-                  <p>강사: {item.teacher || '미상'}</p>
-                  <p>별점: {item.rating}</p>
-                </div>
-                <div className='delete'><FaRegTrashCan /></div>
+                {item.teacher ? (
+                  <p>{item.teacher}</p>
+                ) : (
+                  <p></p>
+                )}
+                <p>
+                <svg width="14" height="11" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                  <path fill="#FDCC0E" fill-rule="evenodd" d="M8 1.3c.133 0 .263.037.375.108.113.07.203.17.262.29l1.778 3.637 3.978.583c.131.02.254.075.355.161.101.086.176.199.217.326.041.126.046.262.014.392-.031.13-.098.247-.193.34l-2.878 2.831.68 3.996c.022.131.007.267-.042.39-.05.124-.133.23-.24.31-.107.078-.234.125-.366.134-.132.01-.263-.018-.38-.08L8 12.831l-3.558 1.887c-.117.062-.248.09-.38.08-.132-.01-.259-.056-.365-.134-.107-.079-.19-.186-.24-.31-.05-.123-.065-.258-.043-.39l.68-3.997-2.88-2.83c-.094-.093-.161-.21-.193-.34-.032-.13-.027-.266.014-.393.04-.127.116-.24.217-.326.102-.086.225-.142.356-.16l3.978-.583 1.779-3.637c.059-.12.15-.22.262-.29.112-.07.242-.108.374-.108z" clip-rule="evenodd">
+                  </path>
+                </svg>{item.rating}</p>
+              </div>
+                <div className='delete'><span><FaRegTrashCan /></span></div>
               </div>
             </div>
           ))}
