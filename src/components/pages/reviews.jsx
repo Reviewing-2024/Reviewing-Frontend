@@ -48,9 +48,16 @@ const Reviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        const token = localStorage.getItem("Authorization");
+        const headers = token
+          ? { Authorization: `Bearer ${token}` }
+          : {};
+  
         const response = await axios.get(
           `http://localhost:8080/reviews/${course.id}`,
+          { headers }
         );
+  
         const updatedReviews = response.data.map((review) => ({
           ...review,
           liked: review.liked ?? false,
@@ -62,9 +69,9 @@ const Reviews = () => {
         alert("리뷰를 불러오는 중 문제가 발생했습니다.");
       }
     };
-
-    fetchReviews();
-  }, [course.id]);
+  
+    if (course && course.id) fetchReviews();
+  }, [course]);
 
   const handleCreateReview = async () => {
     console.log("리뷰 상태 확인:", newReview);
