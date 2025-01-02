@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import StarRatingComponent from "react-rating-stars-component";
-import { FaThumbsDown, FaThumbsUp, FaCartPlus } from "react-icons/fa";
+import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
-import { MdScreenSearchDesktop } from "react-icons/md";
+import { FaHeart, FaRegHeart  } from "react-icons/fa6";
 import "../../assert/detailpage.css";
 import axios from "axios";
 
@@ -149,7 +149,7 @@ const Reviews = () => {
         `http://localhost:8080/courses/${courseId}/wish`,
         null,
         {
-          params: { wished: false },
+          params: { wished: !course.wished },
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -167,6 +167,7 @@ const Reviews = () => {
         }
         return prevCourse;
       });
+      console.log("서버 응답 확인:", response.data);
     } catch (error) {
       console.error(
         "찜하기 처리 중 오류:",
@@ -252,6 +253,7 @@ const Reviews = () => {
 
   return (
     <div className="detail-page">
+      <div className="header-div">
       <header className="header-section">
         <div className="course-thumbnail">
           <img
@@ -263,14 +265,14 @@ const Reviews = () => {
         <div className="course-info">
           <h2 className="course-title">{course.title}</h2>
           <p className="instructor-name">
-            {course.teacher || "강사 없음"} 강사
+            {course.teacher || ""}
           </p>
           <div className="course-actions">
           <button
               className="btn btn-wish"
               style={{
                 backgroundColor: course.wished ? "#fff" : "#fff",
-                border: "1px solid #ffd700",
+                border: "1px solid #88BAF7",
                 borderRadius: "5px",
                 padding: "10px",
                 cursor: "pointer",
@@ -278,18 +280,19 @@ const Reviews = () => {
               onClick={() => handleWish(course.id)}
             >
               {course.wished ? (
-                <FaStar color="#ffd700" size={12} />
+                <FaHeart   color="#88BAF7" size={12} />
               ) : (
-                <FaRegStar color="#ffd700" size={12} />
+                <FaRegHeart  color="#88BAF7" size={12} />
               )}
             </button>
 
             <button className="btn btn-view" onClick={handleView}>
-              <MdScreenSearchDesktop />
+              <a>수강하러 가기</a>
             </button>
           </div>
         </div>
       </header>
+      </div>
       <section className="review-section">
         <div
           style={{
@@ -330,13 +333,13 @@ const Reviews = () => {
                     className={`btn-icon ${review.liked ? "active" : ""}`}
                     onClick={() => handleLike(review.id, review.liked)}
                   >
-                    <FaThumbsUp /> 좋아요 {review.likes}
+                    <FaThumbsUp /> {review.likes}
                   </button>
                   <button
                     className={`btn-icon ${review.disliked ? "active" : ""}`}
                     onClick={() => handleDislike(review.id, review.disliked)}
                   >
-                    <FaThumbsDown /> 싫어요 {review.dislikes}
+                    <FaThumbsDown /> {review.dislikes}
                   </button>
                 </div>
               </div>

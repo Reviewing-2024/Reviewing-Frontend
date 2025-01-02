@@ -1,13 +1,11 @@
 
 
 .banner {
-    /* background-color: #88BAF7; */
     background-color: rgba(136, 186, 247, 0.8);
     border-radius: 20px 20px 0 0;
     justify-content: center;
     text-align: center;
     font-family: 'Arial', sans-serif;
-    min-width: 800px;
 }
 
 .image {

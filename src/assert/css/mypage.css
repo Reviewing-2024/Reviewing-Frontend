@@ -1,69 +1,88 @@
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
 .review_category ul {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
+    margin-left: -20px;
 }
 
 .review_category ul li {
-    padding: 10px 20px 10px 0;
-    
+  margin: 0 10px 10px 0;
 }
 
 .review_category ul li a {
-    justify-content: center;
-    align-items: center;
-    display: inline-flex;
-    width: 150px;
-    height: 50px;
-    text-decoration-line: none;
-    color: #fdfdfd;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  text-decoration: none;
+  color: #111;
+  border-radius: 10px;
+  background-color: #ffffff;
+  border: 1px solid #88BAF7;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+
+
+.review-card {
+    background: #ffffff;
     border-radius: 10px;
-    background-color: #88BAF7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px; 
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 8px 20px; 
+  }
+  
+  .review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 9px rgba(0, 0, 0, 0.15);
+  }
+
+
+  .review-content {
+    font-size: 1rem; 
+    color: #555; 
+    line-height: 1.6; 
+  }
+
+
+.review-content span {
+    margin: 0px 10px;
+    font-weight: bold;
+    font-family : 'NanumSquare', sans-serif;
 }
 
-.review_category ul li a:hover {
-    background-color: #6699CC
+.review-content p {
+    min-height: 30px;
+    padding: 13px;
+    font-family : 'NanumSquare', sans-serif;
 }
 
-.title {
+.status {
+    padding: 4px 8px;
+    border-radius: 10px;
+    float: right;
+}
+
+.status.approved {
+    background-color: #4caf50;
+  }
+  
+  .status.pending {
+    background-color: #ffc107;
+  }
+  
+  .status.rejected {
+    background-color: #f44336;
+  }
+
+
+  .title {
     font-size: 30px;
     font-weight: 900;
     text-transform: capitalize;
     margin-left: 40px;
-}
-
-.review-inner {
-    margin: 13px;
-}
-
-
-.content {
-    position: relative;
-    background-color: white;
-    border-radius: 20px;
-    margin: 15px;
-    padding: 13px;
-    box-shadow: 0 7px 6px -6px #666;
-    z-index: 2;
-}
-
-.content span {
-    margin: 0px 10px;
-}
-.content p {
-    height: 30px;
-    padding: 13px;
-}
-
-.status {
-    float: right;
-}
-
-.delete {
-    font-size: 20px;
-}
-
-.delete span:hover {
-    color: red;
-    cursor: pointer;
 }

@@ -3,8 +3,8 @@
     top: 0;
     left: 0;
     min-height: 110vh;
-    width: 270px;
-    /* box-shadow: 0px 0px 20px  rgb(0, 0, 0.1); */
+    width: 220px;
+    border-right: 2px solid #88BAF7 ;
 }
 
 .mypageheader {
@@ -28,19 +28,18 @@
 
 .mypageheader-inner input {
     text-align: center;
-    font-size: 25px;
+    font-size: 23px;
     font-weight: 600;
-    width: 180px;
+    width: 150px;
     height: 30px;
     border-radius: 10px;
 }
 
 .mypageheader-inner button {
-    width: 80px;
-    margin: 10px 6px 0 6px;
+    margin: 10px 11px;
     background-color: #999;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 15px;
 }
 
 .name {
@@ -91,38 +90,8 @@
     cursor: pointer;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 720px) {
     #mypageheader {
-        width: 220px;
-    }
-
-    .mypageheader img {
-        justify-content: center;
-        align-items: center;
-        width: 130px;
-        height: 120px;
-        border-radius: 50%;
-        margin-left: 55px;
-    }
-
-    .mypageheader-inner input {
-        width: 100px;
-    }
-
-    .mypageheader-inner {
-        margin: 30px 30px 30px 40px; 
+        display: none;
     }
 }
-
-/* .mypageheader-inner {
-   display: flex;
-   justify-content: center;
-   text-align: center;
-}
-
-.mypageheader-inner input {
-    display: inline-flex;
-    width: 170px;
-    text-align: center;
-} */
-
