@@ -55,18 +55,22 @@ export const user =
     export const review_category = [
         {
             title: "전체 리뷰",
-            src: ""
+            src: "",
+            color: "#88BAF7"
         },
         {
             title: "검토중 리뷰",
-            src: "/pending"
+            src: "/pending",
+            color: "#ffc107"
         },
         {
             title: "승인된 리뷰",
-            src: "/approved"
+            src: "/approved",
+            color: "#4caf50"
         },
         {
             title: "거절된 리뷰",
-            src: "/rejected"
+            src: "/rejected",
+            color: "#f44336"
         },
     ];

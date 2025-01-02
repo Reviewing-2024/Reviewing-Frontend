@@ -85,7 +85,6 @@ const Chatbot = () => {
 
    return (
       <div id='Chatbot'>
-         <h1>인공지능 챗봇</h1>
          <div className='chatDiv'>
             {loading && <span className="messageWait">답변을 기다리고 있습니다</span>}
             {messages.map((msg, index) => (

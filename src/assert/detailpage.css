@@ -1,13 +1,21 @@
+
+.header-div {
+  justify-content: center;
+  align-items: center;
+}
+
+
 .header-section {
   display: flex;
   align-items: flex-start;
   gap: 30px;
-  margin-top: 20px;
+  margin: 0 20px 0 20px;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
   background-color: #f9f9f9;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: nowrap;
 }
 
 .course-thumbnail {
@@ -15,7 +23,7 @@
 }
 
 .course-image {
-  width: 400px;
+  width: 300px;
   height: auto;
   border-radius: 8px;
   border: 1px solid #ddd;
@@ -24,13 +32,14 @@
 
 .course-info {
   flex-grow: 1;
+  height: max-content;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
 .course-title {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
@@ -43,14 +52,14 @@
 
 .course-actions {
   display: flex;
-  align-items: center;
+  align-items:flex-end;
   gap: 15px;
   margin-bottom: 15px;
 }
 
 .course-actions .btn {
   display: flex;
-  align-items: center;
+  align-items: end;
   gap: 5px;
   background-color: #f5f5f5;
   border: 1px solid #ddd;
@@ -71,13 +80,17 @@
   gap: 5px;
 }
 
+.btn-primary {
+  margin: 20px 20px 0 0;
+}
+
 .review-card {
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 15px; 
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin: 8px 0; 
+  margin: 8px 20px; 
 }
 
 .review-card:hover {
@@ -103,6 +116,7 @@
   font-weight: 600; 
   color: #333; 
   font-family: 'Roboto', 'Noto Sans KR', sans-serif; 
+  margin: 0;
 }
 
 .review-content {
@@ -110,7 +124,7 @@
   color: #555; 
   line-height: 1.6; 
   font-family: 'Roboto', 'Noto Sans KR', sans-serif; 
-  margin: 8px 0; 
+  margin: 20px 0 ; 
   line-height: 1.4; 
 }
 
@@ -221,7 +235,7 @@
 
 .modal-input-group input,
 .modal-input-group textarea {
-  width: 100%;
+  width: 480px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;

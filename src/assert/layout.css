@@ -1,4 +1,5 @@
 /* 기본 스타일 */
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css');
 body, html {
     margin: 0;
     padding: 0;
@@ -8,13 +9,15 @@ body, html {
     position: fixed;
     left: 0;
     top: 0;
-    width: 270px;
-    height: 90vh;
+    width: 220px;
+    height: 100vh;
     overflow-y: auto;
-    z-index: 10;
+    z-index: 1;
     background-color: #fdfdfd; 
-    margin-top: 66px;
-    color: #1b1c1d;
+    padding-top: 77px;
+    color: #495057;
+    font-family : 'NanumSquare', sans-serif;
+    border-right: 2px solid #88BAF7 ;
 }
 
 
@@ -22,20 +25,22 @@ body, html {
     max-width: 2000px;
     min-height: 100vh;
     background-color: #fdfdfd;
-    padding-left: 280px;
+    padding-left: 220px;
     padding-top: 80px;
+    font-family : 'NanumSquare', sans-serif;
     color: #1b1c1d
 }
 
 #footer {
     text-align: center;
     color: #1b1c1d;
-    padding: 20px 20px 20px 250px;
+    padding: 20px 20px 20px 220px;
     background-color: #fdfdfd;
+    font-family : 'NanumSquare', sans-serif;
 }
 
 
-@media (max-width: 900px) {
+/* @media (max-width: 1050px) {
     #header {
         width: 220px;
     }
@@ -56,4 +61,20 @@ body, html {
     body.detail-page #footer {
         padding: 20px;
     }
+} */
+
+
+@media (max-width: 720px) {
+    #header {
+        display: none;
+    }
+    
+    #main {
+        padding-left: 0px;
+    }
+
+    #footer {
+        padding: 20px 20px 20px 20px;
+    }
+
 }

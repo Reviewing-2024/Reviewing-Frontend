@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headerMenus, searchKeyword, fastKeyword, codeitKeyword, snsLink, codingsite } from "../../data/header";
+import { headerMenus, searchKeyword, fastKeyword, codeitKeyword, chatbot } from "../../data/header";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../../assert/header.css";
@@ -102,17 +102,28 @@ const Header = () => {
                     </div>
                 )}
             </div>
-            {/* <div className='header__sns'>
+            <div className='header__chatbot'>
                 <ul>
-                    {snsLink.map((sns, key) => (
+                    {chatbot.map((chatbot, key) => (
                         <li key={key}>
-                            <a href={sns.url} target="_blank" rel="noopener noreferrer" aria-label={sns.title}>
-                                <span>{sns.icon}</span>
+                            <a href={chatbot.src}>
+                                <span>{chatbot.icon} {chatbot.title}</span>
                             </a>
                         </li>
                     ))}
                 </ul>
-            </div> */}           
+            </div>
+            {/* <div className='header__sns'>
+                <ul>
+                    {snsLink.map((sns, key) => (
+                        <li key={key}>
+                            <a href={sns.src} target="_blank" rel="noopener noreferrer" aria-label={sns.title}>
+                                <span>{sns.icon} {sns.title}</span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>            */}
         </header>
     );
 };

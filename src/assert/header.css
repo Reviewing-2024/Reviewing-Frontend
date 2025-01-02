@@ -3,8 +3,9 @@
 }
 
 .header__menu .menu {
-    border-bottom: 1px solid #88BAF7;
-    padding: 5px 0;
+    border-bottom: 2px solid #88BAF7;
+    padding: 0;
+    margin: 0;
 }
 
 .header__menu li {
@@ -18,11 +19,11 @@
     text-decoration: none;
     display: flex;
     flex-direction: row;
-    font-size: 19px;
-    font-weight: 900; 
+    font-size: 17px;
+    font-weight: 600; 
     border-radius: 10px;
     margin: 3px 0;
-    padding: 10px 20px;
+    padding: 8px 10px;
     gap: 10px;
     transition: 0.3s;
     border: 2px solid #fdfdfd;
@@ -30,8 +31,9 @@
 
 
 .header__keyword .keyword {
-    border-bottom: 1px solid #88BAF7;
-    padding: 9px;
+    /* border-bottom: 2px solid #88BAF7; */
+    padding: 0;
+    margin: 0;
     
 }
 
@@ -42,10 +44,10 @@
 }
 
 .header__keyword li span {
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: 900;
-    padding:11px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 8px;
     margin: 5px 5px;
     border: 2px solid #999;
     transition: 0.3s;
@@ -89,31 +91,29 @@
 }
 
 
-.header__sns ul {
+.header__chatbot ul {
     display: flex;
     justify-content: flex-start;
     padding-left: 10px;
 }
 
-.header__sns li {
+.header__chatbot li {
     list-style: none;
-    margin-right: 30px;
-    
 }
 
-.header__sns li a {
-    font-size: 27px;
+.header__chatbot li a {
+    position: absolute;
+    bottom: 100px;
+    left: 10px;
+    font-size: 18px;
     color: black;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
     transition: color 0.3s;
-
+    z-index: 100;
+    text-decoration-line: none;
 }
 
-.header__sns li a:hover {
+.header__chatbot li a:hover {
     color: #88BAF7;
 }
 
@@ -122,7 +122,7 @@
 
 /* 반응형 네브바 */
 
-@media (max-width: 900px) {
+/* @media (max-width: 1050px) {
     
 
     .header__menu li a {
@@ -172,7 +172,7 @@
         width: 30px;
         height: 30px;
     }
-}
+} */
 
 .review-button {
     display: flex;
