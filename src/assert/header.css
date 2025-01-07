@@ -10,8 +10,12 @@
 
 .header__menu li {
     list-style: none;
-    margin-bottom: 6px;
+     margin-top: 6px; 
 
+}
+
+.header__menu li svg {
+    vertical-align: middle;
 }
 
 .header__menu li a {
@@ -22,7 +26,6 @@
     font-size: 17px;
     font-weight: 600; 
     border-radius: 10px;
-    margin: 3px 0;
     padding: 8px 10px;
     gap: 10px;
     transition: 0.3s;
@@ -62,35 +65,6 @@
     cursor: pointer;
 }
 
-.header__codingsite {
-    text-decoration-line: none;
-}
-
-.codingsite {
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 10px;
-}
-
-
-.codingsite li {
-    list-style: none;
-    margin: 0px 16px;
-}
-
-
-.codingsite img {
-    width: 35px;
-    height: 35px;
-    transition: 0.5s;
-    border-radius: 10px;
-}
-
-.codingsite img:hover {
-    transform: scale(1.3);
-}
-
-
 .header__chatbot ul {
     display: flex;
     justify-content: flex-start;
@@ -104,17 +78,20 @@
 .header__chatbot li a {
     position: absolute;
     bottom: 100px;
-    left: 10px;
+    left: 55px;
     font-size: 18px;
-    color: black;
+    padding: 6px;
+    color: #AA87E3;
     cursor: pointer;
-    transition: color 0.3s;
-    z-index: 100;
+    transition: 0.3s;
+    border: 2px solid #AA87E3;
+    border-radius: 10px;
     text-decoration-line: none;
 }
 
 .header__chatbot li a:hover {
-    color: #88BAF7;
+    color: #AA87E3;
+    border: 2px solid #AA87E3;
 }
 
 

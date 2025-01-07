@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headerMenus, searchKeyword, fastKeyword, codeitKeyword, chatbot } from "../../data/header";
+import { headerMenus, chatbot } from "../../data/header";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../../assert/header.css";
@@ -12,6 +12,16 @@ const Header = () => {
     const [hoverIndex, setHoverIndex] = useState(null);
     const [coursesData, setCoursesData] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/platform/category')
+            .then(response => {
+                setKeywordsToDisplay(response.data);
+            })
+            .catch(error => {
+                console.error("카테고리 데이터 가져오기 실패:", error);
+            });
+    }, []);
 
     const handleKeywordClick = (keyword) => {
         const selectedMenu = headerMenus[activeIndex].title;
@@ -38,15 +48,15 @@ const Header = () => {
         setActiveIndex(index);
         setActiveKeywordIndex(null);
 
-        if (index === 0) {
-            setKeywordsToDisplay(searchKeyword);
-        } else if (index === 1) {
-            setKeywordsToDisplay(fastKeyword);
-        } else if (index === 2) {
-            setKeywordsToDisplay(codeitKeyword);
-        } else {
-            setKeywordsToDisplay(null);
-        }
+        const selectedPlatform = headerMenus[index].title;
+
+        axios.get(`http://localhost:8080/platform/category?platform=${selectedPlatform}`)
+            .then(response => {
+                setKeywordsToDisplay(response.data);
+            })
+            .catch(error => {
+                console.error("카테고리 데이터 가져오기 실패:", error);
+            });
     };
 
     const handleMouseEnter = (index) => {
@@ -112,18 +122,7 @@ const Header = () => {
                         </li>
                     ))}
                 </ul>
-            </div>
-            {/* <div className='header__sns'>
-                <ul>
-                    {snsLink.map((sns, key) => (
-                        <li key={key}>
-                            <a href={sns.src} target="_blank" rel="noopener noreferrer" aria-label={sns.title}>
-                                <span>{sns.icon} {sns.title}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-            </div>            */}
+            </div> 
         </header>
     );
 };
