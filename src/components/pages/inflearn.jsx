@@ -20,6 +20,7 @@ function Inflearn() {
 
       const response = await axios.get(url);
       setItems(response.data);
+      console.log(response)
     } catch (e) {
       setError(e);
     } finally {
@@ -34,6 +35,7 @@ function Inflearn() {
   if (loading) return <div>로딩중..</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!items.length) return <div>데이터가 없습니다.</div>;
+
 
   return (
     <section id='inflearn'>
@@ -53,7 +55,9 @@ function Inflearn() {
               item.thumbnailImage ? (
             <img src={item.thumbnailImage} alt={item.title} />
             ) : item.thumbnailVideo ? (
-            <img src={item.thumbnailVideo} alt={item.title} />
+            <video muted autoPlay loop>
+              <source src={item.thumbnailVideo} type="video/mp4" alt={item.title} />
+            </video>
             ) : (
             <img src='/img/nothing.png' alt={item.title} />
             )

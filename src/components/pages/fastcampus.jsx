@@ -54,7 +54,9 @@ function Fastcampus() {
               item.thumbnailImage ? (
             <img src={item.thumbnailImage} alt={item.title} />
             ) : item.thumbnailVideo ? (
-            <img src={item.thumbnailVideo} alt={item.title} />
+            <video muted autoPlay loop>
+              <source src={item.thumbnailVideo} type="video/mp4" alt={item.title} />
+            </video>
             ) : (
             <img src='/img/nothing.png' alt={item.title} />
             )

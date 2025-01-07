@@ -1,5 +1,5 @@
 import { FaRegBookmark } from "react-icons/fa";
-import { GoCodeReview } from "react-icons/go";
+import { FaRegMessage } from "react-icons/fa6";
 
 export const review = [
     { 
@@ -42,7 +42,7 @@ export const user =
         {
             title: "작성한 리뷰",
             src: "/mypage",
-            icon:<GoCodeReview />
+            icon:<FaRegMessage />
         },
         {
             title: "찜한 강의",
@@ -61,16 +61,16 @@ export const user =
         {
             title: "검토중 리뷰",
             src: "/pending",
-            color: "#ffc107"
+            color: "#F3DBB1"
         },
         {
             title: "승인된 리뷰",
             src: "/approved",
-            color: "#4caf50"
+            color: "#B3D6B8"
         },
         {
             title: "거절된 리뷰",
             src: "/rejected",
-            color: "#f44336"
+            color: "#FF9393"
         },
     ];

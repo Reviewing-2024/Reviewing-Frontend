@@ -23,7 +23,7 @@
 .mypageheader-inner {
     justify-content: center;
     text-align: center;
-    padding: 30px; 
+    padding: 20px; 
 }
 
 .mypageheader-inner input {
@@ -62,6 +62,10 @@
     
 }
 
+.mypage-menu li svg {
+    vertical-align: middle;
+}
+
 .mypage-menu li a {
     justify-content: start;
     align-items: center;
@@ -73,8 +77,6 @@
     border-radius: 10px;
     margin: 10px 0 0 20px;
     gap: 13px;
-    
-    
 }
 
 .logout {
