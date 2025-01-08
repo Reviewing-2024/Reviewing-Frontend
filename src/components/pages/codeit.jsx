@@ -25,6 +25,10 @@ function Codeit() {
   const token = localStorage.getItem('Authorization');
 
   useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
+
+  useEffect(() => {
     setLastCourseId(null);
     setLastRating(null);
     setLastComments(null);

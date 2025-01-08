@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import '../../assert/chatbot.css';
 
@@ -13,12 +13,23 @@ const Chatbot = () => {
 
    const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
+   useEffect(() => {
+       window.scrollTo(0, 0);
+     }, []);
+
    const addMessage = (sender, message) => {
       setMessages(prevMessages => [...prevMessages, { sender, message }]);
    };
 
    const scrollToBottom = () => {
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+   };
+
+   const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+         event.preventDefault();
+         handleSendMessage();
+      }
    };
 
    const randomIntroMessage = () => {
@@ -77,11 +88,6 @@ const Chatbot = () => {
       }
    };
 
-   const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-         handleSendMessage();
-      }
-   };
 
    return (
       <div id='Chatbot'>
