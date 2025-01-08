@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { headerMenus, chatbot } from "../../data/header";
 import { Link } from 'react-router-dom';
@@ -13,46 +13,28 @@ const Header = () => {
     const [coursesData, setCoursesData] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/platform/category')
-            .then(response => {
-                setKeywordsToDisplay(response.data);
-            })
-            .catch(error => {
-                console.error("카테고리 데이터 가져오기 실패:", error);
-            });
-    }, []);
 
     const handleKeywordClick = (keyword) => {
-        const selectedMenu = headerMenus[activeIndex].title;
-        const category = keyword.title;
-        const url = `/courses/${selectedMenu}/${category}`;
+        const platform = headerMenus[activeIndex].title;
+        const category = keyword.category;
+        const url = `/courses/${platform}/${category}`;
 
-        console.log(selectedMenu);
-        console.log(category);
-
-    
-        axios.get(`http://localhost:8080${url}`)
-            .then(response => {
-                setCoursesData(response.data);
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error("데이터 가져오기 실패:", error);
-            });
-
-        navigate(url);
+            navigate(url);
+       
     };
 
     const handleMenuClick = (index) => {
         setActiveIndex(index);
         setActiveKeywordIndex(null);
 
-        const selectedPlatform = headerMenus[index].title;
+        const platform = headerMenus[index].title;
 
-        axios.get(`http://localhost:8080/platform/category?platform=${selectedPlatform}`)
+         console.log(platform)
+
+        axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category?platform=${platform}`)
             .then(response => {
                 setKeywordsToDisplay(response.data);
+                console.log(response)
             })
             .catch(error => {
                 console.error("카테고리 데이터 가져오기 실패:", error);
@@ -93,7 +75,7 @@ const Header = () => {
                     ))}
                 </ul>
 
-                {keywordsToDisplay && (
+                {keywordsToDisplay && keywordsToDisplay.length > 0 && (
                     <div className='header__keyword'>
                         <ul className='keyword'>
                             {keywordsToDisplay.map((keyword, key) => (
@@ -105,7 +87,7 @@ const Header = () => {
                                         handleKeywordClick(keyword); 
                                     }}
                                 >
-                                    <span># {keyword.title}</span>
+                                    <span># {keyword.category}</span>
                                 </li>
                             ))}
                         </ul>

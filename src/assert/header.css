@@ -34,7 +34,7 @@
 
 
 .header__keyword .keyword {
-    /* border-bottom: 2px solid #88BAF7; */
+    border-bottom: 2px solid #88BAF7;
     padding: 0;
     margin: 0;
     
@@ -76,9 +76,7 @@
 }
 
 .header__chatbot li a {
-    position: absolute;
-    bottom: 100px;
-    left: 55px;
+    margin: 30px 0 0 40px;
     font-size: 18px;
     padding: 6px;
     color: #AA87E3;

@@ -75,7 +75,6 @@
 .status {
     border-radius: 100px;
     float: right;
-    padding: 2px;
 }
 
 .status.approved {

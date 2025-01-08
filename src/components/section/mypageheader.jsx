@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 import { user, category } from '../../data/review.js';
-import { RiLogoutBoxRLine } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import '../../assert/css/mypageheader.css';
 
@@ -38,7 +37,7 @@ const Mypageheader = () => {
         try {
             const token = localStorage.getItem('Authorization');
             const response = await axios.put(
-                'http://localhost:8080/my/nickname',
+                `${process.env.REACT_APP_BASE_URL}/my/nickname`,
                 { nickName: newName },
                 {
                     headers: {
@@ -100,9 +99,6 @@ const Mypageheader = () => {
                     ))}
                 </ul>
             </div>
-            {/* <div className='logout'>
-                <RiLogoutBoxRLine /> <p onClick={handleLogout}> Logout </p>
-            </div> */}
         </header>
     );
 };

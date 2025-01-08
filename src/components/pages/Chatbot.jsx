@@ -11,7 +11,7 @@ const Chatbot = () => {
 
    const chatEndRef = useRef(null);
 
-   const apiEndpoint = 'http://localhost:8080/recommendation';
+   const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
    const addMessage = (sender, message) => {
       setMessages(prevMessages => [...prevMessages, { sender, message }]);

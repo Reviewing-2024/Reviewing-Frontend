@@ -48,62 +48,14 @@ export const headerMenus = [
         src: "/kmooc",
         color: "#009488" 
     },
-    {
-        title: "생활코딩",
-        icon:  <BsCCircleFill />,
-        src: "/spartacoding",
-        color: "#666" 
-    }
+    // {
+    //     title: "생활코딩",
+    //     icon:  <BsCCircleFill />,
+    //     src: "/spartacoding",
+    //     color: "#666" 
+    // }
 ];
 
-export const searchKeyword = [
-    {
-        title: "웹 개발",
-        src: "/web-dev"
-    },
-    {
-        title: "프론트엔드",
-        src: "/front-end"
-    },
-    {
-        title: "백엔드",
-        src: "/back-end"
-    }
-];
-
-export const fastKeyword = [
-    {
-        title: "프론트엔드 개발",
-        src: "/front"
-    },
-    {
-        title: "백엔드 개발",
-        src: "/back"
-    },
-    {
-        title: "모바일 앱 개발",
-        src: "/app"
-    },
-    {
-        title: "DevOps/Infra",
-        src: "/devops"
-    }
-];
-
-export const codeitKeyword = [
-    {
-        title: "프론트엔드",
-        src: "/FRONTEND"
-    },
-    {
-        title: "백엔드",
-        src: "/BACKEND"
-    },
-    {
-        title: "풀스텍",
-        src: "/FULLSTACK"
-    }
-];
 
 export const chatbot = [
     {

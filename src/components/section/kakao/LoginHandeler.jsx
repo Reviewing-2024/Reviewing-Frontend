@@ -12,7 +12,7 @@ const LoginHandeler = () => {
     const kakaoLogin = async () => {
       await axios({
         method: "GET",
-        url: `http://localhost:8080/kakao/kakaoLogin/${code}`,
+        url: `${process.env.REACT_APP_BASE_URL}/kakao/kakaoLogin/${code}`,
         headers: {
           "Content-Type": "application/json;charset=utf-8",
           "Access-Control-Allow-Origin": "*"
@@ -35,8 +35,6 @@ const LoginHandeler = () => {
   return (
     <div className="LoginHandeler">
       <div className="notice">
-        <p>로그인 중입니다.</p>
-        <p>잠시만 기다려주세요.</p>
         <div className="spinner"></div>
       </div>
     </div>

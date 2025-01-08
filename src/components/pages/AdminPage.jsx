@@ -15,7 +15,7 @@ const AdminPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(null);
 
-  axios.defaults.baseURL = "http://localhost:8080";
+  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
     if (isAuthorized) {

@@ -53,7 +53,7 @@ function Fastcampus() {
         lastComments: sortCriteria === 'mostReviews' ? lastComments : null
       };
   
-      const response = await axios.get(`http://localhost:8080/courses/패스트캠퍼스`, {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/패스트캠퍼스`, {
         headers,
         params,
       });
@@ -99,7 +99,7 @@ function Fastcampus() {
     setWishRequestInProgress(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/courses/${id}/wish`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
           headers: {
@@ -154,7 +154,6 @@ function Fastcampus() {
 
 
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!items.length) return <div>데이터가 없습니다.</div>;
 
   return (
     <section id='fastcampus'>

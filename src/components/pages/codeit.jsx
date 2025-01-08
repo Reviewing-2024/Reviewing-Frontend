@@ -53,7 +53,7 @@ function Codeit() {
         lastComments: sortCriteria === 'mostReviews' ? lastComments : null
       };
   
-      const response = await axios.get(`http://localhost:8080/courses/코드잇`, {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/코드잇`, {
         headers,
         params,
       });
@@ -99,7 +99,7 @@ function Codeit() {
     setWishRequestInProgress(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/courses/${id}/wish`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
           headers: {
@@ -166,8 +166,8 @@ function Codeit() {
         </select>
       </div>
       <div className='inflearn__inner'>
-        {items.map(item => (
-          <div key={item.id} className='item'>
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}`} className='item'>
             <div className='item-inner'>
             <Link className='item-title' to={`/reviews/${item.id}`} state={{ item }}>
             {

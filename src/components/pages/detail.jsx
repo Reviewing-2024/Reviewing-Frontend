@@ -25,7 +25,7 @@ const Detail = () => {
       console.log('courseId:', courseId);
       fetchReviews();
       console.log('Authorization Header:', `Bearer ${accessToken}`);
-      console.log('Request URL:', `http://localhost:8080/reviews/${courseId}`);
+      console.log('Request URL:', `${process.env.REACT_APP_BASE_URL}/reviews/${courseId}`);
 
     }
   }, [courseId]);
@@ -33,7 +33,7 @@ const Detail = () => {
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:8080/reviews/${courseId}`, {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/reviews/${courseId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       setReviews(response.data);
@@ -60,7 +60,7 @@ const Detail = () => {
     }
 
     try {
-      const response = await axios.post(`http://localhost:8080/reviews/${courseId}`, formData, {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/reviews/${courseId}`, formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
