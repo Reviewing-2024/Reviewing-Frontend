@@ -154,8 +154,6 @@ const Inflearn = () => {
   }, [handleScroll]);
 
 
-  if (error) return <div>에러가 발생했습니다.</div>;
-
   return (
     <section id='inflearn'>
       <div className="sort-dropdown">
