@@ -25,6 +25,13 @@ const Chatbot = () => {
       chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
    };
 
+   const handleKeyDown = (event) => {
+      if (event.key === 'Enter') {
+         event.preventDefault();
+         handleSendMessage();
+      }
+   };
+
    const randomIntroMessage = () => {
       const intros = [
          "이런 강의들은 어떠신가요?",
@@ -81,11 +88,6 @@ const Chatbot = () => {
       }
    };
 
-   const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-         handleSendMessage();
-      }
-   };
 
    return (
       <div id='Chatbot'>

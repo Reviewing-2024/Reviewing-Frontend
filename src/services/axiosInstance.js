@@ -17,6 +17,7 @@ axiosInstance.interceptors.response.use(
 const handleLogout = () => {
     localStorage.removeItem('name');
     localStorage.removeItem('Authorization');
+    window.location.reload();
     alert('토큰이 만료되었습니다. 다시 로그인 해주세요.');
 };
 

@@ -18,13 +18,10 @@ const KakaoLogin = () => {
   }, []);
 
   useEffect(() => {
-    axiosInstance.get('/some-endpoint')
+    axiosInstance.get(`${process.env.REACT_APP_BASE_URL}`)
         .then(response => {
             setData(response.data);
         })
-        .catch(error => {
-            console.error("API 호출 오류:", error);
-        });
 }, []);
 
   const handleLogin = () => {
