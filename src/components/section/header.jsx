@@ -32,9 +32,6 @@ const Header = () => {
             .then(response => {
                 setKeywordsToDisplay(response.data);
             })
-            .catch(error => {
-                console.error("카테고리 데이터 가져오기 실패:", error);
-            });
     };
 
     const handleMouseEnter = (index) => {

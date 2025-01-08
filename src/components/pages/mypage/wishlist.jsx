@@ -43,14 +43,6 @@ const Wishlist = () => {
     fetchWishlist();
   }, [token]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   const handleWish = async (id, wished) => {
 
     if (!token) {

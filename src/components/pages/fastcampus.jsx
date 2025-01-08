@@ -155,8 +155,6 @@ function Fastcampus() {
   }, [handleScroll]);
 
 
-  if (error) return <div>에러가 발생했습니다.</div>;
-
   return (
     <section id='fastcampus'>
       <div className="sort-dropdown">

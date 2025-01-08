@@ -145,14 +145,6 @@ const Mypage = () => {
         );
     };
 
-    if (error) {
-        return (
-            <div className="error-container">
-                <p>에러가 발생했습니다.</p>
-                <p>{error}</p>
-            </div>
-        );
-    }
 
     return (
         <div className='mypage'>
