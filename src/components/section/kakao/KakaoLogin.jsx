@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../../../assert/kakao.css';
 import { KAKAO_AUTH_URL } from './OAuth/OAuth.js';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../../services/axiosInstance.js';
 
 const KakaoLogin = () => {
   const [name, setName] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [data, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +16,16 @@ const KakaoLogin = () => {
       setName(storedName);
     }
   }, []);
+
+  useEffect(() => {
+    axiosInstance.get('/some-endpoint')
+        .then(response => {
+            setData(response.data);
+        })
+        .catch(error => {
+            console.error("API 호출 오류:", error);
+        });
+}, []);
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;

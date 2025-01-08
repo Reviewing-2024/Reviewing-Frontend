@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import '../../assert/chatbot.css';
 
@@ -12,6 +12,10 @@ const Chatbot = () => {
    const chatEndRef = useRef(null);
 
    const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
+
+   useEffect(() => {
+       window.scrollTo(0, 0);
+     }, []);
 
    const addMessage = (sender, message) => {
       setMessages(prevMessages => [...prevMessages, { sender, message }]);

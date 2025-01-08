@@ -17,6 +17,11 @@ function Search() {
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
 
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+
   const token = localStorage.getItem('Authorization');
 
   const fetchItems = async () => {

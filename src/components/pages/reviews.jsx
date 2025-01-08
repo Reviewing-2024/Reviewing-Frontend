@@ -19,6 +19,10 @@ const Reviews = () => {
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+}, []);
+
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("Authorization");
     if (!token || token.trim() === "") {
@@ -387,7 +391,7 @@ const Reviews = () => {
                   {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
                 </button>
                 <button
-                  className={`btn-icon ${review.disliked ? "active" : ""}`}
+                  className={`btn-icon ${review.disliked ? "aactive" : ""}`}
                   onClick={() => handleDislike(review.id, review.disliked)}
                   disabled={aloading}
                 >

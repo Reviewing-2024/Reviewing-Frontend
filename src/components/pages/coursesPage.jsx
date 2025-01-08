@@ -25,6 +25,10 @@ const CoursesPage = () => {
     const token = localStorage.getItem('Authorization');
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [platform, category]);
+
+    useEffect(() => {
         setItems([]);
         setLastCourseId(null);
         setLastRating(null);
