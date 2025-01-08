@@ -74,7 +74,6 @@ const Reviews = () => {
         }));
         setReviews(updatedReviews);
       } catch (error) {
-        console.error(error);
         alert("리뷰를 불러오는 중 문제가 발생했습니다.");
       }
     };
@@ -131,8 +130,6 @@ const Reviews = () => {
     } catch (error) {
       let errorMessage = "리뷰 작성 중 문제가 발생했습니다.";
 
-      console.log(error)
-  
       if (error.response) {
           switch (error.status) {
               case 601:
@@ -457,6 +454,8 @@ const Reviews = () => {
                 }}
               />
             </div>
+            <p>강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
+            <p> (예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
             <div className="review-modal-buttons">
               <button className="btn-submit" onClick={handleCreateReview}>
                 리뷰 제출
