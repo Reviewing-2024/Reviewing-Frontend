@@ -35,7 +35,7 @@ const Mypagestatus = () => {
                 setLoading(true);
                 setError(null);
                 const response = await axios.get(
-                    `http://localhost:8080/my/reviews?status=${status}`,
+                    `${process.env.REACT_APP_BASE_URL}/my/reviews?status=${status}`,
                     {
                         headers: {
                             'Authorization': `Bearer ${token}`,

@@ -57,7 +57,7 @@ const CoursesPage = () => {
             lastComments: sortCriteria === 'mostReviews' ? lastComments : null
           };
       
-          const response = await axios.get(`http://localhost:8080/courses/${platform}/${category}?sort=${sortCriteria}`, {
+          const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/${platform}/${category}?sort=${sortCriteria}`, {
             headers,
             params,
           });
@@ -104,7 +104,7 @@ const CoursesPage = () => {
         setWishRequestInProgress(true);
         try {
           const response = await axios.post(
-            `http://localhost:8080/courses/${id}/wish`,
+            `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
             null,
             {
               headers: {

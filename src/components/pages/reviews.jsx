@@ -39,7 +39,7 @@ const Reviews = () => {
       const headers = token ? { Authorization: `Bearer ${token}` } : {};
       
       const response = await axios.get(
-        `http://localhost:8080/courses/${slug}`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${slug}`,
         { headers }
       );
       setCourse(response.data);
@@ -67,7 +67,7 @@ const Reviews = () => {
           : {};
   
         const response = await axios.get(
-          `http://localhost:8080/reviews/${course.id}`,
+          `${process.env.REACT_APP_BASE_URL}/reviews/${course.id}`,
           { headers }
         );
   
@@ -118,7 +118,7 @@ const Reviews = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8080/reviews/${course.id}`,
+        `${process.env.REACT_APP_BASE_URL}/reviews/${course.id}`,
         formData,
         {
           headers: {
@@ -156,7 +156,7 @@ const Reviews = () => {
       const token = localStorage.getItem("Authorization");
 
       const response = await axios.post(
-        `http://localhost:8080/courses/${courseId}/wish`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${courseId}/wish`,
         null,
         {
           headers: {
@@ -217,7 +217,7 @@ const Reviews = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/reviews/${reviewId}/like`,
+        `${process.env.REACT_APP_BASE_URL}/reviews/${reviewId}/like`,
         null,
         {
           params: { liked },
@@ -253,7 +253,7 @@ const Reviews = () => {
     setAloading(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/reviews/${reviewId}/dislike`,
+        `${process.env.REACT_APP_BASE_URL}/reviews/${reviewId}/dislike`,
         null,
         {
           params: { disliked },

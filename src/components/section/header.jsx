@@ -14,7 +14,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:8080/platform/category')
+        axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category`)
             .then(response => {
                 setKeywordsToDisplay(response.data);
             })
@@ -32,7 +32,7 @@ const Header = () => {
         console.log(category);
 
     
-        axios.get(`http://localhost:8080${url}`)
+        axios.get(`${process.env.REACT_APP_BASE_URL}${url}`)
             .then(response => {
                 setCoursesData(response.data);
                 console.log(response.data);
@@ -50,7 +50,7 @@ const Header = () => {
 
         const selectedPlatform = headerMenus[index].title;
 
-        axios.get(`http://localhost:8080/platform/category?platform=${selectedPlatform}`)
+        axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category?platform=${selectedPlatform}`)
             .then(response => {
                 setKeywordsToDisplay(response.data);
             })

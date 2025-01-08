@@ -36,7 +36,7 @@ const Mypage = () => {
             setLoading(true);
 
             const response = await axios.get(
-                'http://localhost:8080/my/reviews',
+                `${process.env.REACT_APP_BASE_URL}/my/reviews`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`, 
@@ -59,7 +59,7 @@ const Mypage = () => {
         console.log(courseId)
         try {
             const response = await axios.get(
-                `http://localhost:8080/course/${courseId}`,
+                `${process.env.REACT_APP_BASE_URL}/course/${courseId}`,
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`,

@@ -38,7 +38,7 @@ const Mypageheader = () => {
         try {
             const token = localStorage.getItem('Authorization');
             const response = await axios.put(
-                'http://localhost:8080/my/nickname',
+                `${process.env.REACT_APP_BASE_URL}/my/nickname`,
                 { nickName: newName },
                 {
                     headers: {

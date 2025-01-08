@@ -12,7 +12,7 @@ const LoginHandeler = () => {
     const kakaoLogin = async () => {
       await axios({
         method: "GET",
-        url: `http://localhost:8080/kakao/kakaoLogin/${code}`,
+        url: `${process.env.REACT_APP_BASE_URL}/kakao/kakaoLogin/${code}`,
         headers: {
           "Content-Type": "application/json;charset=utf-8",
           "Access-Control-Allow-Origin": "*"

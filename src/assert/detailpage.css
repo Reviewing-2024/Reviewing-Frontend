@@ -22,7 +22,7 @@
   flex-shrink: 0;
 }
 
-.course-image,
+.course-thumbnail img,
 video {
   width: 300px;
   height: auto;

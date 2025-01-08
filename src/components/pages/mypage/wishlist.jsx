@@ -25,7 +25,7 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       try {
         const response = await axios.get(
-            'http://localhost:8080/my/wish/courses', 
+            `${process.env.REACT_APP_BASE_URL}/my/wish/courses`, 
             {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -63,7 +63,7 @@ const Wishlist = () => {
     setWishRequestInProgress(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/courses/${id}/wish`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
           headers: {

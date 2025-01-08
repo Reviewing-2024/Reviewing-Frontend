@@ -49,7 +49,7 @@ const Home = () => {
         lastComments: sortCriteria === 'mostReviews' ? lastComments : null
       };
   
-      const response = await axios.get('http://localhost:8080', {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}`, {
         headers,
         params,
       });
@@ -95,7 +95,7 @@ const Home = () => {
     setWishRequestInProgress(true);
     try {
       const response = await axios.post(
-        `http://localhost:8080/courses/${id}/wish`,
+        `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
           headers: {
