@@ -6,8 +6,6 @@ const LoginHandeler = () => {
   const navigate = useNavigate();
   const code = new URL(window.location.href).searchParams.get("code");
 
-  console.log(code); 
-
   useEffect(() => {
     const kakaoLogin = async () => {
       await axios({
@@ -19,7 +17,6 @@ const LoginHandeler = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         const token = res.headers.get('Authorization');
         const accessToken = token.replace('Bearer ', '');
         

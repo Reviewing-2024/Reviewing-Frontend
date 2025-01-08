@@ -10,6 +10,7 @@ import Mypageheader from '../../section/mypageheader.jsx';
 
 import '../../../assert/css/mypage.css';
 import '../../../assert/css/section.css';
+import { IoHeart } from 'react-icons/io5';
 
 
 const Wishlist = () => {
@@ -49,8 +50,6 @@ const Wishlist = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  console.log(items);
 
   const handleWish = async (id, wished) => {
 
@@ -105,7 +104,8 @@ const Wishlist = () => {
     <div className='mypage'>
       <Mypageheader />
       <div className='review'>
-        <p className='title'>WishList</p>
+        <p className='title'>찜한 강의</p>
+        {items.length ? (
         <div className='inflearn__inner'>
           {items.map(item => (
             <div key={item.id} className='item'>
@@ -125,15 +125,18 @@ const Wishlist = () => {
                 <span>{item.title}</span>
                 </Link>
                 <div className='item-information'>
-                  {item.teacher ? <p>{item.teacher}</p> : <p>&nbsp;</p>}
-                    <span>
-                      <svg width="13" height="12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                        <path fill="#FDCC0E" fillRule="evenodd" d="M8 1.3c.133 0 .263.037.375.108.113.07.203.17.262.29l1.778 3.637 3.978.583c.131.02.254.075.355.161.101.086.176.199.217.326.041.126.046.262.014.392-.031.13-.098.247-.193.34l-2.878 2.831.68 3.996c.022.131.007.267-.042.39-.05.124-.133.23-.24.31-.107.078-.234.125-.366.134-.132.01-.263-.018-.38-.08L8 12.831l-3.558 1.887c-.117.062-.248.09-.38.08-.132-.01-.259-.056-.365-.134-.107-.079-.19-.186-.24-.31-.05-.123-.065-.258-.043-.39l.68-3.997-2.88-2.83c-.094-.093-.161-.21-.193-.34-.032-.13-.027-.266.014-.393.04-.127.116-.24.217-.326.102-.086.225-.142.356-.16l3.978-.583 1.779-3.637c.059-.12.15-.22.262-.29.112-.07.242-.108.374-.108z" clipRule="evenodd" />
-                      </svg> {item.rating}
-                    </span>
-                    <span className='item-comment'>
-                      <TbMessageCircle size={15} /> {item.comments}
-                    </span>
+                {item.teacher ? <p>{item.teacher}</p> : <p>&nbsp;</p>}
+                <span className='item-rating'>
+                  <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <path fill="#FDCC0E" fillRule="evenodd" d="M8 1.3c.133 0 .263.037.375.108.113.07.203.17.262.29l1.778 3.637 3.978.583c.131.02.254.075.355.161.101.086.176.199.217.326.041.126.046.262.014.392-.031.13-.098.247-.193.34l-2.878 2.831.68 3.996c.022.131.007.267-.042.39-.05.124-.133.23-.24.31-.107.078-.234.125-.366.134-.132.01-.263-.018-.38-.08L8 12.831l-3.558 1.887c-.117.062-.248.09-.38.08-.132-.01-.259-.056-.365-.134-.107-.079-.19-.186-.24-.31-.05-.123-.065-.258-.043-.39l.68-3.997-2.88-2.83c-.094-.093-.161-.21-.193-.34-.032-.13-.027-.266.014-.393.04-.127.116-.24.217-.326.102-.086.225-.142.356-.16l3.978-.583 1.779-3.637c.059-.12.15-.22.262-.29.112-.07.242-.108.374-.108z" clipRule="evenodd" />
+                  </svg> {item.rating}
+                </span>
+                <span className='item-comment'>
+                 <TbMessageCircle size={16} /> {item.comments}
+                </span>
+                <span className='item-wishe'>
+                 <IoHeart size={16} color='FF9393' /> {item.wishes}
+                </span>
                     <div className="overlay">
                       <span onClick={() => handleWish(item.id, item.wished)}>
                       {wishLoading ? (
@@ -150,6 +153,16 @@ const Wishlist = () => {
             </div>
           ))}
         </div>
+        ) :( 
+          <div className="no-reviews">
+            <img src='https://cdn.inflearn.com/assets/images/empty_states/empty_nest_color.svg'/>
+            <p>표시할 찜이 없습니다.</p>
+            <span>나를 성장시켜줄 새로운 지식을 찾아보세요</span> 
+            <a type="button" href="/" target="_blank">
+              <div>강의 리스트 보기</div>
+            </a>
+          </div>
+        )}
       </div>
       <div className='footer' />
     </div>

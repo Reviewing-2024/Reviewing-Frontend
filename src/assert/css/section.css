@@ -87,7 +87,9 @@
     margin-right: 13px;
 }
 
-.item-comment svg {
+.item-comment svg,
+.item-wishe svg,
+.item-rating svg {
     vertical-align: middle;
 }
 

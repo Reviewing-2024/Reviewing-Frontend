@@ -10,7 +10,6 @@ const Header = () => {
     const [activeKeywordIndex, setActiveKeywordIndex] = useState(null);
     const [keywordsToDisplay, setKeywordsToDisplay] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
-    const [coursesData, setCoursesData] = useState([]);
     const navigate = useNavigate();
 
 
@@ -29,12 +28,9 @@ const Header = () => {
 
         const platform = headerMenus[index].title;
 
-         console.log(platform)
-
         axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category?platform=${platform}`)
             .then(response => {
                 setKeywordsToDisplay(response.data);
-                console.log(response)
             })
             .catch(error => {
                 console.error("카테고리 데이터 가져오기 실패:", error);
