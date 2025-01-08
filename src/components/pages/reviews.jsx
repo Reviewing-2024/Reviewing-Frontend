@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import StarRatingComponent from "react-rating-stars-component";
-import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
-import { FaHeart, FaRegHeart  } from "react-icons/fa6";
+import { FaHeart, FaRegHeart } from "react-icons/fa6";
 import "../../assert/detailpage.css";
 import axios from "axios";
 
@@ -14,9 +12,6 @@ const Reviews = () => {
   const { item } = location.state || {};
   const [course, setCourse] = useState(item || null);
   const [reviews, setReviews] = useState([]);
-  const [sortOption, setSortOption] = useState("latest");
-  const [likedReviews, setLikedReviews] = useState({});
-  const [dislikedReviews, setDislikedReviews] = useState({});
   const [newReview, setNewReview] = useState({});
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -54,17 +49,14 @@ const Reviews = () => {
   }, [slug]);
   
   useEffect(() => {
-    if (!course && slug) { fetchCourse() };
+    if (!course && slug) fetchCourse();
   }, [course, fetchCourse, slug]);
-
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
         const token = localStorage.getItem("Authorization");
-        const headers = token
-          ? { Authorization: `Bearer ${token}` }
-          : {};
+        const headers = token ? { Authorization: `Bearer ${token}` } : {};
   
         const response = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/reviews/${course.id}`,
@@ -87,7 +79,6 @@ const Reviews = () => {
   }, [course]);
 
   const handleCreateReview = async () => {
-    console.log("리뷰 상태 확인:", newReview);
     const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
@@ -99,7 +90,7 @@ const Reviews = () => {
       return;
     }
 
-  const formData = new FormData();
+    const formData = new FormData();
     formData.append(
       "reviewRequestDto",
       new Blob(
@@ -123,27 +114,65 @@ const Reviews = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
           },
         },
       );
 
-      console.log("리뷰 작성 성공:", response.data);
       setShowReviewModal(false);
       setNewReview({});
       setReviews((prev) => [...prev, response.data]);
       window.location.reload();
-      alert(`소중한 리뷰를 작성해 주셔서 감사합니다! ☺️\n작성하신 리뷰는 관리자가 신속히 검토하겠습니다!\n진행 상황은 마이페이지에서 확인하실 수 있습니다.`
-      ); 
+      alert(`소중한 리뷰를 작성해 주셔서 감사합니다! ☺️\n작성하신 리뷰는 관리자가 신속히 검토하겠습니다!\n진행 상황은 마이페이지에서 확인하실 수 있습니다.`); 
     } catch (error) {
-      console.error("리뷰 작성 에러:", error.response?.data || error.message);
-      alert(
-        "리뷰 작성 중 문제가 발생했습니다: " +
-          (error.response?.data?.message || error.message),
-      );
-    }
-  };
+      let errorMessage = "리뷰 작성 중 문제가 발생했습니다.";
 
+      console.log(error)
+  
+      if (error.response) {
+          switch (error.status) {
+              case 601:
+                  errorMessage += " 이미 검토 중인 리뷰입니다.";
+                  break;
+              case 602:
+                  errorMessage += " 이미 작성된 리뷰입니다.";
+                  break;
+              case 605:
+                  errorMessage += " 이미 존재하는 찜입니다.";
+                  break;
+              case 606:
+                  errorMessage += " 존재하지 않는 찜입니다.";
+                  break;
+              case 607:
+                  errorMessage += " 이미 존재하는 좋아요입니다.";
+                  break;
+              case 608:
+                  errorMessage += " 존재하지 않는 좋아요입니다.";
+                  break;
+              case 609:
+                  errorMessage += " 이미 존재하는 싫어요입니다.";
+                  break;
+              case 610:
+                  errorMessage += " 존재하지 않는 싫어요입니다.";
+                  break;
+              case 615:
+                  errorMessage += " 리뷰 파일 크기가 1MB를 초과했습니다.";
+                  break;
+              case 616:
+                  errorMessage += " 리뷰 내용이 유효하지 않습니다. (별점 혹은 리뷰 내용을 채워주세요)";
+                  break;
+              case 617:
+                  errorMessage += " 파일이 null이거나 내용이 비어있습니다.";
+                  break;
+          }
+      } else {
+          errorMessage += " 네트워크 문제가 발생했습니다: " + error.message;
+      }
+  
+      console.error(error.response?.data || error.message);
+      alert(errorMessage);
+  }
+  };
 
   const handleWish = async (courseId) => {
     if (!isUserLoggedIn()) return;
@@ -159,12 +188,8 @@ const Reviews = () => {
         `${process.env.REACT_APP_BASE_URL}/courses/${courseId}/wish`,
         null,
         {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          params: { 
-            wished: course.wished
-          }
+          headers: { Authorization: `Bearer ${token}` },
+          params: { wished: course.wished }
         }
       );
 
@@ -178,12 +203,10 @@ const Reviews = () => {
         };
       });
 
-      if (course.wished !== response.data.wished) {
-        const message = response.data.wished ? 
-          "강의가 찜 목록에 추가되었습니다!" : 
-          "강의가 찜 목록에서 제거되었습니다.";
-        alert(message);
-      }
+      const message = response.data.wished ? 
+        "강의가 찜 목록에 추가되었습니다!" : 
+        "강의가 찜 목록에서 제거되었습니다.";
+      alert(message);
       
     } catch (error) {
       if (error.response?.status === 600) {
@@ -221,9 +244,7 @@ const Reviews = () => {
         null,
         {
           params: { liked },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
   
@@ -257,9 +278,7 @@ const Reviews = () => {
         null,
         {
           params: { disliked },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         }
       );
   
@@ -277,17 +296,15 @@ const Reviews = () => {
     }
   };
 
-  if (!course) return <div>로딩 중...</div>;
-  
 
   return (
     <div className="detail-page">
       <div className="header-div">
-      <header className="header-section">
-        <div className="course-thumbnail">
-            {item.thumbnailImage ? (
+        <header className="header-section">
+          <div className="course-thumbnail">
+            {item?.thumbnailImage ? (
               <img src={item.thumbnailImage} alt={item.title} />
-            ) : item.thumbnailVideo ? (
+            ) : item?.thumbnailVideo ? (
               <video muted autoPlay loop>
                 <source src={item.thumbnailVideo} type="video/mp4" alt={item.title} />
               </video>
@@ -295,39 +312,37 @@ const Reviews = () => {
               <img src='/img/nothing.png' alt={item.title} />
             )}
           </div>
-        <div className="course-info">
-          <h2 className="course-title">{course.title}</h2>
-          <p className="instructor-name">{course.teacher || ""}</p>
-          <div className="course-actions">
-          <button
-              className="btn btn-wish"
-              style={{
-                backgroundColor: "#fff",
-                border: "1px solid #88BAF7",
-                borderRadius: "5px",
-                padding: "10px",
-                cursor: wishLoading ? "not-allowed" : "pointer",
-                opacity: wishLoading ? 0.7 : 1
-              }}
-              onClick={() => handleWish(course?.id)}
-              disabled={wishLoading || wishRequestInProgress}
-            >
-             {wishLoading ? (
+          <div className="course-info">
+            <h2 className="course-title">{course.title}</h2>
+            <p className="instructor-name">{course.teacher || ""}</p>
+            <div className="course-actions">
+              <button
+                className="btn btn-wish"
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #88BAF7",
+                  borderRadius: "5px",
+                  padding: "10px",
+                  cursor: wishLoading ? "not-allowed" : "pointer",
+                  opacity: wishLoading ? 0.7 : 1
+                }}
+                onClick={() => handleWish(course?.id)}
+                disabled={wishLoading || wishRequestInProgress}
+              >
+                {wishLoading ? (
                   <FiLoader color="#88BAF7" size={12} />
                 ) : course?.wished ? (
                   <FaHeart color="#88BAF7" size={12} />
                 ) : (
                   <FaRegHeart color="#88BAF7" size={12} />
                 )}
-            </button>
-
-
-            <button className="btn btn-view" onClick={handleView} disabled={!course?.url}>
-              수강하러 가기
-            </button>
+              </button>
+              <button className="btn btn-view" onClick={handleView} disabled={!course?.url}>
+                수강하러 가기
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
       </div>
       <section className="review-section">
         <div
@@ -364,7 +379,6 @@ const Reviews = () => {
               </div>
               <p className="review-content">{review.contents}</p>
               <div className="review-actions">
-                <div className="review-actions">
                 <button
                   className={`btn-icon ${review.liked ? "active" : ""}`}
                   onClick={() => handleLike(review.id, review.liked)}
@@ -373,19 +387,17 @@ const Reviews = () => {
                   {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
                 </button>
                 <button
-                  className={`btn-icon ${review.disliked ? "aactive" : ""}`}
+                  className={`btn-icon ${review.disliked ? "active" : ""}`}
                   onClick={() => handleDislike(review.id, review.disliked)}
                   disabled={aloading}
                 >
-                   {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
+                  {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
                 </button>
-                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
-
       {showReviewModal && (
         <div className="review-modal">
           <div className="review-modal-content">
@@ -403,9 +415,9 @@ const Reviews = () => {
                   );
                   setNewReview((prev) => ({ ...prev, rating: value }));
                 }}
-                placeholder="0 ~ 5"
+                placeholder="1 ~ 5"
                 step="0.5"
-                min="0"
+                min="1"
                 max="5"
               />
             </div>
@@ -417,6 +429,11 @@ const Reviews = () => {
                 onChange={(e) =>
                   setNewReview({ ...newReview, contents: e.target.value })
                 }
+                onBlur={() => {
+                  if (!newReview.contents) {
+                      alert('리뷰 내용을 입력해주세요.');
+                  }
+                }}
                 placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}
               />
             </div>
@@ -429,13 +446,12 @@ const Reviews = () => {
                 onChange={(e) =>
                   setNewReview({ ...newReview, file: e.target.files[0] })
                 }
-                placeholder="리뷰 내용을 입력하세요."
+                onBlur={() => {
+                  if (!newReview.file) {
+                      alert('파일을 선택해주세요.');
+                  }
+                }}
               />
-              {/* <p>- 강의 수강을 증명할 수 있는 자료를 첨부해주세요.</p>
-              <p>(예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
-              <p>무관한 내용이나 부적절한 파일을 첨부할 경우 승인이 거절될 수 있습니다.</p>
-              <p>첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
-              <p>리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p> */}
             </div>
             <div className="review-modal-buttons">
               <button className="btn-submit" onClick={handleCreateReview}>

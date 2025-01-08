@@ -166,8 +166,8 @@ function Codeit() {
         </select>
       </div>
       <div className='inflearn__inner'>
-        {items.map(item => (
-          <div key={item.id} className='item'>
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}`} className='item'>
             <div className='item-inner'>
             <Link className='item-title' to={`/reviews/${item.id}`} state={{ item }}>
             {

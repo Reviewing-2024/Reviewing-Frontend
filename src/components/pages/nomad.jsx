@@ -154,7 +154,6 @@ function Nomad() {
 
 
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!items.length) return <div>데이터가 없습니다.</div>;
 
   return (
     <section id='nomad'>
