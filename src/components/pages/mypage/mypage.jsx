@@ -20,6 +20,14 @@ const Mypage = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const createUrlSlug = (slug) => {
+        return slug
+          .toLowerCase()
+          .replace(/[^a-z0-9가-힣]/g, '-') 
+          .replace(/-+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      };
+
     useEffect(() => {
         const matchedCategory = review_category.find(
             (category) => `/mypage${category.src}` === location.pathname
@@ -100,7 +108,7 @@ const Mypage = () => {
     const handleCourseClick = useCallback((review) => {
         const courseDetail = courseDetails[review.courseId];
         if (courseDetail) {
-            navigate(`/reviews/${review.courseId}`, {
+            navigate(`/reviews/${createUrlSlug(review.courseSlug)}`, {
                 state: { 
                     item: {
                         ...courseDetail,

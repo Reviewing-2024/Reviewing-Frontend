@@ -25,6 +25,14 @@ const CoursesPage = () => {
 
     const token = localStorage.getItem('Authorization');
 
+    const createUrlSlug = (slug) => {
+        return slug
+          .toLowerCase()
+          .replace(/[^a-z0-9가-힣]/g, '-') 
+          .replace(/-+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      };
+
     useEffect(() => {
         window.scrollTo(0, 0);
       }, [platform, category]);
@@ -174,7 +182,7 @@ const CoursesPage = () => {
                 {items.map(item => (
                     <div key={item.id} className='item'>
                         <div className='item-inner'>
-                            <Link className='item-title' to={`/reviews/${item.id}`} state={{ item }}>
+                            <Link className='item-title' to={`/reviews/${createUrlSlug(item.slug)}`} state={{ item }}>
                                 {item.thumbnailImage ? (
                                     <img src={item.thumbnailImage} alt={item.title} />
                                 ) : item.thumbnailVideo ? (
