@@ -62,10 +62,3 @@
   margin: 10px 0;
   cursor: pointer;
 }
-
-@media (max-width: 720px) {
-  .kakaobtn {
-    content: url('C:\Users\wnsgus880\Desktop\reviewing front\Reviewing-Frontend\public\img\kakao_login_medium.png');
-  }
-
-}

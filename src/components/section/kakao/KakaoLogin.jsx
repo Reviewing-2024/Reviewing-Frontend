@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const KakaoLogin = () => {
   const [name, setName] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [imageSrc, setImageSrc] = useState('/img/kakao_login_medium_narrow.png');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +14,21 @@ const KakaoLogin = () => {
     if (storedName) {
       setName(storedName);
     }
+
+    const updateImage = () => {
+      if (window.innerWidth <= 720) {
+        setImageSrc('/img/kakao_login_medium.png');
+      } else {
+        setImageSrc('/img/kakao_login_medium_narrow.png');
+      }
+    };
+
+    updateImage();
+    window.addEventListener('resize', updateImage);
+
+    return () => {
+      window.removeEventListener('resize', updateImage);
+    };
   }, []);
 
   const handleLogin = () => {
@@ -26,6 +42,8 @@ const KakaoLogin = () => {
     navigate('/');
     window.location.reload();
 };
+
+
   
 const handleNavigate = () => {
     navigate('/mypage');
@@ -52,7 +70,7 @@ const handleNavigate = () => {
         </div>
       ) : (
         <p onClick={handleLogin} className="kakaobtn">
-          <img src="/img/kakao_login_medium_narrow.png" alt="Kakao Login" />
+          <img src={imageSrc} alt="Kakao Login" />
         </p>
       )}
     </div>
