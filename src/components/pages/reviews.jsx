@@ -132,6 +132,12 @@ const Reviews = () => {
 
       if (error.response) {
           switch (error.status) {
+              case 600 :
+                localStorage.removeItem('name');
+                localStorage.removeItem('Authorization');
+                window.location.reload();
+                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+
               case 601:
                   errorMessage += " 이미 검토 중인 리뷰입니다.";
                   break;
@@ -166,9 +172,7 @@ const Reviews = () => {
                   errorMessage += " 파일이 null이거나 내용이 비어있습니다.";
                   break;
           }
-      } else {
-          errorMessage += " 네트워크 문제가 발생했습니다: " + error.message;
-      }
+      } 
   
       console.error(error.response?.data || error.message);
       alert(errorMessage);
@@ -211,8 +215,12 @@ const Reviews = () => {
       
     } catch (error) {
       if (error.response?.status === 600) {
-        alert("로그인이 필요한 서비스입니다.");
-      } else {
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+      }
+      else {
         console.error("위시리스트 처리 중 오류:", error);
         alert("위시리스트 처리 중 문제가 발생했습니다.");
       }

@@ -32,7 +32,7 @@ function Kmooc() {
     fetchItems(sortCriteria);
   }, [sortCriteria]);
 
-  if (error) return <div>아직 준비중입니다.</div>;
+  if (error) return <div className='no-items'>아직 준비중입니다.</div>;
 
   return (
     <section id='kmooc'>
