@@ -141,7 +141,7 @@ const Reviews = () => {
                 localStorage.removeItem('Authorization');
                 window.location.reload();
                 alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-                
+                break;
               case 601:
                   errorMessage += " 이미 검토 중인 리뷰입니다.";
                   break;
@@ -207,9 +207,13 @@ const Reviews = () => {
             localStorage.removeItem('Authorization');
             window.location.reload();
             alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-            break;
-          case 500:
+          break;
+          case 601:
+            alert("작성해주신 리뷰를 검토중 입니다! 잠시만 기다려주세요.");
+          break;  
+          case 602:
             alert("이미 리뷰를 작성한 강의입니다!");
+          break;  
         }
         console.error("리뷰 권한 확인 중 오류:", error.response);
       } else if (error.request) {
