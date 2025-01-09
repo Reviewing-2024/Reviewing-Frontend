@@ -57,7 +57,6 @@ const Mypageheader = () => {
                 alert('닉네임 변경에 실패하였습니다.');
             }
         } catch (error) {
-            console.error( error);
             alert('닉네임 변경 중 오류가 발생 하였습니다.');
         }
     };

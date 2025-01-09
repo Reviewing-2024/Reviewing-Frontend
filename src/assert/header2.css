@@ -60,11 +60,10 @@
     padding: 3px;
     border-radius: 44px;
     flex-grow: 1;  
-    margin: 0px 50px;
-    max-width: 44vw;
+    max-width: 40vw;
 }
 
-.search-bar input {
+.searchinput {
     border: none;
     outline: none;
     padding: 3px;
@@ -76,10 +75,10 @@
 .search-bar button {
     background-color: #fdfdfd;
     cursor: pointer;
-    font-size: 30px;
-    margin-right: 10px;
+    font-size: 28px;
     border: none;
     border-radius: 40px;  
+    margin-right: 10px;
 }
 
 
@@ -116,6 +115,7 @@
 @media (max-width: 690px) {
     .search-bar {
         margin: 10px;
+        max-width: 44vw;
     }
 
     .search-bar input {
@@ -124,16 +124,16 @@
         padding: 10px;
         font-size: 18px;
         border-radius: 44px;
-        width: 25vh;
+        max-width: 44vw;
     }
 
     .search-bar button {
         background-color: white;
         cursor: pointer;
-        font-size: 30px;
-        margin-right: 10px;
+        font-size: 24px;
+        margin-left: 8px;
         border: none;
-        border-radius: 40px;  
+        border-radius: 100px;  
     }
 }
 

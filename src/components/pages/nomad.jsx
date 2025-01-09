@@ -15,7 +15,7 @@ function Nomad() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [sortCriteria, setSortCriteria] = useState('fundamental');
+  const [sortCriteria, setSortCriteria] = useState('highestRating');
   const [lastCourseId, setLastCourseId] = useState(null);
   const [lastRating, setLastRating] = useState(null);
   const [lastComments, setLastComments] = useState(null);
@@ -83,8 +83,13 @@ function Nomad() {
         setHasMore(false);
       }
     } catch (err) {
+      if (err.response?.status === 600) {
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+      }
       setError(err);
-      console.error('Request Error:', err.response || err);
     } finally {
       setLoading(false);
     }
@@ -159,7 +164,6 @@ function Nomad() {
     <section id='nomad'>
       <div className="sort-dropdown">
         <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
-          <option value="fundamental">기본 순</option>
           <option value="highestRating">별점 높은 순</option>
           <option value="mostReviews">리뷰 많은 순</option>
         </select>

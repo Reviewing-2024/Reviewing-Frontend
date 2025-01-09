@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import "../../assert/layout.css";
 import "../../assert/header2.css";
 
-import { CiSearch } from "react-icons/ci";
+import { IoIosSearch } from "react-icons/io";
 
 import KakaoLogin from './kakao/KakaoLogin';
 import { useNavigate } from 'react-router-dom'
@@ -44,7 +44,7 @@ const Header2 = () => {
                   }
               }}
             />
-          <button onClick={handleSearch}><CiSearch /></button>
+          <button onClick={handleSearch}><IoIosSearch /></button>
         </div>
           <KakaoLogin />
       </div>
