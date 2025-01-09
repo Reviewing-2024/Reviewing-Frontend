@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 import { user, category } from '../../data/review.js';
 import { FaRegEdit } from "react-icons/fa";
 import '../../assert/css/mypageheader.css';
 
 const Mypageheader = () => {
-    const navigate = useNavigate();
     const [name, setName] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [newName, setNewName] = useState('');
@@ -18,15 +16,6 @@ const Mypageheader = () => {
             setName(storedName);
         }
     }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem('name');
-        localStorage.removeItem('Authorization');
-        setName(null);
-        navigate('/');
-        window.location.reload();
-        
-    };
 
     const handleEditToggle = () => {
         setIsEditing(!isEditing);
