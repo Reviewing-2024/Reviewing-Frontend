@@ -58,10 +58,14 @@ const Mypagestatus = () => {
             });
 
         } catch (err) {
+            if (err.response?.status === 600) {
+                localStorage.removeItem('name');
+                localStorage.removeItem('Authorization');
+                navigate('/')
+                window.location.reload();
+                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+              }
             setError(err.response?.data?.message || '리뷰를 불러오는데 실패했습니다.');
-            if (err.response?.status === 401) {
-                alert("로그인이 필요합니다.");
-            }
         } finally {
             setLoading(false);
         }
@@ -83,7 +87,7 @@ const Mypagestatus = () => {
                 [courseId]: response.data
             }));
         } catch (err) {
-            console.error(`코스 정보 로딩 실패 (ID: ${courseId}):`, err);
+            console.error('강의 정보 로딩 실패했습니다. ');
         }
     }, [token, courseDetails]);
 
@@ -180,7 +184,6 @@ const Mypagestatus = () => {
                     <div className="no-reviews">
                         <img src='https://cdn.inflearn.com/assets/images/empty_states/empty_nest_color.svg'/>
                         <p>표시할 리뷰가 없습니다.</p>
-                        <span>나를 성장시켜줄 새로운 지식을 찾아보세요</span> 
                         <a type="button" href="/" target="_blank">
                             <div>강의 리스트 보기</div>
                         </a>

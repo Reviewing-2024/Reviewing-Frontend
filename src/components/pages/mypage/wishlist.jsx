@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { FaHeart, FaRegHeart  } from "react-icons/fa6";
 import { FiLoader } from "react-icons/fi";
@@ -19,6 +19,7 @@ const Wishlist = () => {
   const [error, setError] = useState(null);
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
+  const navigate = useNavigate();
 
   const token = localStorage.getItem('Authorization');
 
@@ -33,8 +34,15 @@ const Wishlist = () => {
             },
             });
             setItems(response.data);
-        } catch (err) {
-            setError(err.message);
+        } catch (error) {
+          if (error.response?.status === 600) {
+            localStorage.removeItem('name');
+            localStorage.removeItem('Authorization');
+            navigate('/')
+            window.location.reload();
+            alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+          }
+            setError(error.message);
         } finally {
             setLoading(false);
         }
@@ -77,7 +85,7 @@ const Wishlist = () => {
       alert(message);
     } catch (error) {
       if (error.response?.status === 600) {
-        alert("로그인이 필요한 서비스입니다.");
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       } else {
         console.error("위시리스트 처리 중 오류:", error);
         alert("위시리스트 처리 중 문제가 발생했습니다.");
@@ -149,7 +157,6 @@ const Wishlist = () => {
           <div className="no-reviews">
             <img src='https://cdn.inflearn.com/assets/images/empty_states/empty_nest_color.svg'/>
             <p>표시할 찜이 없습니다.</p>
-            <span>나를 성장시켜줄 새로운 지식을 찾아보세요</span> 
             <a type="button" href="/" target="_blank">
               <div>강의 리스트 보기</div>
             </a>

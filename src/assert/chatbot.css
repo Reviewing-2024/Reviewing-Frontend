@@ -39,7 +39,7 @@
 
 .chatDiv {
     padding: 20px;
-    height: 830px;
+    height: 88vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;

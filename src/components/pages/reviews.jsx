@@ -456,6 +456,9 @@ const Reviews = () => {
             </div>
             <p>강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
             <p> (예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
+            <p> 무관한 내용이나 부적절한 파일을 첨부할 경우 승인이 거절될 수 있습니다.</p>
+            <p> 첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
+            <p> 리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p>
             <div className="review-modal-buttons">
               <button className="btn-submit" onClick={handleCreateReview}>
                 리뷰 제출
