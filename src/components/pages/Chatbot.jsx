@@ -7,6 +7,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isComposing, setIsComposing] = useState(false);
     const chatEndRef = useRef(null);
     const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
@@ -23,10 +24,18 @@ const Chatbot = () => {
     };
 
     const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !event.nativeEvent.isComposing && !isComposing) {
             event.preventDefault();
             handleSendMessage();
         }
+    };
+
+    const handleCompositionStart = () => {
+        setIsComposing(true);
+    };
+
+    const handleCompositionEnd = () => {
+        setIsComposing(false);
     };
 
     const randomIntroMessage = () => {
@@ -101,12 +110,21 @@ const Chatbot = () => {
                 <div ref={chatEndRef}></div>
             </div>
             <div className='inputDiv'>
-                <input
-                    type='text' placeholder='메시지를 입력하세요'
-                    value={userInput} onChange={(e) => setUserInput(e.target.value)}
+            <input
+                    type='text' 
+                    placeholder='메시지를 입력하세요'
+                    value={userInput} 
+                    onChange={(e) => setUserInput(e.target.value)}
                     onKeyDown={handleKeyDown}
+                    onCompositionStart={handleCompositionStart}
+                    onCompositionEnd={handleCompositionEnd}
                 />
-                <button onClick={handleSendMessage}><IoChatboxEllipsesOutline /></button>
+                <button 
+                    onClick={handleSendMessage}
+                    disabled={loading}
+                >
+                    <IoChatboxEllipsesOutline />
+                </button>
             </div>
         </div>
     );
