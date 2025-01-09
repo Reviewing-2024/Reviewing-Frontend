@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { FaHeart, FaRegHeart  } from "react-icons/fa6";
+import { GrDocumentMissing } from "react-icons/gr";
 import { FiLoader } from "react-icons/fi";
 import { TbMessageCircle } from "react-icons/tb";
 
@@ -84,7 +85,11 @@ const Wishlist = () => {
         : "강의가 찜 목록에서 제거되었습니다.";
       alert(message);
     } catch (error) {
-      if (error.response?.status === 600) {
+       if (error.response?.status === 600) {
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        navigate('/')
+        window.location.reload();
         alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       } else {
         console.error("위시리스트 처리 중 오류:", error);
@@ -155,7 +160,7 @@ const Wishlist = () => {
         </div>
         ) :( 
           <div className="no-reviews">
-            <img src='https://cdn.inflearn.com/assets/images/empty_states/empty_nest_color.svg'/>
+            <GrDocumentMissing />
             <p>표시할 찜이 없습니다.</p>
             <a type="button" href="/" target="_blank">
               <div>강의 리스트 보기</div>

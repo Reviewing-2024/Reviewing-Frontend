@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsCircleFill } from "react-icons/bs";
 import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
+import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
 import '../../../assert/css/mypage.css';
@@ -85,6 +86,13 @@ const Mypage = () => {
                 [courseId]: response.data
             }));
         } catch (err) {
+            if (err.response?.status === 600) {
+                localStorage.removeItem('name');
+                localStorage.removeItem('Authorization');
+                navigate('/')
+                window.location.reload();
+                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+              }
             console.error('강의 정보 로딩을 실패했습니다. ');
         }
     }, [token, courseDetails]);
@@ -181,7 +189,7 @@ const Mypage = () => {
             <div className='review'>
                 {!reviews.length ? (
                     <div className="no-reviews">
-                        <img src='https://cdn.inflearn.com/assets/images/empty_states/empty_nest_color.svg'/>
+                        <GrDocumentMissing />
                         <p>표시할 리뷰가 없습니다.</p>
                         <a type="button" href="/" target="_blank">
                             <div>강의 리스트 보기</div>

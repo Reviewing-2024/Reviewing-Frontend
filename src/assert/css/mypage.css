@@ -105,15 +105,9 @@
   padding-top: 40px;
 }
 
-.no-reviews img {
+.no-reviews svg {
   width: 80px;
-}
-
-.no-reviews span {
-  font-size: 14px;
-  color: #ADB5BD;
-  vertical-align:top;
-  padding-bottom: 20px;
+  height: 80px;
 }
 
 .no-reviews a {

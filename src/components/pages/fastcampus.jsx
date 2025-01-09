@@ -129,7 +129,10 @@ function Fastcampus() {
       alert(message);
     } catch (error) {
       if (error.response?.status === 600) {
-        alert("로그인이 필요한 서비스입니다.");
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       } else {
         console.error("위시리스트 처리 중 오류:", error);
         alert("위시리스트 처리 중 문제가 발생했습니다.");

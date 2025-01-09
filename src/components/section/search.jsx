@@ -1,50 +1,87 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 
 import '../../assert/css/section.css';
 import '../../assert/layout.css';
 
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
-import { FiLoader } from 'react-icons/fi';
-import { TbMessageCircle } from 'react-icons/tb';
+import { FaHeart, FaRegHeart  } from "react-icons/fa6";
+import { FiLoader } from "react-icons/fi";
+import { TbMessageCircle } from "react-icons/tb";
+import { IoHeart } from 'react-icons/io5';
 
 function Search() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { searchKeyword } = useParams();
+  const [lastCourseId, setLastCourseId] = useState(null);
+  const [hasMore, setHasMore] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
+  const { searchKeyword } = useParams();
 
    useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+   useEffect(() => {
+      setItems([]);
+      setLastCourseId(null);
+      setHasMore(true);
+      fetchItems(true);
+    }, [searchKeyword]);
+
 
   const token = localStorage.getItem('Authorization');
 
-  const fetchItems = async () => {
-
+  const fetchItems = useCallback(async (isInitialLoad = false) => {
+    if (loading || (!hasMore && !isInitialLoad)) return;
+  
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     try {
-      setError(null);
-      setItems([]);
       setLoading(true);
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}`, {
+      setError(null);
+  
+      const params = {
+        keyword: searchKeyword,
+        lastCourseId: isInitialLoad ? null : lastCourseId,
+      };
+  
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/search`, {
         headers,
+        params,
       });
-      setItems(response.data);
-    } catch (e) {
-      setError(e);
+  
+      const newItems = response.data;
+  
+      if (isInitialLoad) {
+        setItems(newItems);
+      } else {
+        const existingIds = new Set(items.map(item => item.id));
+        const uniqueNewItems = newItems.filter(item => !existingIds.has(item.id));
+        setItems(prev => [...prev, ...uniqueNewItems]);
+      }
+  
+      if (newItems.length > 0) {
+        const lastItem = newItems[newItems.length - 1];
+        setLastCourseId(lastItem.id);
+        setHasMore(true);
+      } else {
+        setHasMore(false);
+      }
+    } catch (err) {
+      if (err.response?.status === 600) {
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+      }
+      setError(err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchItems();
-  }, []);
+  }, [loading, hasMore, items, lastCourseId, token, searchKeyword]);
 
   const handleWish = async (id, wished) => {
 
@@ -80,7 +117,10 @@ function Search() {
       alert(message);
     } catch (error) {
       if (error.response?.status === 600) {
-        alert("로그인이 필요한 서비스입니다.");
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
+        alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       } else {
         console.error("위시리스트 처리 중 오류:", error);
         alert("위시리스트 처리 중 문제가 발생했습니다.");
@@ -94,21 +134,30 @@ function Search() {
     }
   };
 
-  if (!items || !Array.isArray(items)) return null;
+  const handleScroll = useCallback(() => {
+    if (loading || !hasMore) return;
+  
+    const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
+    const buffer = 100;
+  
+    if (scrollHeight - scrollTop - clientHeight < buffer) {
+      fetchItems(false);
+    }
+  }, [loading, hasMore, fetchItems]);
+  
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
-  const filteredItems = searchKeyword
-    ? items.filter((item) => 
-      (item.title && item.title.includes(searchKeyword)) ||
-      (item.teacher && item.teacher.includes(searchKeyword)))
-    : [];
 
   return (
     <section id="search">
       <div className="inflearn__inner">
-        {filteredItems.length === 0 ? (
+        {items.length === 0 ? (
           <p>검색 결과가 없습니다.</p>
         ) : (
-          filteredItems.map(item => (
+          items.map(item => (
             <div key={item.id} className='item'>
               <div className='item-inner'>
                 <Link className='item-title' to={`/reviews/${item.id}`} state={{ item }}>
@@ -134,6 +183,9 @@ function Search() {
                 </span>
                 <span className='item-comment'>
                  <TbMessageCircle size={15} /> {item.comments}
+                </span>
+                <span className='item-wishe'>
+                 <IoHeart size={16} color='FF9393' /> {item.wishes}
                 </span>
                 <div className="overlay">
                   <span onClick={() => handleWish(item.id, item.wished)}>
