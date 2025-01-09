@@ -18,6 +18,9 @@ const Reviews = () => {
   const [aloading, setAloading] = useState(false);
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
+  const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -32,11 +35,13 @@ const Reviews = () => {
     return true;
   };
 
+  
   const fetchCourse = useCallback(async () => {
+
+    const token = localStorage.getItem("Authorization");
+     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+
     try {
-      const token = localStorage.getItem("Authorization");
-      const headers = token ? { Authorization: `Bearer ${token}` } : {};
-      
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/courses/${slug}`,
         { headers }
@@ -81,6 +86,7 @@ const Reviews = () => {
     if (course && course.id) fetchReviews();
   }, [course]);
 
+ 
   const handleCreateReview = async () => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
@@ -88,10 +94,7 @@ const Reviews = () => {
       return;
     }
 
-    if (!course || !course.id) {
-      alert("강의 정보가 없습니다. 다시 시도해주세요.");
-      return;
-    }
+
 
     const formData = new FormData();
     formData.append(
@@ -109,6 +112,7 @@ const Reviews = () => {
     if (newReview.file) {
       formData.append("certificationFile", newReview.file);
     }
+
 
     try {
       const response = await axios.post(
@@ -137,7 +141,7 @@ const Reviews = () => {
                 localStorage.removeItem('Authorization');
                 window.location.reload();
                 alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-
+                
               case 601:
                   errorMessage += " 이미 검토 중인 리뷰입니다.";
                   break;
@@ -169,7 +173,7 @@ const Reviews = () => {
                   errorMessage += " 리뷰 내용이 유효하지 않습니다. (별점 혹은 리뷰 내용을 채워주세요)";
                   break;
               case 617:
-                  errorMessage += " 파일이 null이거나 내용이 비어있습니다.";
+                  errorMessage += " 파일을 선택해주세요.";
                   break;
           }
       } 
@@ -178,6 +182,58 @@ const Reviews = () => {
       alert(errorMessage);
   }
   };
+
+  const checkReviewPermission = async () => {
+    if (!isUserLoggedIn()) return false;
+    
+    setCheckingReviewPermission(true);
+    try {
+      const token = localStorage.getItem("Authorization");
+      const response = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/reviews/check/${course.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      return response.status === 200;
+    } catch (error) {
+      if (error.response) {
+        switch (error.response.status) {
+          case 600:
+            localStorage.removeItem('name');
+            localStorage.removeItem('Authorization');
+            window.location.reload();
+            alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+            break;
+          case 500:
+            alert("이미 리뷰를 작성한 강의입니다!");
+        }
+        console.error("리뷰 권한 확인 중 오류:", error.response);
+      } else if (error.request) {
+        alert("서버에서 응답이 없습니다. 잠시 후 다시 시도해주세요.");
+      }
+      return false;
+    } finally {
+      setCheckingReviewPermission(false);
+    }
+  };
+
+
+  const handleReviewButtonClick = async () => {
+
+    try {
+      const canReview = await checkReviewPermission(course.id);
+      if (canReview) {
+        setShowReviewModal(true);
+      }
+    } catch (error) {
+      console.error("리뷰 버튼 처리 중 오류:", error);
+    }
+  };
+
 
   const handleWish = async (courseId) => {
     if (!isUserLoggedIn()) return;
@@ -363,9 +419,18 @@ const Reviews = () => {
         >
           <button
             className="btn btn-primary"
-            onClick={() => setShowReviewModal(true)}
+            onClick={handleReviewButtonClick}
+            disabled={checkingReviewPermission}
+            style={{
+              cursor: checkingReviewPermission ? 'not-allowed' : 'pointer',
+              opacity: checkingReviewPermission ? 0.7 : 1,
+            }}
           >
-            리뷰 작성
+            {checkingReviewPermission ? (
+              <><FiLoader className="spinner" /> 확인 중...</>
+            ) : (
+              "리뷰 작성"
+            )}
           </button>
         </div>
         <div className="review-list">
@@ -455,11 +520,6 @@ const Reviews = () => {
                 onChange={(e) =>
                   setNewReview({ ...newReview, file: e.target.files[0] })
                 }
-                onBlur={() => {
-                  if (!newReview.file) {
-                      alert('파일을 선택해주세요.');
-                  }
-                }}
               />
             </div>
             <p>강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
