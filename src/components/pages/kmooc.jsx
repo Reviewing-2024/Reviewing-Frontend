@@ -12,6 +12,10 @@ function Kmooc() {
   const [error, setError] = useState(null);
   const [sortCriteria, setSortCriteria] = useState('fundamental');
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchItems = async (sort) => {
     try {
       setError(null);
