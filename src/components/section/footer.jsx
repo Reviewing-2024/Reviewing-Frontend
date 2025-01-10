@@ -6,7 +6,7 @@ const Footer = () => {
     return (
         <footer id='footer' role="contentinfo"> 
             Reviewing @2024 projet
-            <p>Contact Us  minalunpark@gmail.com</p>
+            <p>Contact Us.  minalunpark@gmail.com</p>
         </footer>
     )
 }

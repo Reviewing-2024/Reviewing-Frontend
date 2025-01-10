@@ -170,7 +170,7 @@ const Wishlist = () => {
         ) :( 
           <div className="no-reviews">
             <GrDocumentMissing />
-            <p>표시할 찜이 없습니다.</p>
+            <p>찜한 강의가 없습니다.</p>
             <a type="button" href="/" target="_blank">
               <div>강의 리스트 보기</div>
             </a>
