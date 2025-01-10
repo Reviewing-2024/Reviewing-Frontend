@@ -5,7 +5,7 @@ import axios from "axios";
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const correctPassword = "review1234##";
+  const correctPassword = process.env.REACT_APP_ADMIN_PASSWORD;
 
   const [activeCategory, setActiveCategory] = useState("pending");
   const [subCategory, setSubCategory] = useState("requests");
@@ -14,6 +14,8 @@ const AdminPage = () => {
   const [rejectReason, setRejectReason] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(null);
+
+  console.log(correctPassword)
 
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
