@@ -29,7 +29,7 @@ const Reviews = () => {
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("Authorization");
     if (!token || token.trim() === "") {
-      alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
+      alert("로그인이 필요합니다.");
       return false;
     }
     return true;
@@ -90,7 +90,7 @@ const Reviews = () => {
   const handleCreateReview = async () => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
-      alert("로그인을 하셔야 해당 기능을 사용할 수 있습니다!");
+      alert("로그인이 필요합니다.");
       return;
     }
 
@@ -513,6 +513,7 @@ const Reviews = () => {
                   }
                 }}
                 placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}
+                style={{ whiteSpace: 'pre-wrap' }}
               />
             </div>
             <div className="modal-input-group">
@@ -520,7 +521,7 @@ const Reviews = () => {
               <input
                 type="file"
                 id="file"
-                accept="image/*"
+                accept="image/*,application/pdf"
                 onChange={(e) =>
                   setNewReview({ ...newReview, file: e.target.files[0] })
                 }

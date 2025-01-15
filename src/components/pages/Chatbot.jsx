@@ -79,9 +79,9 @@ const Chatbot = () => {
                         <div key={index} className='course'>
                             <h3>{course.courseTitle}</h3>
                             <p><strong>강사:</strong> {course.courseTeacher || '정보 없음'}</p>
-                            <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 URL</a></p>
+                            <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 보러가기</a></p>
                             <p>
-                                <Link to={`/reviews/${course.courseId}`}>리뷰 보기</Link>
+                                <Link to={`/reviews/${course.courseId}`}>리뷰 보러가기</Link>
                             </p>
                         </div>
                     ))}
