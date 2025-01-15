@@ -14,7 +14,7 @@ const Inflearn = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [sortCriteria, setSortCriteria] = useState('highestRating');
+  const [sortCriteria, setSortCriteria] = useState('rating');
   const [lastCourseId, setLastCourseId] = useState(null);
   const [lastRating, setLastRating] = useState(null);
   const [lastComments, setLastComments] = useState(null);
@@ -61,8 +61,8 @@ const Inflearn = () => {
       } : {
         sort: sortCriteria === 'fundamental' ? null : sortCriteria,
         lastCourseId: lastCourseId,
-        lastRating: sortCriteria === 'highestRating' ? lastRating : null,
-        lastComments: sortCriteria === 'mostReviews' ? lastComments : null
+        lastRating: sortCriteria === 'rating' ? lastRating : null,
+        lastComments: sortCriteria === 'comments' ? lastComments : null
       };
   
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/인프런`, {
@@ -83,8 +83,8 @@ const Inflearn = () => {
       if (newItems.length > 0) {
         const lastItem = newItems[newItems.length - 1];
         setLastCourseId(lastItem.id);
-        if (sortCriteria === 'highestRating') setLastRating(lastItem.rating);
-        if (sortCriteria === 'mostReviews') setLastComments(lastItem.comments);
+        if (sortCriteria === 'rating') setLastRating(lastItem.rating);
+        if (sortCriteria === 'comments') setLastComments(lastItem.comments);
         setHasMore(true);
       } else {
         setHasMore(false);
