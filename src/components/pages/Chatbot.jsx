@@ -1,14 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../../assert/chatbot.css';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 const Chatbot = () => {
+    const { courseId } = useParams();
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [isComposing, setIsComposing] = useState(false);
     const chatEndRef = useRef(null);
+    const [courseDetails, setCourseDetails] = useState(null);
+    const [error, setError] = useState(null);
     const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
     useEffect(() => {
@@ -49,6 +52,27 @@ const Chatbot = () => {
         return intros[Math.floor(Math.random() * intros.length)];
     };
 
+    useEffect(() => {
+        const fetchCourseDetails = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_BASE_URL}/course/${courseId}`);
+                if (!response.ok) {
+                    throw new Error('강의 정보를 불러오는데 실패했습니다.');
+                }
+                const data = await response.json();
+                setCourseDetails(data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCourseDetails();
+    }, [courseId]);
+
+
+    console.log(courseDetails)
     const handleSendMessage = async () => {
         const question = userInput.trim();
         if (question.length === 0) return;
@@ -80,16 +104,16 @@ const Chatbot = () => {
                             <h3>{course.courseTitle}</h3>
                             <p><strong>강사:</strong> {course.courseTeacher || '정보 없음'}</p>
                             <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 보러가기</a></p>
-                    
+                            
                         </div>
+
                     ))}
                 </div>
             );
-
             // <p>
             //                 <Link 
             //                 to={`/reviews/${course.courseId}`}
-            //                 state={{ courseTitle: course.courseTitle }}
+            //                 state={{ course }}
             //                 >
             //                 리뷰 보러가기
             //                 </Link>

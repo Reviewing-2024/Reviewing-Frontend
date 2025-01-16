@@ -16,6 +16,7 @@ const Reviews = () => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [aloading, setAloading] = useState(false);
+  const [reviewloading, setReviewloadinging] = useState(false);
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
   const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
@@ -94,6 +95,9 @@ const Reviews = () => {
       return;
     }
 
+    if (loading) return;
+  
+    setReviewloadinging(true);
 
 
     const formData = new FormData();
@@ -125,7 +129,7 @@ const Reviews = () => {
           },
         },
       );
-
+      setReviewloadinging(false);
       setShowReviewModal(false);
       setNewReview({});
       setReviews((prev) => [...prev, response.data]);
@@ -534,7 +538,7 @@ const Reviews = () => {
             <p> 리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p>
             <div className="review-modal-buttons">
               <button className="btn-submit" onClick={handleCreateReview}>
-                리뷰 제출
+                {reviewloading ? <FiLoader /> : '리뷰 제출'}
               </button>
               <button
                 className="btn-cancel"
