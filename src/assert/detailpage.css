@@ -1,3 +1,6 @@
+/* .detail-page {
+  padding-right: 220px;
+} */
 
 .header-div {
   justify-content: center;
@@ -10,6 +13,7 @@
   align-items: flex-start;
   gap: 30px;
   margin: 0 20px 0 20px;
+  padding-right: 220px;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;

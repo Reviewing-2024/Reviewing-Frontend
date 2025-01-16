@@ -89,7 +89,8 @@
   gap: 15px;
 }
 
-.review-header img {
+.review-header img,
+.review-header video{
   width: 50px;
   height: 50px;
   border-radius: 50%;
