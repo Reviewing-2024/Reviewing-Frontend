@@ -179,8 +179,8 @@ const Home = () => {
       </div> */}
       <div className="sort-dropdown">
         <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
-          <option value="highestRating">별점 높은 순</option>
-          <option value="mostReviews">리뷰 많은 순</option>
+          <option value="rating">별점 높은 순</option>
+          <option value="comments">리뷰 많은 순</option>
         </select>
       </div>
       <div className='inflearn__inner'>

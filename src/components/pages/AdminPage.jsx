@@ -36,6 +36,7 @@ const AdminPage = () => {
     try {
       const { data } = await axios.get(`/admin/reviews?status=${status}`);
       setReviews(data);
+      console.log(data)
     } catch (error) {
       console.error("Error fetching reviews:", error);
       alert("리뷰를 불러오는 데 실패했습니다. 다시 시도해주세요.");
@@ -163,16 +164,23 @@ const AdminPage = () => {
           >
             <div className="review-header">
               <div className="review-left">
-                <img
-                  src={review.courseThumbnailImage}
-                  alt="Course Thumbnail"
-                  className="course-thumbnail"
-                />
+              {
+                  review.courseThumbnailImage ? (
+                    <img src={review.courseThumbnailImage} alt="Course Thumbnail" className="course-thumbnail"/>
+                  ) : review.courseThumbnailVideo ? (
+                    <video muted autoPlay loop >
+                      <source src={review.courseThumbnailVideo} type="video/mp4" alt="Course Thumbnail" className="course-thumbnail"/>
+                    </video>
+                  ) : (
+                    <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail"/>
+                  )
+                }
                 <div>
                   <p>
                     <strong>{review.courseTitle}</strong>
                   </p>
-                  <p>{review.courseteacher}</p>
+                  <a href={review.courseUrl} target="_blank">강의 보러가기</a>
+                  <p>{review.updatedAt}</p>
                 </div>
               </div>
 

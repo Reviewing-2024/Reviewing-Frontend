@@ -80,13 +80,20 @@ const Chatbot = () => {
                             <h3>{course.courseTitle}</h3>
                             <p><strong>강사:</strong> {course.courseTeacher || '정보 없음'}</p>
                             <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 보러가기</a></p>
-                            <p>
-                                <Link to={`/reviews/${course.courseId}`}>리뷰 보러가기</Link>
-                            </p>
+                    
                         </div>
                     ))}
                 </div>
             );
+
+            // <p>
+            //                 <Link 
+            //                 to={`/reviews/${course.courseId}`}
+            //                 state={{ courseTitle: course.courseTitle }}
+            //                 >
+            //                 리뷰 보러가기
+            //                 </Link>
+            //                 </p>
 
             addMessage('bot', formattedResponse);
         } catch (error) {
@@ -112,7 +119,7 @@ const Chatbot = () => {
             <div className='inputDiv'>
             <input
                     type='text' 
-                    placeholder='메시지를 입력하세요'
+                    placeholder='이제 배우고 싶은 기술이나 관심 있는 주제를 자유롭게 입력하세요🎉 리뷰잉이 최적의 강의를 바로 추천해드립니다😊'
                     value={userInput} 
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyDown={handleKeyDown}
