@@ -1,24 +1,10 @@
-
-
 .banner {
-    background-color: rgba(136, 186, 247, 0.8);
-    border-radius: 20px 20px 0 0;
     justify-content: center;
     text-align: center;
-    font-family: 'Arial', sans-serif;
 }
 
-.image {
-    width: 70%;
-}
-
-.banner-sb {
-    margin-top: -110px;
-    color: #fdfdfd;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-
-.home-title {
-    margin: 15px;
+.banner .image {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -215,10 +215,10 @@ const AdminPage = () => {
             {expandedReview === review.reviewId && (
               <div className="review-expanded">
                 <p>{review.reviewContents}</p>
-                <img
+                <iframe
                   src={review.reviewCertification}
-                  alt="Review Certification"
-                  className="review-certification"
+                  title="Review Certification"
+                  className="review-certification" 
                 />
               </div>
             )}

@@ -1,22 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../../assert/chatbot.css';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 const Chatbot = () => {
-    const { courseId } = useParams();
     const [messages, setMessages] = useState([]);
     const [userInput, setUserInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [isComposing, setIsComposing] = useState(false);
     const chatEndRef = useRef(null);
-    const [courseDetails, setCourseDetails] = useState(null);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
     const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const createUrlSlug = (slug) => {
+        return slug
+            .toLowerCase()
+            .replace(/[^a-z0-9가-힣]/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-+|-+$/g, '');
+    };
 
     const addMessage = (sender, message) => {
         setMessages(prevMessages => [...prevMessages, { sender, message }]);
@@ -52,27 +59,76 @@ const Chatbot = () => {
         return intros[Math.floor(Math.random() * intros.length)];
     };
 
-    useEffect(() => {
-        const fetchCourseDetails = async () => {
-            try {
-                const response = await fetch(`${process.env.REACT_APP_BASE_URL}/course/${courseId}`);
-                if (!response.ok) {
-                    throw new Error('강의 정보를 불러오는데 실패했습니다.');
-                }
-                const data = await response.json();
-                setCourseDetails(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
+    const fetchCourseDetails = async (courseId) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/course/${courseId}`);
+            if (!response.ok) {
+                throw new Error('강의 정보를 불러오는데 실패했습니다.');
             }
-        };
+            return await response.json();
+        } catch (error) {
+            console.error('강의 정보 조회 오류:', error);
+            throw error;
+        }
+    };
 
-        fetchCourseDetails();
-    }, [courseId]);
+    const handleCourseClick = async (course) => {
+        try {
+            console.log(course)
+            setLoading(true);
+            // course.id 또는 course.courseId를 사용하여 API 호출
+            const courseDetails = await fetchCourseDetails(course.courseSlug);
+            
+            // 리뷰 페이지로 이동하면서 상세 데이터 전달
+            navigate(`/reviews/${course.courseSlug}`, {
+                state: { courseDetails, id: course.courseId }
+            });
+        } catch (error) {
+            setError('강의 정보를 불러오는데 실패했습니다.');
+            console.error('Error:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
+    const formattedResponse = (data) => (
+        console.log(data),
+        <div>
+            
+            <h3>{randomIntroMessage()}</h3>
+            {data.map((course, index) => (
+                <div key={index} className='course'>
+                    <h3>{course.courseTitle}</h3>
+                    <p><strong>강사:</strong> {course.courseTeacher || '정보 없음'}</p>
+                    <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 보러가기</a></p>
+                    
+                </div>
+            ))}
+            
+            {error && <div className="error-message">{error}</div>}
+        </div>
+    );
 
-    console.log(courseDetails)
+    // <p>
+    //                     <button
+    //                         onClick={() => handleCourseClick(course)}
+    //                         className="review-link"
+    //                         disabled={loading}
+    //                         style={{
+    //                             background: 'none',
+    //                             border: 'none',
+    //                             color: '#0066cc',
+    //                             textDecoration: 'underline',
+    //                             cursor: loading ? 'wait' : 'pointer',
+    //                             padding: 0
+    //                         }}
+    //                     >
+    //                         {loading ? '로딩 중...' : '리뷰 보러가기'}
+    //                     </button>
+    //                 </p>
+
+    
+
     const handleSendMessage = async () => {
         const question = userInput.trim();
         if (question.length === 0) return;
@@ -80,6 +136,7 @@ const Chatbot = () => {
         addMessage('user', question);
         setUserInput('');
         setLoading(true);
+        setError(null); // 새 요청 시 에러 상태 초기화
 
         try {
             const response = await fetch(apiEndpoint, {
@@ -95,34 +152,11 @@ const Chatbot = () => {
             }
 
             const data = await response.json();
-
-            const formattedResponse = (
-                <div>
-                    <h3>{randomIntroMessage()}</h3>
-                    {data.map((course, index) => (
-                        <div key={index} className='course'>
-                            <h3>{course.courseTitle}</h3>
-                            <p><strong>강사:</strong> {course.courseTeacher || '정보 없음'}</p>
-                            <p><a href={course.courseUrl} target='_blank' rel='noopener noreferrer'>강의 보러가기</a></p>
-                            
-                        </div>
-
-                    ))}
-                </div>
-            );
-            // <p>
-            //                 <Link 
-            //                 to={`/reviews/${course.courseId}`}
-            //                 state={{ course }}
-            //                 >
-            //                 리뷰 보러가기
-            //                 </Link>
-            //                 </p>
-
-            addMessage('bot', formattedResponse);
+            addMessage('bot', formattedResponse(data));
         } catch (error) {
             console.error('오류 발생!', error);
-            addMessage('bot', '오류 발생!');
+            addMessage('bot', '오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+            setError(error.message);
         } finally {
             setLoading(false);
             scrollToBottom();
@@ -141,9 +175,9 @@ const Chatbot = () => {
                 <div ref={chatEndRef}></div>
             </div>
             <div className='inputDiv'>
-            <input
+                <input
                     type='text' 
-                    placeholder='이제 배우고 싶은 기술이나 관심 있는 주제를 자유롭게 입력하세요🎉 리뷰잉이 최적의 강의를 바로 추천해드립니다😊'
+                    placeholder={`[질문 예시]  파이썬 기초 강의 알려줘 / Spring 기반 백엔드 강의 추천해줘  / React 강의 추천해줘`}
                     value={userInput} 
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyDown={handleKeyDown}

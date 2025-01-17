@@ -132,6 +132,7 @@ video {
   background-color: #f8f8f8;
   border-radius: 6px;
   padding: 13px;
+  white-space: pre-wrap;
 }
 
 

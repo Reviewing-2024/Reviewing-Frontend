@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsCircleFill } from "react-icons/bs";
 import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
+import { FiLoader } from "react-icons/fi";
 import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
@@ -107,6 +108,7 @@ const Mypage = () => {
 
     const handleCourseClick = useCallback((review) => {
         const courseDetail = courseDetails[review.courseId];
+        console.log(courseDetail);
         if (courseDetail) {
             navigate(`/reviews/${createUrlSlug(review.courseSlug)}`, {
                 state: { 
@@ -128,7 +130,6 @@ const Mypage = () => {
     }, []);
 
     const ReviewCard = ({ review }) => {
-        const courseDetail = courseDetails[review.courseId];
         
         return (
             <div className='review-card'>
@@ -195,7 +196,9 @@ const Mypage = () => {
                 </ul>
             </div>
             <div className='review'>
-                {!reviews.length ? (
+                {loading ?(
+                    <div className="loading"><FiLoader /></div>
+                ) : !reviews.length ? (
                     <div className="no-reviews">
                         <GrDocumentMissing />
                         <p>표시할 리뷰가 없습니다.</p>
@@ -205,7 +208,7 @@ const Mypage = () => {
                     </div>
                 ) : (
                     <div className='review-list'>
-                        {reviews.map(review => (
+                        {reviews.slice().reverse().map(review => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>

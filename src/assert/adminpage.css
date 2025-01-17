@@ -97,14 +97,18 @@
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.review-expanded p {
+  white-space: pre-wrap ;
+}
 /* 리뷰 이미지 */
-.review-expanded img {
+.review-expanded iframe {
   width: calc(100% - 2rem);
-  max-width: 500px;
-  height: auto;
+  max-width: 700px;
+  height: 500px;
   border-radius: 5px;
   margin-top: 10px;
-  object-fit: cover;
+  border: none;
+  overflow: auto;
   transition: width 0.3s ease, transform 0.3s ease;
 }
 

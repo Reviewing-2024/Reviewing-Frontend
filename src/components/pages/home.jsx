@@ -7,6 +7,8 @@ import { FiLoader } from "react-icons/fi";
 import { TbMessageCircle } from "react-icons/tb";
 import { IoHeart } from "react-icons/io5";
 
+import "../../assert/css/home.css"
+
 const Home = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -170,13 +172,9 @@ const Home = () => {
 
   return (
     <div className="home">
-      {/* <div className="banner">
-        <img className='image' alt='배너 이미지' src=''></img>
-        <div className='banner-sb'>
-          <h1>리뷰잉</h1>
-          <h2>IT 인재로 성장하는 치트키</h2>
-        </div>
-      </div> */}
+      <div className="banner">
+        <img className='image' alt='배너 이미지' src='https://cdn.discordapp.com/attachments/1300689286110253071/1329754718515232798/-_-001.png?ex=678b7e16&is=678a2c96&hm=c1b4e19857af3f380aec6d5437ac7dd19d0faaae3227429397e182808d464fbd&'></img>
+      </div>
       <div className="sort-dropdown">
         <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
           <option value="rating">별점 높은 순</option>
@@ -217,11 +215,11 @@ const Home = () => {
                 <div className="overlay">
                   <span onClick={() => handleWish(item.id, item.wished)}>
                   {wishLoading ? (
-                    <FiLoader color="#88BAF7" size={18} />
+                    <FiLoader color="#004FDE" size={18} />
                     ):item.wished ? (
-                      <FaHeart color="#88BAF7" size={18} />
+                      <FaHeart color="#004FDE" size={18} />
                     ) : (
-                      <FaRegHeart color="#88BAF7" size={18} />
+                      <FaRegHeart color="#004FDE" size={18} />
                     )}
                   </span>
                 </div>
