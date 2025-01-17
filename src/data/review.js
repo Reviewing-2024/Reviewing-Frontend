@@ -56,7 +56,7 @@ export const user =
         {
             title: "전체 리뷰",
             src: "",
-            color: "#88BAF7"
+            color: "#004FDE"
         },
         {
             title: "검토중 리뷰",

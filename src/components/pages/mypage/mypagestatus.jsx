@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 import { BsCircleFill } from "react-icons/bs";
 import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
+import { FiLoader } from "react-icons/fi";
 import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
@@ -196,7 +197,9 @@ const Mypagestatus = () => {
                 </ul>
             </div>
             <div className='review'>
-                {!reviews.length ? (
+                {loading ?(
+                    <div className="loading"><FiLoader /></div>
+                ) : !reviews.length ? (
                     <div className="no-reviews">
                         <GrDocumentMissing />
                         <p>표시할 리뷰가 없습니다.</p>
@@ -206,7 +209,7 @@ const Mypagestatus = () => {
                     </div>
                 ) : (
                     <div className='review-list'>
-                        {reviews.map(review => (
+                        {reviews.slice().reverse().map(review => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>

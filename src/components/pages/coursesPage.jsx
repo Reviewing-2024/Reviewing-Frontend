@@ -173,8 +173,8 @@ const CoursesPage = () => {
         <section id='inflearn'>
             <div className="sort-dropdown">
                 <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
-                    <option value="highestRating">별점 높은 순</option>
-                    <option value="mostReviews">리뷰 많은 순</option>
+                    <option value="rating">별점 높은 순</option>
+                    <option value="comments">리뷰 많은 순</option>
                 </select>
             </div>
 
@@ -210,11 +210,11 @@ const CoursesPage = () => {
                                 <div className="overlay">
                                     <span onClick={() => handleWish(item.id, item.wished)}>
                                         {wishLoading ? (
-                                            <FiLoader color="#88BAF7" size={18} />
+                                            <FiLoader color="#004FDE" size={18} />
                                         ) : item.wished ? (
-                                            <FaHeart color="#88BAF7" size={18} />
+                                            <FaHeart color="#004FDE" size={18} />
                                         ) : (
-                                            <FaRegHeart color="#88BAF7" size={18} />
+                                            <FaRegHeart color="#004FDE" size={18} />
                                         )}
                                     </span>
                                 </div>

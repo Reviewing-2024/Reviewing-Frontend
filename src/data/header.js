@@ -61,8 +61,7 @@ export const chatbot = [
     {
         title: "강의 추천",
         icon: <RiRobot2Fill />,
-        src: "/chatbot",
-        color: "#88BAF7" 
+        src: "/chatbot"
     }
 ];
 

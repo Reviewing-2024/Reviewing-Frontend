@@ -442,7 +442,7 @@ const Reviews = () => {
           </button>
         </div>
         <div className="review-list">
-          {reviews.map((review) => (
+          {reviews.slice().reverse().map((review) => (
             <div key={review.id} className="review-card">
               <div className="review-header">
                 <p className="review-author">{review.nickname}</p>
@@ -517,7 +517,6 @@ const Reviews = () => {
                   }
                 }}
                 placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}
-                style={{ whiteSpace: 'pre-wrap' }}
               />
             </div>
             <div className="modal-input-group">

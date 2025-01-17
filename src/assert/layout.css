@@ -10,14 +10,14 @@ body, html {
     left: 0;
     top: 0;
     width: 220px;
-    height: 91vh;
+    height: 94vh;
     overflow-y: auto;
     z-index: 1;
     background-color: #fdfdfd; 
-    padding-top: 77px;
+    padding-top: 62px;
     color: #495057;
     font-family : 'NanumSquare', sans-serif;
-    border-right: 2px solid #88BAF7 ;
+    border-right: 2px solid #004FDE  ;
 }
 
 
@@ -26,7 +26,7 @@ body, html {
     min-height: 100vh;
     background-color: #fdfdfd;
     padding-left: 220px;
-    padding-top: 80px;
+    padding-top: 62px;
     font-family : 'NanumSquare', sans-serif;
     color: #1b1c1d
 }
