@@ -17,19 +17,16 @@ import Fastcampus from './components/pages/fastcampus';
 import Kmooc from './components/pages/kmooc';
 import Spartacoding from './components/pages/spartacoding';
 import Search from './components/section/search';
-import Detail from './components/pages/detail';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
 import Mypagestatus from './components/pages/mypage/mypagestatus';
-import Chatbot from './components/pages/Chatbot';
 import AdminPage from './components/pages/AdminPage';
 import Reviews from './components/pages/reviews';
 
 const Layout = () => {
     const location = useLocation();
     const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/pending', '/mypage/approved', '/mypage/rejected' ];
-    const hideFooterPaths = ['/chatbot'];
     return (
         <>
             <Header2 />
@@ -47,18 +44,16 @@ const Layout = () => {
                     <Route path='/kmooc' element={<Kmooc />} />
                     <Route path='/spartacoding' element={<Spartacoding />} />
                     <Route path='/search/:searchKeyword' element={<Search />} />
-                    <Route path='/detail/:id' element={<Detail />} />
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
                     <Route path='/mypage' element={<Mypage />} />
                     <Route path='/wishlist' element={<Wishlist />} />
                     <Route path="/mypage/:status" element={<Mypagestatus />} />
-                    <Route path="/chatbot" element={<Chatbot />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/review" element={<review />} />
                     <Route path='/reviews/:courseId' element={<Reviews />} />
                 </Routes>
             </Main>
-            {!hideFooterPaths.includes(location.pathname) && <Footer />}
+           <Footer />
         </>
     );
 };

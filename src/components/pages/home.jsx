@@ -173,7 +173,7 @@ const Home = () => {
   return (
     <div className="home">
       <div className="banner">
-        <img className='image' alt='배너 이미지' src='https://cdn.discordapp.com/attachments/1300689286110253071/1329754718515232798/-_-001.png?ex=678b7e16&is=678a2c96&hm=c1b4e19857af3f380aec6d5437ac7dd19d0faaae3227429397e182808d464fbd&'></img>
+        <img className='image' alt='배너 이미지' src='/img/banner.png'></img>
       </div>
       <div className="sort-dropdown">
         <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>

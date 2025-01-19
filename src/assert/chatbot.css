@@ -1,21 +1,15 @@
-#Chatbot {
-    margin-bottom: 250px;
-    
-}
-
-
 .inputDiv {
     display: flex;
     align-items: center;
-    width: 100%;
-    padding: 15px 235px 15px 15px;
+    width: 500px;
+    padding: 20px 60px 20px 0;
     box-sizing: border-box;
-    position: fixed;
+    position: absolute;
     bottom: 0;
     background-color: #fdfdfd;
 }
 .inputDiv input {
-    flex: 1;
+    flex-grow: 1;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 20px;
@@ -33,13 +27,13 @@
     background-color: #fdfdfd;
     cursor: pointer;
     font-size: 30px;
-    margin-top: 10px;
+    margin-top: 15px;
     border: none; 
 }
 
 .chatDiv {
     padding: 20px;
-    height: 88vh;
+    height: 660px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -87,11 +81,3 @@
     background-color: #4a90e2;
     border-radius: 10px;
 }
-
-@media (max-width: 900px) {
-
-    .inputDiv {
-        padding-right: 220px;
-    }
-}
-

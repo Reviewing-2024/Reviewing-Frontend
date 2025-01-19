@@ -57,11 +57,10 @@ export const headerMenus = [
 ];
 
 
-export const chatbot = [
+export const chatbotdata = [
     {
         title: "강의 추천",
-        icon: <RiRobot2Fill />,
-        src: "/chatbot"
+        icon: <RiRobot2Fill />
     }
 ];
 
