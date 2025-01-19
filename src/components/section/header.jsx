@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headerMenus, chatbot } from "../../data/header";
+import { headerMenus, chatbotdata } from "../../data/header";
+import { MdClear } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import "../../assert/header.css";
+
+import  Chatbot  from "../pages/Chatbot";
 
 const Header = () => {
     const [activeIndex, setActiveIndex] = useState(null);
     const [activeKeywordIndex, setActiveKeywordIndex] = useState(null);
     const [keywordsToDisplay, setKeywordsToDisplay] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
     const navigate = useNavigate();
 
 
@@ -89,14 +93,22 @@ const Header = () => {
             </div>
             <div className='header__chatbot'>
                 <ul>
-                    {chatbot.map((chatbot, key) => (
+                    {chatbotdata.map((chatbot, key) => (
                         <li key={key}>
-                            <a href={chatbot.src}>
+                            <a onClick={() => setOpenModal(true)}>
                                 <span>{chatbot.icon} {chatbot.title}</span>
                             </a>
                         </li>
                     ))}
                 </ul>
+                {openModal && (
+                    <div className="chatbot-overlay" onClick={() => setOpenModal(false)}>
+                        <div className="chatbot-content" onClick={(e) => e.stopPropagation()}>
+                            <Chatbot />
+                            <button onClick={() => setOpenModal(false)}><MdClear/></button>
+                        </div>
+                    </div>
+                )}
             </div> 
         </header>
     );

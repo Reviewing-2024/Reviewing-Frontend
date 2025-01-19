@@ -25,7 +25,7 @@ const Header2 = () => {
     <div className='header2'>
       <div className="header__content">
         <a className='header__logo' href="/">
-            <img className='logo' src='https://cdn.discordapp.com/attachments/1300689286110253071/1329773235880988683/image.png?ex=678b8f55&is=678a3dd5&hm=5d1132ad70d355cf38f05e1bdb25c9f61dcc180eb0e94d22bc9999e35a64ca34&'></img>
+            <img className='logo' src='/img/Logo1.png'></img>
           </a>
         <div className='search-bar'>
           <input 

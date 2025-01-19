@@ -136,7 +136,7 @@ const Chatbot = () => {
         addMessage('user', question);
         setUserInput('');
         setLoading(true);
-        setError(null); // 새 요청 시 에러 상태 초기화
+        setError(null);
 
         try {
             const response = await fetch(apiEndpoint, {
