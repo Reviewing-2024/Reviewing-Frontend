@@ -256,7 +256,7 @@ video {
 
 .modal-input-group textarea {
   resize: none;
-  height: 100px;
+  height: 150px;
 }
 
 .review-modal-buttons {
@@ -265,8 +265,9 @@ video {
 }
 
 .review-modal-buttons .btn-submit {
-  background-color: #88BAF7;
+  background-color: #004FDE;
   color: white;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   padding: 10px 20px;
@@ -323,11 +324,16 @@ video {
 }
 
 .btn-primary {
-  background-color: #88BAF7;
+  background-color: #004FDE;
   color: white;
   border: none;
+  font-weight: bold;
   border-radius: 5px;
   padding: 10px 20px;
+}
+
+.reviews-acomment {
+  color: #FF9393;
 }
 
 @media (max-width: 1024px) {

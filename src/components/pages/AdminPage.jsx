@@ -175,7 +175,7 @@ const AdminPage = () => {
                     <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail"/>
                   )
                 }
-                <div>
+                <div className="review-information">
                   <p>
                     <strong>{review.courseTitle}</strong>
                   </p>

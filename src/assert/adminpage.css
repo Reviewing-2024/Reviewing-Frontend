@@ -1,6 +1,6 @@
+
 .admin-page {
   padding: 20px;
-  font-family: 'Arial', sans-serif;
 }
 
 
@@ -87,6 +87,15 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.review-information a{
+  text-decoration-line: none;
+  color: #111;
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 6px 14px;
+  border-radius: 5px;
 }
 
 .review-header img,

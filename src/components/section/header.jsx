@@ -62,7 +62,7 @@ const Header = () => {
                                 to={menu.src}
                                 style={{
                                     color: activeIndex === key || hoverIndex === key ? menu.color : '#000',
-                                    borderColor: activeIndex === key || hoverIndex === key ? menu.color : 'transparent',
+                                    borderColor: activeIndex === key || hoverIndex === key ? '#000' : 'transparent',
                                 }}
                             >
                                 <div>{menu.icon}</div>

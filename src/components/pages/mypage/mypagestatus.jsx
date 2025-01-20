@@ -184,8 +184,7 @@ const Mypagestatus = () => {
                                 className={selectedCategory === category.title ? 'active' : ''}
                                 style={{
                                     backgroundColor: hoverIndex === index || selectedCategory === category.title
-                                        ? category.color
-                                        : '#fdfdfd',
+                                        ? category.color : '#fdfdfd',
                                     border: `2px solid ${category.color}`
                                 }}
                                 onClick={() => handleCategoryClick(category)}
@@ -209,7 +208,7 @@ const Mypagestatus = () => {
                     </div>
                 ) : (
                     <div className='review-list'>
-                        {reviews.slice().reverse().map(review => (
+                        {reviews.map((review) => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>

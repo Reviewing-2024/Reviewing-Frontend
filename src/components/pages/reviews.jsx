@@ -58,9 +58,15 @@ const Reviews = () => {
     }
   }, [slug]);
   
+  // useEffect(() => {
+  //   if (!course && slug) fetchCourse();
+  // }, [course, fetchCourse, slug]);
+
   useEffect(() => {
-    if (!course && slug) fetchCourse();
-  }, [course, fetchCourse, slug]);
+    if (!course) {
+      fetchCourse();
+    }
+  }, [course, fetchCourse]);
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -393,7 +399,7 @@ const Reviews = () => {
                 className="btn btn-wish"
                 style={{
                   backgroundColor: "#fff",
-                  border: "1px solid #88BAF7",
+                  border: "1px solid #004FDE",
                   borderRadius: "5px",
                   padding: "10px",
                   cursor: wishLoading ? "not-allowed" : "pointer",
@@ -403,11 +409,11 @@ const Reviews = () => {
                 disabled={wishLoading || wishRequestInProgress}
               >
                 {wishLoading ? (
-                  <FiLoader color="#88BAF7" size={12} />
+                  <FiLoader color="#004FDE" size={12} />
                 ) : course?.wished ? (
-                  <FaHeart color="#88BAF7" size={12} />
+                  <FaHeart color="#004FDE" size={12} />
                 ) : (
-                  <FaRegHeart color="#88BAF7" size={12} />
+                  <FaRegHeart color="#004FDE" size={12} />
                 )}
               </button>
               <button className="btn btn-view" onClick={handleView} disabled={!course?.url}>
@@ -442,7 +448,7 @@ const Reviews = () => {
           </button>
         </div>
         <div className="review-list">
-          {reviews.slice().reverse().map((review) => (
+          {reviews.map((review) => (
             <div key={review.id} className="review-card">
               <div className="review-header">
                 <p className="review-author">{review.nickname}</p>
@@ -483,7 +489,6 @@ const Reviews = () => {
       {showReviewModal && (
         <div className="review-modal">
           <div className="review-modal-content">
-            <h3>리뷰 작성</h3>
             <div className="modal-input-group">
               <label htmlFor="rating">평점:</label>
               <input
@@ -530,7 +535,7 @@ const Reviews = () => {
                 }
               />
             </div>
-            <p>강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
+            <p className="reviews-acomment">강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
             <p> (예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
             <p> 무관한 내용이나 부적절한 파일을 첨부할 경우 승인이 거절될 수 있습니다.</p>
             <p> 첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
