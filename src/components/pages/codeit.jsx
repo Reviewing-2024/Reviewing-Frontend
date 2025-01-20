@@ -210,7 +210,7 @@ function Codeit() {
                  <TbMessageCircle size={16} /> {item.comments}
                 </span>
                 <span className='item-wishe'>
-                 <IoHeart size={16} color='FF9393' /> {item.wishes}
+                 <IoHeart size={16} color='#004FDE' /> {item.wishes}
                 </span>
                 <div className="overlay">
                   <span onClick={() => handleWish(item.id, item.wished)}>

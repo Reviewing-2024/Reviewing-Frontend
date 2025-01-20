@@ -1,12 +1,15 @@
+
+
 .inputDiv {
     display: flex;
     align-items: center;
-    width: 500px;
+    width: 20vw;
+    min-width: 400px;
     padding: 20px 60px 20px 0;
     box-sizing: border-box;
     position: absolute;
     bottom: 0;
-    background-color: #fdfdfd;
+    right: 10px;
 }
 .inputDiv input {
     flex-grow: 1;
@@ -24,7 +27,6 @@
 }
 
 .inputDiv button {
-    background-color: #fdfdfd;
     cursor: pointer;
     font-size: 30px;
     margin-top: 15px;
@@ -33,18 +35,36 @@
 
 .chatDiv {
     padding: 20px;
-    height: 660px;
+    height: 57vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 15px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("../../public/img/chatbot.png");
+}
+
+.no-background {
+    background-image: none;
+}
+
+.course a{
+  text-decoration-line: none;
+  color: #111;
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .message {
     padding: 12px 20px;
     border-radius: 12px;
     max-width: 60%;
-    font-size: 1em;
+    font-size: 0.8em;
     line-height: 1.6;
     word-wrap: break-word;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -55,7 +75,7 @@
     background-color: #004FDE ;
     color: white;
     text-align: left;
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 .message.bot {
@@ -63,7 +83,7 @@
     background-color: #e6e9ef;
     color: #333;
     text-align: left;
-    font-size: 1em;
+    font-size: 0.8em;
 }
 
 .messageWait {

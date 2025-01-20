@@ -1,9 +1,11 @@
+
+
 #header::-webkit-scrollbar {
     display: none;
 }
 
 .header__menu .menu {
-    border-bottom: 2px solid #004FDE ;
+    /* border-bottom: 2px solid #004FDE ; */
     padding: 0;
     margin: 0;
 }
@@ -34,7 +36,7 @@
 
 
 .header__keyword .keyword {
-    border-bottom: 2px solid #004FDE ;
+    /* border-bottom: 2px solid #004FDE ; */
     padding: 0;
     margin: 0;
     
@@ -83,29 +85,23 @@
     margin: 30px 0 0 40px;
     font-size: 18px;
     padding: 6px;
-    color: #AA87E3;
+    color: #004FDE;
     cursor: pointer;
     transition: 0.3s;
-    border: 2px solid #AA87E3;
+    border: 2px solid #004FDE;
     border-radius: 10px;
     text-decoration-line: none;
-}
-
-.header__chatbot li a:hover {
-    color: #AA87E3;
-    border: 2px solid #AA87E3;
 }
 
 .chatbot-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
+    right: 28px;
+    bottom: 28px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.75);
+    align-items: end;
+    justify-content: end;
     z-index: 9999;
 }
 
@@ -113,12 +109,14 @@
     position: relative;
     background: #fff;
     padding: 20px;
-    height: 700px;
-    padding-bottom: 80px;
+    height: 57vh;
+    padding-bottom: 100px;
     padding-top: 40px;
     border-radius: 8px;
-    width: 500px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 20vw;
+    min-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    border: 2px solid #004FDE;
 }
 
 .chatbot-content button {
