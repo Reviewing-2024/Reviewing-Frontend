@@ -19,7 +19,7 @@ const Header = () => {
 
     const handleKeywordClick = (keyword) => {
         const platform = headerMenus[activeIndex].title;
-        const category = keyword.category;
+        const category = keyword.slug;
         const url = `/courses/${platform}/${category}`;
 
             navigate(url);
@@ -34,6 +34,7 @@ const Header = () => {
 
         axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category?platform=${platform}`)
             .then(response => {
+                console.log(response)
                 setKeywordsToDisplay(response.data);
             })
     };
