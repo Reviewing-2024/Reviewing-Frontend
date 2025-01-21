@@ -48,6 +48,9 @@
   animation: dropdown-fade 0.2s ease;
 }
 
+.kakaobtn {
+  margin: 0px;
+}
 
 .name-container {
   background-color: #fff;
