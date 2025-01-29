@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
@@ -8,9 +8,7 @@ import axios from "axios";
 
 const Reviews = () => {
   const { slug } = useParams();
-  const location = useLocation();
-  const { item } = location.state || {};
-  const [course, setCourse] = useState(item || null);
+  const [course, setCourse] = useState();
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({});
   const [showReviewModal, setShowReviewModal] = useState(false);
@@ -20,8 +18,6 @@ const Reviews = () => {
   const [wishLoading, setWishLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
   const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
-
-
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,35 +34,39 @@ const Reviews = () => {
 
   
   const fetchCourse = useCallback(async () => {
-
     const token = localStorage.getItem("Authorization");
-     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/courses/${slug}`,
-        { headers }
+        `${process.env.REACT_APP_BASE_URL}/course`, {
+          params: { courseSlug: slug },
+          headers
+        }
       );
-      setCourse(response.data);
+      
+      if (response.data) {
+        setCourse(response.data);
+      } else {
+        alert("강의 조회중 오류가 발생하였습니다.");
+      }
     } catch (error) {
       console.error("강의 정보 조회 오류:", error);
       if (error.response?.status === 600) {
         alert("로그인이 만료되었습니다. 다시 로그인해 주세요.");
+        localStorage.removeItem('name');
+        localStorage.removeItem('Authorization');
+        window.location.reload();
       } else {
         alert("강의 정보를 불러오는 중 문제가 발생했습니다.");
       }
     }
   }, [slug]);
-  
-  // useEffect(() => {
-  //   if (!course && slug) fetchCourse();
-  // }, [course, fetchCourse, slug]);
 
   useEffect(() => {
-    if (!course) {
-      fetchCourse();
-    }
-  }, [course, fetchCourse]);
+    fetchCourse();
+  }, [fetchCourse]);
+
 
   useEffect(() => {
     const fetchReviews = async () => {
@@ -90,8 +90,8 @@ const Reviews = () => {
       }
     };
   
-    if (course && course.id) fetchReviews();
-  }, [course]);
+    if (course?.id) fetchReviews();
+  }, [course?.id]);
 
  
   const handleCreateReview = async () => {
@@ -375,20 +375,24 @@ const Reviews = () => {
     }
   };
 
+  if (!course) {
+    return <div><FiLoader color="#004FDE" size={12} /></div>;
+  }
+
 
   return (
     <div className="detail-page">
       <div className="header-div">
         <header className="header-section">
           <div className="course-thumbnail">
-            {item?.thumbnailImage ? (
-              <img src={item.thumbnailImage} alt={item.title} />
-            ) : item?.thumbnailVideo ? (
+            {course?.thumbnailImage ? (
+              <img src={course.thumbnailImage} alt={course.title} />
+            ) : course?.thumbnailVideo ? (
               <video muted autoPlay loop>
-                <source src={item.thumbnailVideo} type="video/mp4" alt={item.title} />
+                <source src={course.thumbnailVideo} type="video/mp4" alt={course.title} />
               </video>
             ) : (
-              <img src='/img/nothing.png' alt={item.title} />
+              <img src='/img/nothing.png' alt={course.title} />
             )}
           </div>
           <div className="course-info">
@@ -441,7 +445,7 @@ const Reviews = () => {
             }}
           >
             {checkingReviewPermission ? (
-              <><FiLoader className="spinner" /> 확인 중...</>
+              <><FiLoader className="spinner" /></>
             ) : (
               "리뷰 작성"
             )}

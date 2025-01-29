@@ -11,23 +11,15 @@ import '../../../assert/css/mypage.css';
 
 const Mypage = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
-    const [reviews, setReviews] = useState([]);
+    const [reviews, setReviews] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
-    const [courseDetails, setCourseDetails] = useState({});
 
     const token = localStorage.getItem('Authorization');
     const location = useLocation();
     const navigate = useNavigate();
 
-    const createUrlSlug = (slug) => {
-        return slug
-          .toLowerCase()
-          .replace(/[^a-z0-9가-힣]/g, '-') 
-          .replace(/-+/g, '-')
-          .replace(/^-+|-+$/g, '');
-      };
 
     useEffect(() => {
         const matchedCategory = review_category.find(
@@ -59,12 +51,6 @@ const Mypage = () => {
             );
 
             setReviews(response.data);
-            
-
-            response.data.forEach(review => {
-                fetchCourseDetails(review.courseId);
-            });
-
         } catch (err) {
             if (err.response?.status === 600) {
                 localStorage.removeItem('name');
@@ -79,47 +65,11 @@ const Mypage = () => {
         }
     }, [token, navigate]);
 
-    const fetchCourseDetails = useCallback(async (courseId) => {
-        if (courseDetails[courseId]) return;
-
-        try {
-            const response = await axios.get(
-                `${process.env.REACT_APP_BASE_URL}/course/${courseId}`,
-                {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                }
-            );
-
-            setCourseDetails(prev => ({
-                ...prev,
-                [courseId]: response.data
-            }));
-        } catch (err) {
-            if (err.response?.status === 600) {
-                localStorage.removeItem('name');
-                localStorage.removeItem('Authorization');
-                navigate('/')
-                window.location.reload();
-                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-              }
-            console.error('강의 정보 로딩을 실패했습니다. ');
-        }
-    }, [token, courseDetails]);
 
     const handleCourseClick = useCallback((review) => {
-        const courseDetail = courseDetails[review.courseId];
-        console.log(courseDetail);
-        if (courseDetail) {
-            navigate(`/reviews/${createUrlSlug(review.courseSlug)}`, {
-                state: { 
-                    item: {
-                        ...courseDetail,
-                        id: review.courseId
-                    }
-                }
-            });
+            navigate(`/reviews/${review.courseSlug}`);
         }
-    }, [courseDetails, navigate]);
+    );
 
     useEffect(() => {
         fetchReviews();
@@ -195,9 +145,11 @@ const Mypage = () => {
                 </ul>
             </div>
             <div className='review'>
-                {loading ?(
+                {loading ? (
                     <div className="loading"><FiLoader /></div>
-                ) : !reviews.length ? (
+                ) : reviews === null ? (
+                    <div className="loading"><FiLoader /></div>
+                ) : reviews.length === 0 ? (
                     <div className="no-reviews">
                         <GrDocumentMissing />
                         <p>표시할 리뷰가 없습니다.</p>
@@ -207,7 +159,7 @@ const Mypage = () => {
                     </div>
                 ) : (
                     <div className='review-list'>
-                       {reviews.map((review) => (
+                        {reviews.map((review) => (
                             <ReviewCard key={review.id} review={review} />
                         ))}
                     </div>

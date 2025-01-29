@@ -15,7 +15,7 @@ import { IoHeart } from 'react-icons/io5';
 
 
 const Wishlist = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [wishLoading, setWishLoading] = useState(false);
@@ -24,13 +24,6 @@ const Wishlist = () => {
 
   const token = localStorage.getItem('Authorization');
 
-  const createUrlSlug = (slug) => {
-    return slug
-      .toLowerCase()
-      .replace(/[^a-z0-9가-힣]/g, '-') 
-      .replace(/-+/g, '-')
-      .replace(/^-+|-+$/g, '');
-  };
 
   const fetchItem = useEffect(() => {
     const fetchWishlist = async () => {
@@ -125,12 +118,14 @@ const Wishlist = () => {
           <div className="loading">
             <FiLoader />
           </div>
-        ) : items.length ? (
+        ) : items === null ? (
+            <div className="loading"><FiLoader /></div>
+        ): items.length ? (
           <div className='inflearn__inner'>
             {items.map(item => (
               <div key={item.id} className='item'>
                 <div className='item-inner'>
-                  <Link className='item-title' to={`/reviews/${createUrlSlug(item.slug)}`} state={{ item }}>
+                  <Link className='item-title' to={`/reviews/${item.slug}`} >
                     {item.thumbnailImage ? (
                       <img src={item.thumbnailImage} alt={item.title} />
                     ) : item.thumbnailVideo ? (

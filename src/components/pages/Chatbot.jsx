@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../../assert/chatbot.css';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
@@ -10,7 +9,6 @@ const Chatbot = () => {
     const [isComposing, setIsComposing] = useState(false);
     const chatEndRef = useRef(null);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
     const apiEndpoint = `${process.env.REACT_APP_BASE_URL}/recommendation`;
 
     useEffect(() => {
@@ -18,14 +16,6 @@ const Chatbot = () => {
     }, []);
 
     const shouldHideBackground = messages.length > 0;
-
-    const createUrlSlug = (slug) => {
-        return slug
-            .toLowerCase()
-            .replace(/[^a-z0-9가-힣]/g, '-')
-            .replace(/-+/g, '-')
-            .replace(/^-+|-+$/g, '');
-    };
 
     const addMessage = (sender, message) => {
         setMessages(prevMessages => [...prevMessages, { sender, message }]);
@@ -60,30 +50,11 @@ const Chatbot = () => {
         return intros[Math.floor(Math.random() * intros.length)];
     };
 
-    const fetchCourseDetails = async (courseId) => {
-        try {
-            const response = await fetch(`${process.env.REACT_APP_BASE_URL}/course/${courseId}`);
-            if (!response.ok) {
-                throw new Error('강의 정보를 불러오는데 실패했습니다.');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('강의 정보 조회 오류:', error);
-            throw error;
-        }
-    };
 
     const handleCourseClick = async (course) => {
         try {
             setLoading(true);
-            const courseDetail = await fetchCourseDetails(course.courseId);
-            navigate(`/reviews/${createUrlSlug(course.courseSlug)}`, {
-                state: {  
-                    item: {
-                    ...courseDetail,
-                    id: course.courseId
-                } }
-            });
+            window.open(`/reviews/${course.courseSlug}`, '_blank', 'noopener,noreferrer');
         } catch (error) {
             setError('강의 정보를 불러오는데 실패했습니다.');
             console.error('Error:', error);
@@ -91,8 +62,6 @@ const Chatbot = () => {
             setLoading(false);
         }
     };
-
-    // window.open(`/reviews/${createUrlSlug(course.courseSlug)}`, '_blank', 'noopener,noreferrer',
 
     const formattedResponse = (data) => (
         <div>
