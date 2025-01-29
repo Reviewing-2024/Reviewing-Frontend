@@ -49,8 +49,8 @@ const Layout = () => {
                     <Route path='/wishlist' element={<Wishlist />} />
                     <Route path="/mypage/:status" element={<Mypagestatus />} />
                     <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/review" element={<review />} />
-                    <Route path='/reviews/:courseId' element={<Reviews />} />
+                    <Route path='/reviews/:slug' element={<Reviews />} />
+                    <Route path="*" element={ <div className='no-items'> 404 error </div> } />
                 </Routes>
             </Main>
            <Footer />
