@@ -7,6 +7,7 @@ import { FiLoader } from "react-icons/fi";
 import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
 import Mypageheader from '../../section/mypageheader.jsx';
+import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
 import '../../../assert/css/mypage.css';
 
 const Mypagestatus = () => {
@@ -121,6 +122,7 @@ const Mypagestatus = () => {
 
     return (
         <div className='mypage'>
+            <ResponsiveMypageHeader />
             <Mypageheader />
             <div className='review_category'>
                 <ul>

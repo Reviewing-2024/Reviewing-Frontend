@@ -8,6 +8,7 @@ import { FiLoader } from "react-icons/fi";
 import { TbMessageCircle } from "react-icons/tb";
 
 import Mypageheader from '../../section/mypageheader.jsx';
+import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
 
 import '../../../assert/css/mypage.css';
 import '../../../assert/css/section.css';
@@ -110,6 +111,7 @@ const Wishlist = () => {
 
   return (
     <div className='mypage'>
+      <ResponsiveMypageHeader />
       <Mypageheader />
       <div className='review'>
         <p className='title'>찜한 강의</p>

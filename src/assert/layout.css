@@ -43,30 +43,6 @@ body, html {
 }
 
 
-/* @media (max-width: 1050px) {
-    #header {
-        width: 220px;
-    }
-
-    #main {
-        padding-left: 220px;
-    }
-
-    #footer {
-        padding: 20px 20px 20px 220px;
-    }
-
-
-    body.detail-page #main {
-        padding-left: 0;
-    }
-
-    body.detail-page #footer {
-        padding: 20px;
-    }
-} */
-
-
 @media (max-width: 720px) {
     #header {
         display: none;
