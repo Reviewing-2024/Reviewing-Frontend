@@ -31,7 +31,7 @@ const Header2 = () => {
           <input 
               type='search' 
               id='searchInput' 
-              placeholder='검색어를 입력해주세요' 
+              placeholder='검색어를 입력해주세요.' 
               autoComplete='off' 
               className='searchinput' 
               onChange={e => setSearchKeyword(e.target.value)}

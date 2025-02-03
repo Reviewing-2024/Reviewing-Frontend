@@ -1,0 +1,133 @@
+.mobile-header-container {
+    width: 100%;
+    background-color: #fdfdfd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 10px 0 0 0;
+    z-index: 11;
+    border-bottom: 1px solid rgb(222, 226, 230);
+}
+
+.mobile-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 22px 10px 22px;
+    box-sizing: border-box;
+}
+
+.mobile-header-top {
+    padding: 10px 22px;
+    border-bottom: 1px solid rgb(222, 226, 230);
+    border-top: 1px solid rgb(222, 226, 230);
+}
+
+
+.mobile-search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #999;
+    padding: 3px; 
+    border-radius: 0.25rem;
+    font-size: 16px;
+}
+
+.mobile-search-input {
+    border: none;
+    outline: none;
+    padding: 3px;
+    font-size: 16px;
+    border-radius: 44px;
+    flex-grow: 1;
+}
+
+.mobile-search-bar button {
+    background-color: #fdfdfd;
+    cursor: pointer;
+    font-size: 22px;
+    border: none;
+    padding: 0px 6px;
+}
+
+
+.mobile-menu {
+    display:inline-table;
+    float: inline-start;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid rgb(222, 226, 230);
+    padding-left: 22px;
+}
+
+.mobile-menu li {
+    list-style: none;
+    margin-top: 6px; 
+
+}
+
+.mobile-menu li svg {
+    vertical-align: middle;
+}
+
+.mobile-menu li a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    font-size: 17px;
+    font-weight: 600; 
+    border-radius: 10px;
+    padding: 8px 10px;
+    gap: 10px;
+    transition: 0.3s;
+    border: 2px solid #fdfdfd;
+}
+
+.mobile-category-list {
+    margin: 0;
+    padding: 0;
+    display:inline-table;
+    
+}
+
+.mobile-category-list li {
+    list-style: none;
+    margin: 22px 0;
+}
+
+.mobile-category-list li span {
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 8px;
+    margin: 15px;
+    border: 2px solid #999;
+}
+
+.mobile-category-list li span:hover,
+.mobile-category-list li.active span  {
+    border: 2px solid #004FDE ;
+    color: #004FDE ;
+    cursor: pointer;
+}
+
+.mobile-header {
+    display: none;
+}
+
+.mobile-headeractive {
+    animation: mobilemypageheader-fade 1s ease;
+}
+
+@keyframes mobilemypageheader-fade {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

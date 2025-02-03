@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 import './assert/layout.css';
-import Header2 from './components/section/header2';
+
 import Header from './components/section/header';
 import Main from './components/section/main';
 import Footer from './components/section/footer';
+import ResponsiveHeader from './components/section/ResponsiveHeader';
 
 import Home from './components/pages/home';
 import Inflearn from './components/pages/inflearn';
@@ -29,7 +30,7 @@ const Layout = () => {
     const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/pending', '/mypage/approved', '/mypage/rejected' ];
     return (
         <>
-            <Header2 />
+            {!hideHeaderPaths.includes(location.pathname) && <ResponsiveHeader />}
             {!hideHeaderPaths.includes(location.pathname) && <Header />}
             
             <Main>
