@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+import Main from '../section/main';
+
 import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+
 import "../../assert/detailpage.css";
-import axios from "axios";
 
 const Reviews = () => {
   const { slug } = useParams();
@@ -381,185 +384,189 @@ const Reviews = () => {
 
 
   return (
-    <div className="detail-page">
-      <div className="header-div">
-        <header className="header-section">
-          <div className="course-thumbnail">
-            {course?.thumbnailImage ? (
-              <img src={course.thumbnailImage} alt={course.title} />
-            ) : course?.thumbnailVideo ? (
-              <video muted autoPlay loop>
-                <source src={course.thumbnailVideo} type="video/mp4" alt={course.title} />
-              </video>
-            ) : (
-              <img src='/img/nothing.png' alt={course.title} />
-            )}
-          </div>
-          <div className="course-info">
-            <h2 className="course-title">{course.title}</h2>
-            <p className="instructor-name">{course.teacher || ""}</p>
-            <div className="course-actions">
-              <button
-                className="btn btn-wish"
-                style={{
-                  backgroundColor: "#fff",
-                  border: "1px solid #004FDE",
-                  borderRadius: "5px",
-                  padding: "10px",
-                  cursor: wishLoading ? "not-allowed" : "pointer",
-                  opacity: wishLoading ? 0.7 : 1
-                }}
-                onClick={() => handleWish(course?.id)}
-                disabled={wishLoading || wishRequestInProgress}
-              >
-                {wishLoading ? (
-                  <FiLoader color="#004FDE" size={12} />
-                ) : course?.wished ? (
-                  <FaHeart color="#004FDE" size={12} />
-                ) : (
-                  <FaRegHeart color="#004FDE" size={12} />
-                )}
-              </button>
-              <button className="btn btn-view" onClick={handleView} disabled={!course?.url}>
-                수강하러 가기
-              </button>
+    <Main 
+    title = "상세페이지"
+    description="추천 강의입니다.">
+      <div className="detail-page">
+        <div className="header-div">
+          <header className="header-section">
+            <div className="course-thumbnail">
+              {course?.thumbnailImage ? (
+                <img src={course.thumbnailImage} alt={course.title} />
+              ) : course?.thumbnailVideo ? (
+                <video muted autoPlay loop>
+                  <source src={course.thumbnailVideo} type="video/mp4" alt={course.title} />
+                </video>
+              ) : (
+                <img src='/img/nothing.png' alt={course.title} />
+              )}
             </div>
-          </div>
-        </header>
-      </div>
-      <section className="review-section">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            marginBottom: "20px",
-          }}
-        >
-          <button
-            className="btn btn-primary"
-            onClick={handleReviewButtonClick}
-            disabled={checkingReviewPermission}
+            <div className="course-info">
+              <h2 className="course-title">{course.title}</h2>
+              <p className="instructor-name">{course.teacher || ""}</p>
+              <div className="course-actions">
+                <button
+                  className="btn btn-wish"
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #004FDE",
+                    borderRadius: "5px",
+                    padding: "10px",
+                    cursor: wishLoading ? "not-allowed" : "pointer",
+                    opacity: wishLoading ? 0.7 : 1
+                  }}
+                  onClick={() => handleWish(course?.id)}
+                  disabled={wishLoading || wishRequestInProgress}
+                >
+                  {wishLoading ? (
+                    <FiLoader color="#004FDE" size={12} />
+                  ) : course?.wished ? (
+                    <FaHeart color="#004FDE" size={12} />
+                  ) : (
+                    <FaRegHeart color="#004FDE" size={12} />
+                  )}
+                </button>
+                <button className="btn btn-view" onClick={handleView} disabled={!course?.url}>
+                  수강하러 가기
+                </button>
+              </div>
+            </div>
+          </header>
+        </div>
+        <section className="review-section">
+          <div
             style={{
-              cursor: checkingReviewPermission ? 'not-allowed' : 'pointer',
-              opacity: checkingReviewPermission ? 0.7 : 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              marginBottom: "20px",
             }}
           >
-            {checkingReviewPermission ? (
-              <><FiLoader className="spinner" /></>
-            ) : (
-              "리뷰 작성"
-            )}
-          </button>
-        </div>
-        <div className="review-list">
-          {reviews.map((review) => (
-            <div key={review.id} className="review-card">
-              <div className="review-header">
-                <p className="review-author">{review.nickname}</p>
-                <div className="review-rating">
-                  {Array.from({ length: 5 }, (_, index) => {
-                    const starValue = index + 1;
-                    if (review.rating >= starValue) {
-                      return <FaStar key={index} color="#ffd700" />;
-                    } else if (review.rating >= starValue - 0.5) {
-                      return <FaStarHalfAlt key={index} color="#ffd700" />;
-                    } else {
-                      return <FaRegStar key={index} color="#ffd700" />;
-                    }
-                  })}
+            <button
+              className="btn btn-primary"
+              onClick={handleReviewButtonClick}
+              disabled={checkingReviewPermission}
+              style={{
+                cursor: checkingReviewPermission ? 'not-allowed' : 'pointer',
+                opacity: checkingReviewPermission ? 0.7 : 1,
+              }}
+            >
+              {checkingReviewPermission ? (
+                <><FiLoader className="spinner" /></>
+              ) : (
+                "리뷰 작성"
+              )}
+            </button>
+          </div>
+          <div className="review-list">
+            {reviews.map((review) => (
+              <div key={review.id} className="review-card">
+                <div className="review-header">
+                  <p className="review-author">{review.nickname}</p>
+                  <div className="review-rating">
+                    {Array.from({ length: 5 }, (_, index) => {
+                      const starValue = index + 1;
+                      if (review.rating >= starValue) {
+                        return <FaStar key={index} color="#ffd700" />;
+                      } else if (review.rating >= starValue - 0.5) {
+                        return <FaStarHalfAlt key={index} color="#ffd700" />;
+                      } else {
+                        return <FaRegStar key={index} color="#ffd700" />;
+                      }
+                    })}
+                  </div>
+                </div>
+                <p className="review-content">{review.contents}</p>
+                <p className="review-createdAt">{review.createdAt}</p>
+                <div className="review-actions">
+                  <button
+                    className={`btn-icon ${review.liked ? "active" : ""}`}
+                    onClick={() => handleLike(review.id, review.liked)}
+                    disabled={loading}
+                  >
+                    {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
+                  </button>
+                  <button
+                    className={`btn-icon ${review.disliked ? "aactive" : ""}`}
+                    onClick={() => handleDislike(review.id, review.disliked)}
+                    disabled={aloading}
+                  >
+                    {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
+                  </button>
                 </div>
               </div>
-              <p className="review-content">{review.contents}</p>
-              <p className="review-createdAt">{review.createdAt}</p>
-              <div className="review-actions">
-                <button
-                  className={`btn-icon ${review.liked ? "active" : ""}`}
-                  onClick={() => handleLike(review.id, review.liked)}
-                  disabled={loading}
-                >
-                  {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
+            ))}
+          </div>
+        </section>
+        {showReviewModal && (
+          <div className="review-modal">
+            <div className="review-modal-content">
+              <div className="modal-input-group">
+                <label htmlFor="rating">평점:</label>
+                <input
+                  type="number"
+                  id="rating"
+                  value={newReview.rating}
+                  onChange={(e) => {
+                    const value = Math.min(
+                      5,
+                      Math.max(0, parseFloat(e.target.value) || 0),
+                    );
+                    setNewReview((prev) => ({ ...prev, rating: value }));
+                  }}
+                  placeholder="1 ~ 5"
+                  step="0.5"
+                  min="1"
+                  max="5"
+                />
+              </div>
+              <div className="modal-input-group">
+                <label htmlFor="contents">리뷰 내용:</label>
+                <textarea
+                  id="contents"
+                  value={newReview.contents}
+                  onChange={(e) =>
+                    setNewReview({ ...newReview, contents: e.target.value })
+                  }
+                  onBlur={() => {
+                    if (!newReview.contents) {
+                        alert('리뷰 내용을 입력해주세요.');
+                    }
+                  }}
+                  placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}
+                />
+              </div>
+              <div className="modal-input-group">
+                <label htmlFor="file">파일 선택:</label>
+                <input
+                  type="file"
+                  id="file"
+                  accept="image/*,application/pdf"
+                  onChange={(e) =>
+                    setNewReview({ ...newReview, file: e.target.files[0] })
+                  }
+                />
+              </div>
+              <p className="reviews-acomment">강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
+              <p> (예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
+              <p> 무관한 내용이나 부적절한 파일을 첨부할 경우 승인이 거절될 수 있습니다.</p>
+              <p> 첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
+              <p> 리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p>
+              <div className="review-modal-buttons">
+                <button className="btn-submit" onClick={handleCreateReview}>
+                  {reviewloading ? <FiLoader /> : '리뷰 제출'}
                 </button>
                 <button
-                  className={`btn-icon ${review.disliked ? "aactive" : ""}`}
-                  onClick={() => handleDislike(review.id, review.disliked)}
-                  disabled={aloading}
+                  className="btn-cancel"
+                  onClick={() => setShowReviewModal(false)}
                 >
-                  {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
+                  취소
                 </button>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-      {showReviewModal && (
-        <div className="review-modal">
-          <div className="review-modal-content">
-            <div className="modal-input-group">
-              <label htmlFor="rating">평점:</label>
-              <input
-                type="number"
-                id="rating"
-                value={newReview.rating}
-                onChange={(e) => {
-                  const value = Math.min(
-                    5,
-                    Math.max(0, parseFloat(e.target.value) || 0),
-                  );
-                  setNewReview((prev) => ({ ...prev, rating: value }));
-                }}
-                placeholder="1 ~ 5"
-                step="0.5"
-                min="1"
-                max="5"
-              />
-            </div>
-            <div className="modal-input-group">
-              <label htmlFor="contents">리뷰 내용:</label>
-              <textarea
-                id="contents"
-                value={newReview.contents}
-                onChange={(e) =>
-                  setNewReview({ ...newReview, contents: e.target.value })
-                }
-                onBlur={() => {
-                  if (!newReview.contents) {
-                      alert('리뷰 내용을 입력해주세요.');
-                  }
-                }}
-                placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}
-              />
-            </div>
-            <div className="modal-input-group">
-              <label htmlFor="file">파일 선택:</label>
-              <input
-                type="file"
-                id="file"
-                accept="image/*,application/pdf"
-                onChange={(e) =>
-                  setNewReview({ ...newReview, file: e.target.files[0] })
-                }
-              />
-            </div>
-            <p className="reviews-acomment">강의 수강을 증명할 수 있는 자료를 첨부해주세요. </p>
-            <p> (예: 강의 수강 화면 캡처, 수강 증명서 등)</p>
-            <p> 무관한 내용이나 부적절한 파일을 첨부할 경우 승인이 거절될 수 있습니다.</p>
-            <p> 첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
-            <p> 리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p>
-            <div className="review-modal-buttons">
-              <button className="btn-submit" onClick={handleCreateReview}>
-                {reviewloading ? <FiLoader /> : '리뷰 제출'}
-              </button>
-              <button
-                className="btn-cancel"
-                onClick={() => setShowReviewModal(false)}
-              >
-                취소
-              </button>
-            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Main>
   );
 };
 

@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+
 import { BsCircleFill } from "react-icons/bs";
 import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
+
+import Main from '../../section/main.jsx';
 import Mypageheader from '../../section/mypageheader.jsx';
 import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
+
 import '../../../assert/css/mypage.css';
 
 const Mypage = () => {
@@ -119,56 +123,60 @@ const Mypage = () => {
 
 
     return (
-        <div className='mypage'>
-            <ResponsiveMypageHeader />
-            <Mypageheader />
-            <div className='review_category'>
-                <ul>
-                    {review_category.map((category, index) => (
-                        <li
-                            key={category.src}
-                            onMouseEnter={() => setHoverIndex(index)}
-                            onMouseLeave={() => setHoverIndex(null)}
-                        >
-                            <Link
-                                to={`/mypage${category.src}`}
-                                className={selectedCategory === category.title ? 'active' : ''}
-                                style={{
-                                    backgroundColor: hoverIndex === index || selectedCategory === category.title
-                                        ? category.color: '#fdfdfd', 
-                                    border: `2px solid ${category.color}`
-                                }}
-                                onClick={() => handleCategoryClick(category)}
+        <Main 
+        title = "마이페이지"
+        description="마이페이지 입니다.">
+            <div className='mypage'>
+                <ResponsiveMypageHeader />
+                <Mypageheader />
+                <div className='review_category'>
+                    <ul>
+                        {review_category.map((category, index) => (
+                            <li
+                                key={category.src}
+                                onMouseEnter={() => setHoverIndex(index)}
+                                onMouseLeave={() => setHoverIndex(null)}
                             >
-                                {category.title}
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            <div className='review'>
-                {loading ? (
-                    <div className="loading"><FiLoader /></div>
-                ) : reviews === null ? (
-                    <div className="loading"><FiLoader /></div>
-                ) : reviews.length === 0 ? (
-                    <div className="no-reviews">
-                        <GrDocumentMissing />
-                        <p>표시할 리뷰가 없습니다.</p>
-                        <a type="button" href="/" target="_blank">
-                            <div>강의 리스트 보기</div>
-                        </a>
-                    </div>
-                ) : (
-                    <div className='review-list'>
-                        {reviews.map((review) => (
-                            <ReviewCard key={review.id} review={review} />
+                                <Link
+                                    to={`/mypage${category.src}`}
+                                    className={selectedCategory === category.title ? 'active' : ''}
+                                    style={{
+                                        backgroundColor: hoverIndex === index || selectedCategory === category.title
+                                            ? category.color: '#fdfdfd', 
+                                        border: `2px solid ${category.color}`
+                                    }}
+                                    onClick={() => handleCategoryClick(category)}
+                                >
+                                    {category.title}
+                                </Link>
+                            </li>
                         ))}
-                    </div>
-                )}
+                    </ul>
+                </div>
+                <div className='review'>
+                    {loading ? (
+                        <div className="loading"><FiLoader /></div>
+                    ) : reviews === null ? (
+                        <div className="loading"><FiLoader /></div>
+                    ) : reviews.length === 0 ? (
+                        <div className="no-reviews">
+                            <GrDocumentMissing />
+                            <p>표시할 리뷰가 없습니다.</p>
+                            <a type="button" href="/" target="_blank">
+                                <div>강의 리스트 보기</div>
+                            </a>
+                        </div>
+                    ) : (
+                        <div className='review-list'>
+                            {reviews.map((review) => (
+                                <ReviewCard key={review.id} review={review} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+                <div className='footer' />
             </div>
-            <div className='footer' />
-        </div>
+        </Main>
     );
 };
 
