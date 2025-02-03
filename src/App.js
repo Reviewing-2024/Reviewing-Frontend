@@ -32,8 +32,6 @@ const Layout = () => {
         <>
             {!hideHeaderPaths.includes(location.pathname) && <ResponsiveHeader />}
             {!hideHeaderPaths.includes(location.pathname) && <Header />}
-            
-            <Main>
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/inflearn' element={<Inflearn />} />
@@ -53,7 +51,6 @@ const Layout = () => {
                     <Route path='/reviews/:slug' element={<Reviews />} />
                     <Route path="*" element={ <div className='no-items'> 404 error </div> } />
                 </Routes>
-            </Main>
            <Footer />
         </>
     );
