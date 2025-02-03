@@ -85,7 +85,6 @@ const Reviews = () => {
           disliked: review.disliked ?? false,
         }));
         setReviews(updatedReviews);
-        console.log(reviews)
       } catch (error) {
         alert("리뷰를 불러오는 중 문제가 발생했습니다.");
       }
