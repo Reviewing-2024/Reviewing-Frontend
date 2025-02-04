@@ -60,7 +60,6 @@
     margin: 0;
     padding: 0;
     border-right: 1px solid rgb(222, 226, 230);
-    padding-left: 22px;
 }
 
 .mobile-menu li {
@@ -98,7 +97,7 @@
 
 .mobile-category-list li {
     list-style: none;
-    padding: 20px 0 8px ;
+    padding: 13px 0 8px ;
 }
 
 .mobile-category-list li span {
