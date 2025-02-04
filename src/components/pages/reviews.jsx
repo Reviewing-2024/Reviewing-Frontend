@@ -458,43 +458,49 @@ const Reviews = () => {
             </button>
           </div>
           <div className="review-list">
-            {reviews.map((review) => (
-              <div key={review.id} className="review-card">
-                <div className="review-header">
-                  <p className="review-author">{review.nickname}</p>
-                  <div className="review-rating">
-                    {Array.from({ length: 5 }, (_, index) => {
-                      const starValue = index + 1;
-                      if (review.rating >= starValue) {
-                        return <FaStar key={index} color="#ffd700" />;
-                      } else if (review.rating >= starValue - 0.5) {
-                        return <FaStarHalfAlt key={index} color="#ffd700" />;
-                      } else {
-                        return <FaRegStar key={index} color="#ffd700" />;
-                      }
-                    })}
+            {reviews.length === 0 ? (
+              <div className="no-items">
+                <p>아직 작성된 리뷰가 없습니다.<br></br> 첫 번째 리뷰를 작성해주세요!</p>
+              </div>
+            ) : (
+              reviews.map((review) => (
+                <div key={review.id} className="review-card">
+                  <div className="review-header">
+                    <p className="review-author">{review.nickname}</p>
+                    <div className="review-rating">
+                      {Array.from({ length: 5 }, (_, index) => {
+                        const starValue = index + 1;
+                        if (review.rating >= starValue) {
+                          return <FaStar key={index} color="#ffd700" />;
+                        } else if (review.rating >= starValue - 0.5) {
+                          return <FaStarHalfAlt key={index} color="#ffd700" />;
+                        } else {
+                          return <FaRegStar key={index} color="#ffd700" />;
+                        }
+                      })}
+                    </div>
+                  </div>
+                  <p className="review-content">{review.contents}</p>
+                  <p className="review-createdAt">{review.createdAt}</p>
+                  <div className="review-actions">
+                    <button
+                      className={`btn-icon ${review.liked ? "active" : ""}`}
+                      onClick={() => handleLike(review.id, review.liked)}
+                      disabled={loading}
+                    >
+                      {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
+                    </button>
+                    <button
+                      className={`btn-icon ${review.disliked ? "aactive" : ""}`}
+                      onClick={() => handleDislike(review.id, review.disliked)}
+                      disabled={aloading}
+                    >
+                      {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
+                    </button>
                   </div>
                 </div>
-                <p className="review-content">{review.contents}</p>
-                <p className="review-createdAt">{review.createdAt}</p>
-                <div className="review-actions">
-                  <button
-                    className={`btn-icon ${review.liked ? "active" : ""}`}
-                    onClick={() => handleLike(review.id, review.liked)}
-                    disabled={loading}
-                  >
-                    {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
-                  </button>
-                  <button
-                    className={`btn-icon ${review.disliked ? "aactive" : ""}`}
-                    onClick={() => handleDislike(review.id, review.disliked)}
-                    disabled={aloading}
-                  >
-                    {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </section>
         {showReviewModal && (

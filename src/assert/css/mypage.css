@@ -56,6 +56,11 @@
     display: block;
   }
 
+.myreview-top {
+  display: flex;
+  justify-content: space-between;
+}  
+
 
 .myreview-content span {
     margin: 0px 10px;
@@ -74,7 +79,6 @@
 
 .status {
     border-radius: 100px;
-    float: right;
 }
 
 .status.approved {

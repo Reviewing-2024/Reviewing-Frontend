@@ -89,16 +89,18 @@ const Mypage = () => {
         return (
             <div className='review-card'>
                 <div className="myreview-content">
-                    <span 
-                        className='myreview-title'
-                        onClick={() => handleCourseClick(review)}
-                        style={{ cursor: 'pointer' }}
-                    >
-                    {review.courseTitle} <FaExternalLinkAlt />
-                    </span>
-                    <span className={`status ${review.status.toLowerCase()}`}>
-                        <BsCircleFill />
-                    </span>
+                    <div className='myreview-top'>
+                        <span 
+                            className='myreview-title'
+                            onClick={() => handleCourseClick(review)}
+                            style={{ cursor: 'pointer' }}
+                        >
+                        {review.courseTitle} <FaExternalLinkAlt />
+                        </span>
+                        <span className={`status ${review.status.toLowerCase()}`}>
+                            <BsCircleFill />
+                        </span>
+                    </div>
                     <p className='content'>{review.contents}</p>
                     <div className="review-metadata">
                         <span className='createdAt'>{review.createdAt}</span>

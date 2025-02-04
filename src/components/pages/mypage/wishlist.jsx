@@ -117,9 +117,7 @@ const Wishlist = () => {
       <div className='mypage'>
         <ResponsiveMypageHeader />
         <Mypageheader />
-        <div className='review'>
-          <p className='title'>찜한 강의</p>
-          
+        <div className='review'>      
           {loading ? (
             <div className="loading">
               <FiLoader />
@@ -154,7 +152,7 @@ const Wishlist = () => {
                         <TbMessageCircle size={16} /> {item.comments}
                       </span>
                       <span className='item-wishe'>
-                        <IoHeart size={16} color='FF9393' /> {item.wishes}
+                        <IoHeart size={16} color='004FDE' /> {item.wishes}
                       </span>
                       <div className="overlay">
                         <span onClick={() => handleWish(item.id, item.wished)}>
