@@ -252,7 +252,7 @@ video {
 
 .modal-input-group textarea {
   resize: none;
-  height: 150px;
+  height: 10vh;
 }
 
 .review-modal-buttons {
@@ -358,11 +358,21 @@ video {
 
   .course-thumbnail {
     text-align: center;
+    align-items: center;
   }
 
   .course-image {
     width: 300px;
   }
+
+  .course-info {
+    flex-grow: 1;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-self: flex-start; */
+  }  
 
   .course-title {
     font-size: 1.6rem;
@@ -381,6 +391,29 @@ video {
     align-items: center;
     gap: 10px;
   }
+
+  .review-modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 70%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+
+  .modal-input-group {
+    margin-bottom: 20px;
+  }
+
+  .modal-input-group input,
+  .modal-input-group textarea {
+    width: 92%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -399,5 +432,28 @@ video {
   .course-rating {
     font-size: 0.8rem;
   }
+
+  .review-modal-content {
+    background: #fff;
+    border-radius: 15px;
+    padding: 30px;
+    width: 70%;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+
+  .modal-input-group {
+    margin-bottom: 20px;
+  }
+
+  .modal-input-group input,
+  .modal-input-group textarea {
+    width: 92%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
 }
 
