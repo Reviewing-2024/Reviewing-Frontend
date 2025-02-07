@@ -27,7 +27,6 @@ const Mypagestatus = () => {
 
     const token = localStorage.getItem('Authorization');
 
-
     useEffect(() => {
         const matchedCategory = review_category.find(
             (category) => `/mypage${category.src}` === location.pathname
@@ -50,14 +49,14 @@ const Mypagestatus = () => {
             setLoading(true);
             setError(null);
 
-            const response = await axios.get(
-                `${process.env.REACT_APP_BASE_URL}/my/reviews?status=${status}`,
-                {
-                    headers: { 'Authorization': `Bearer ${token}` }
-                }
-            );
+        const url = status === 'all'
+        ? `${process.env.REACT_APP_BASE_URL}/my/reviews` 
+        : `${process.env.REACT_APP_BASE_URL}/my/reviews?status=${status}`;
+        
+        const response = await axios.get(url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
 
-            console.log(response.data)
             setReviews(response.data);
 
         } catch (err) {

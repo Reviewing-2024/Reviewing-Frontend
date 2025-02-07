@@ -9,7 +9,6 @@
 
 .header__menu li {
     list-style: none;
-     margin-top: 6px; 
 
 }
 
@@ -24,7 +23,7 @@
     flex-direction: row;
     font-size: 17px;
     font-weight: 600; 
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 8px 10px;
     gap: 10px;
     transition: 0.3s;
@@ -48,7 +47,7 @@
     font-size: 16px;
     font-weight: 600;
     padding: 5px 8px;
-    margin: 5px 5px;
+    margin: 5px;
     border: 2px solid #999;
     transition: 0.3s;
     
@@ -97,7 +96,6 @@
     display: flex;
     align-items: end;
     justify-content: end;
-    z-index: 9999;
 }
 
 .chatbot-content {
@@ -112,6 +110,7 @@
     min-width: 400px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
     border: 2px solid #004FDE;
+    z-index: 100;
 }
 
 .chatbot-content button {

@@ -108,6 +108,11 @@ const Chatbot = () => {
             if (!response.ok) {
                 throw new Error('API 요청 실패');
             }
+            if (messages.length === 0) {
+                console.error('빈배열')
+                addMessage('bot', <a>오류가 발생했습니다. <br></br>잠시 후 다시 시도해주세요.</a>);
+                return;
+            }
 
             const data = await response.json();
             addMessage('bot', formattedResponse(data));

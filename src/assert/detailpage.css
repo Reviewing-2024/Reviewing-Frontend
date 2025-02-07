@@ -6,9 +6,9 @@
 
 .header-section {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   gap: 30px;
-  margin: 0 20px 0 20px;
+  margin: 10px 20px 0 20px;
   padding-right: 220px;
   padding: 20px;
   border-radius: 8px;
@@ -366,12 +366,7 @@ video {
   }
 
   .course-info {
-    flex-grow: 1;
-    height: max-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* align-self: flex-start; */
+    min-height: 190px;
   }  
 
   .course-title {
@@ -417,6 +412,14 @@ video {
 }
 
 @media (max-width: 480px) {
+  .header-section {
+    min-width: 300px;
+  }
+  .course-info {
+    min-height: 170px;
+    align-self: self-start;
+  }
+  
   .course-image {
     width: 250px;
   }

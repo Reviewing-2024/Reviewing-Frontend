@@ -100,3 +100,30 @@
     background-color: #4a90e2;
     border-radius: 10px;
 }
+
+@media (max-width: 719px) {
+    .chatDiv {
+        padding: 20px;
+    }
+    .inputDiv {
+        display: flex;
+        align-items: center;
+        width: 80vw;
+        min-width: 280px;
+        padding: 20px auto;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: auto;
+        flex-grow: 1;
+    }
+    .inputDiv input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        font-size: 1em;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+}

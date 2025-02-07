@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../assert/adminpage.css";
 import axios from "axios";
+import Main from '../section/main';
 
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -96,190 +97,194 @@ const AdminPage = () => {
 
   if (!isAuthorized) {
     return (
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <h2>관리자 페이지</h2>
-        <p>접근하려면 암호를 입력하세요.</p>
-        <input
-          type="password"
-          placeholder="암호 입력"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ padding: "10px", fontSize: "16px" }}
-        />
-        <button
-          onClick={handlePasswordSubmit}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            marginLeft: "10px",
-            cursor: "pointer",
-          }}
-        >
-          확인
-        </button>
-      </div>
+      <Main>
+        <div style={{ textAlign: "center", marginTop: "50px" }}>
+          <h2>관리자 페이지</h2>
+          <p>접근하려면 암호를 입력하세요.</p>
+          <input
+            type="password"
+            placeholder="암호 입력"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ padding: "10px", fontSize: "16px" }}
+          />
+          <button
+            onClick={handlePasswordSubmit}
+            style={{
+              padding: "10px 20px",
+              fontSize: "16px",
+              marginLeft: "10px",
+              cursor: "pointer",
+            }}
+          >
+            확인
+          </button>
+        </div>
+      </Main>
     );
   }
 
   return (
-    <div className="admin-page">
-      <div className="category-tabs">
-        <button
-          className={activeCategory === "pending" ? "active" : ""}
-          onClick={() => setActiveCategory("pending")}
-        >
-          Pending Reviews
-        </button>
-      </div>
-
-      <div className="sub-category-tabs">
-        <button
-          className={subCategory === "requests" ? "active" : ""}
-          onClick={() => setSubCategory("requests")}
-        >
-          승인 요청
-        </button>
-        <button
-          className={subCategory === "approved" ? "active" : ""}
-          onClick={() => setSubCategory("approved")}
-        >
-          승인 완료
-        </button>
-        <button
-          className={subCategory === "rejected" ? "active" : ""}
-          onClick={() => setSubCategory("rejected")}
-        >
-          승인 거절
-        </button>
-      </div>
-
-      <div className="review-list">
-        {reviews.map((review) => (
-          <div
-            key={review.reviewId}
-            className={`review-item ${
-              expandedReview === review.reviewId ? "expanded" : ""
-            }`}
-            onClick={() => handleExpandReview(review.reviewId)}
+    <Main >
+      <div className="admin-page">
+        <div className="category-tabs">
+          <button
+            className={activeCategory === "pending" ? "active" : ""}
+            onClick={() => setActiveCategory("pending")}
           >
-            <div className="review-header">
-              <div className="review-left">
-              {
-                  review.courseThumbnailImage ? (
-                    <img src={review.courseThumbnailImage} alt="Course Thumbnail" className="course-thumbnail"/>
-                  ) : review.courseThumbnailVideo ? (
-                    <video muted autoPlay loop >
-                      <source src={review.courseThumbnailVideo} type="video/mp4" alt="Course Thumbnail" className="course-thumbnail"/>
-                    </video>
-                  ) : (
-                    <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail"/>
-                  )
-                }
-                <div className="review-information">
-                  <p>
-                    <strong>{review.courseTitle}</strong>
-                  </p>
-                  <a href={review.courseUrl} target="_blank">강의 보러가기</a>
-                  <p>{review.updatedAt}</p>
+            Pending Reviews
+          </button>
+        </div>
+
+        <div className="sub-category-tabs">
+          <button
+            className={subCategory === "requests" ? "active" : ""}
+            onClick={() => setSubCategory("requests")}
+          >
+            승인 요청
+          </button>
+          <button
+            className={subCategory === "approved" ? "active" : ""}
+            onClick={() => setSubCategory("approved")}
+          >
+            승인 완료
+          </button>
+          <button
+            className={subCategory === "rejected" ? "active" : ""}
+            onClick={() => setSubCategory("rejected")}
+          >
+            승인 거절
+          </button>
+        </div>
+
+        <div className="review-list">
+          {reviews.map((review) => (
+            <div
+              key={review.reviewId}
+              className={`review-item ${
+                expandedReview === review.reviewId ? "expanded" : ""
+              }`}
+              onClick={() => handleExpandReview(review.reviewId)}
+            >
+              <div className="review-header">
+                <div className="review-left">
+                {
+                    review.courseThumbnailImage ? (
+                      <img src={review.courseThumbnailImage} alt="Course Thumbnail" className="course-thumbnail"/>
+                    ) : review.courseThumbnailVideo ? (
+                      <video muted autoPlay loop >
+                        <source src={review.courseThumbnailVideo} type="video/mp4" alt="Course Thumbnail" className="course-thumbnail"/>
+                      </video>
+                    ) : (
+                      <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail"/>
+                    )
+                  }
+                  <div className="review-information">
+                    <p>
+                      <strong>{review.courseTitle}</strong>
+                    </p>
+                    <a href={review.courseUrl} target="_blank">강의 보러가기</a>
+                    <p>{review.updatedAt}</p>
+                  </div>
                 </div>
+
+                {expandedReview === review.reviewId && (
+                  <div className="review-actions">
+                    <button
+                      className="accept-btn"
+                      onClick={() =>
+                        handleReviewAction(review.reviewId, "approve")
+                      }
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="reject-btn"
+                      onClick={() => {
+                        console.log(
+                          "Reject Button Clicked, Review ID:",
+                          review.reviewId,
+                        );
+                        setRejectReason("");
+                        setCurrentReviewId(review.reviewId);
+                        setShowModal(true);
+                      }}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                )}
               </div>
 
               {expandedReview === review.reviewId && (
-                <div className="review-actions">
-                  <button
-                    className="accept-btn"
-                    onClick={() =>
-                      handleReviewAction(review.reviewId, "approve")
-                    }
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="reject-btn"
-                    onClick={() => {
-                      console.log(
-                        "Reject Button Clicked, Review ID:",
-                        review.reviewId,
-                      );
-                      setRejectReason("");
-                      setCurrentReviewId(review.reviewId);
-                      setShowModal(true);
-                    }}
-                  >
-                    Reject
-                  </button>
+                <div className="review-expanded">
+                  <p>{review.reviewContents}</p>
+                  <iframe
+                    src={review.reviewCertification}
+                    title="Review Certification"
+                    className="review-certification" 
+                  />
                 </div>
               )}
             </div>
-
-            {expandedReview === review.reviewId && (
-              <div className="review-expanded">
-                <p>{review.reviewContents}</p>
-                <iframe
-                  src={review.reviewCertification}
-                  title="Review Certification"
-                  className="review-certification" 
-                />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>거절 사유를 선택하세요</h3>
-            <ul>
-              <li>
-                <label>
-                  <span>강의 리뷰 내용이 적절하지 않아요.</span>
-                  <input
-                    type="radio"
-                    name="reason"
-                    value="강의 리뷰 내용이 적절하지 않아요."
-                    onChange={(e) => setRejectReason(e.target.value)}
-                  />
-                </label>
-              </li>
-              <li>
-                <label>
-                  <span>인증 파일 양식이 올바르지 않아요.</span>
-                  <input
-                    type="radio"
-                    name="reason"
-                    value="인증 파일 양식이 올바르지 않아요."
-                    onChange={(e) => setRejectReason(e.target.value)}
-                  />
-                </label>
-              </li>
-              <li>
-                <label>
-                  <span>직접 입력:</span>
-                  <input
-                    type="text"
-                    placeholder="사유를 입력하세요"
-                    onChange={(e) => setRejectReason(e.target.value)}
-                  />
-                </label>
-              </li>
-            </ul>
-            <button
-              onClick={() => {
-                console.log(
-                  "Submitting Reject for Review ID:",
-                  currentReviewId,
-                );
-                handleReviewAction(currentReviewId, "reject");
-              }}
-            >
-              예
-            </button>
-            <button onClick={closeModal}>취소</button>
-          </div>
+          ))}
         </div>
-      )}
-    </div>
+
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>거절 사유를 선택하세요</h3>
+              <ul>
+                <li>
+                  <label>
+                    <span>강의 리뷰 내용이 적절하지 않아요.</span>
+                    <input
+                      type="radio"
+                      name="reason"
+                      value="강의 리뷰 내용이 적절하지 않아요."
+                      onChange={(e) => setRejectReason(e.target.value)}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <span>인증 파일 양식이 올바르지 않아요.</span>
+                    <input
+                      type="radio"
+                      name="reason"
+                      value="인증 파일 양식이 올바르지 않아요."
+                      onChange={(e) => setRejectReason(e.target.value)}
+                    />
+                  </label>
+                </li>
+                <li>
+                  <label>
+                    <span>직접 입력:</span>
+                    <input
+                      type="text"
+                      placeholder="사유를 입력하세요"
+                      onChange={(e) => setRejectReason(e.target.value)}
+                    />
+                  </label>
+                </li>
+              </ul>
+              <button
+                onClick={() => {
+                  console.log(
+                    "Submitting Reject for Review ID:",
+                    currentReviewId,
+                  );
+                  handleReviewAction(currentReviewId, "reject");
+                }}
+              >
+                예
+              </button>
+              <button onClick={closeModal}>취소</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </Main>
   );
 };
 
