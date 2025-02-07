@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { headerMenus } from "../../data/header";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
 import { IoIosSearch } from "react-icons/io";
 import { IoMenu, IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { MdClear } from "react-icons/md";
+
+import { headerMenus, chatbotdata } from "../../data/header";
 import "../../assert/layout.css";
 import "../../assert/mobileheader.css";
 import KakaoLogin from "./kakao/KakaoLogin";
+import Chatbot from "../pages/Chatbot";
 
 const MobileHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,6 +18,7 @@ const MobileHeader = () => {
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(null);
   const [categoriesToDisplay, setCategoriesToDisplay] = useState(null);
   const [searchInput, setSearchInput] = useState("");
+  const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -116,6 +120,29 @@ const MobileHeader = () => {
                 </div>
                 )}
             </div>
+            <div className='mobile-header__chatbot'>
+                <ul>
+                    {chatbotdata.map((chatbot, key) => (
+                        <li key={key}>
+                            <a
+                              onClick={() => {
+                                setOpenModal(true);
+                              }}
+                            >
+                                <span>{chatbot.icon} {chatbot.title}</span>
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+                {openModal && (
+                    <div className="mobile-chatbot-overlay">
+                        <div className="mobile-chatbot-content" onClick={(e) => e.stopPropagation()}>
+                            <Chatbot />
+                            <button onClick={() => setOpenModal(false)}><MdClear/></button>
+                        </div>
+                    </div>
+                )}
+            </div> 
         </div>
     </div>
   );

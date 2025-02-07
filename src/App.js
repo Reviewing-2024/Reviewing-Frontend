@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import './assert/layout.css';
 
 import Header from './components/section/header';
-import Main from './components/section/main';
 import Footer from './components/section/footer';
 import ResponsiveHeader from './components/section/ResponsiveHeader';
 
@@ -19,7 +18,6 @@ import Kmooc from './components/pages/kmooc';
 import Spartacoding from './components/pages/spartacoding';
 import Search from './components/section/search';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
-import Mypage from './components/pages/mypage/mypage';
 import Wishlist from './components/pages/mypage/wishlist';
 import Mypagestatus from './components/pages/mypage/mypagestatus';
 import AdminPage from './components/pages/AdminPage';
@@ -27,7 +25,7 @@ import Reviews from './components/pages/reviews';
 
 const Layout = () => {
     const location = useLocation();
-    const hideHeaderPaths = ['/mypage', '/wishlist', '/mypage/', '/mypage/pending', '/mypage/approved', '/mypage/rejected' ];
+    const hideHeaderPaths = ['/wishlist', '/mypage/all', '/mypage/pending', '/mypage/approved', '/mypage/rejected' ];
     return (
         <>
             {!hideHeaderPaths.includes(location.pathname) && <ResponsiveHeader />}
@@ -44,7 +42,6 @@ const Layout = () => {
                     <Route path='/spartacoding' element={<Spartacoding />} />
                     <Route path='/search/:searchKeyword' element={<Search />} />
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
-                    <Route path='/mypage' element={<Mypage />} />
                     <Route path='/wishlist' element={<Wishlist />} />
                     <Route path="/mypage/:status" element={<Mypagestatus />} />
                     <Route path="/admin" element={<AdminPage />} />

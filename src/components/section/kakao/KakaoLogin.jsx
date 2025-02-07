@@ -46,7 +46,7 @@ const KakaoLogin = () => {
 
   
 const handleNavigate = () => {
-    navigate('/mypage');
+    navigate('/mypage/all');
     setDropdownVisible(false);
   };
 

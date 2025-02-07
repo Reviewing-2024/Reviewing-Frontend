@@ -41,7 +41,7 @@ export const user =
     export const category = [
         {
             title: "작성한 리뷰",
-            src: "/mypage",
+            src: "/mypage/all",
             icon:<FaRegMessage />
         },
         {
@@ -55,7 +55,7 @@ export const user =
     export const review_category = [
         {
             title: "전체 리뷰",
-            src: "",
+            src: "/all",
             color: "#004FDE"
         },
         {

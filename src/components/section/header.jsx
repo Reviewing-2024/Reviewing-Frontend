@@ -103,7 +103,7 @@ const Header = () => {
                     ))}
                 </ul>
                 {openModal && (
-                    <div className="chatbot-overlay" onClick={() => setOpenModal(false)}>
+                    <div className="chatbot-overlay">
                         <div className="chatbot-content" onClick={(e) => e.stopPropagation()}>
                             <Chatbot />
                             <button onClick={() => setOpenModal(false)}><MdClear/></button>
