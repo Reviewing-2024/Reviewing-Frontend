@@ -92,7 +92,7 @@
     cursor: pointer;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
     #mypageheader {
         display: none;
     }

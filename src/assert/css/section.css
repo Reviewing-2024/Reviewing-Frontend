@@ -140,3 +140,25 @@
     color: #888;
     padding-top: 40px;
 }
+
+@media (max-width: 480px) {
+    .item-information .overlay {
+        position: relative;
+        opacity: 1;
+      }
+    
+      .overlay span {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: 0;
+        right: 0;
+        width: 40px;
+        height: auto;
+      }
+
+    .overlay span:hover {
+        background-color: #fdfdfd;
+    }
+}
