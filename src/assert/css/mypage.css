@@ -76,7 +76,42 @@
     border-radius: 6px;
     white-space: pre-wrap;
 }
+.review-metadata {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+  color: #666;
+}
 
+.review-metadata span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.review-metadata .rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: bold;
+}
+
+.review-metadata svg {
+  width: 16px;
+  height: 16px;
+}
+
+.createdAt {
+  font-weight: 600;
+  color: #999;
+}
+
+.rejected {
+  padding: 10px;
+  font-weight: 600;
+  color: #444;
+}
 .status {
     border-radius: 100px;
 }
