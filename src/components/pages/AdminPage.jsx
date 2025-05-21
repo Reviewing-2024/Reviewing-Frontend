@@ -3,12 +3,11 @@ import "../../assert/adminpage.css";
 import axios from "axios";
 import Main from '../section/main';
 
+import { admin_category } from "../../data/review.js";
+
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const correctPassword = process.env.REACT_APP_ADMIN_PASSWORD;
-
-  const [activeCategory, setActiveCategory] = useState("pending");
   const [subCategory, setSubCategory] = useState("requests");
   const [reviews, setReviews] = useState([]);
   const [expandedReview, setExpandedReview] = useState(null);
@@ -16,30 +15,21 @@ const AdminPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [currentReviewId, setCurrentReviewId] = useState(null);
 
-  console.log(correctPassword)
-
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
+  const correctPassword = process.env.REACT_APP_ADMIN_PASSWORD;
 
   useEffect(() => {
     if (isAuthorized) {
       fetchReviews();
     }
   }, [subCategory, isAuthorized]);
+  
 
   const fetchReviews = async () => {
-    const statusMap = {
-      requests: "pending",
-      approved: "approved",
-      rejected: "rejected",
-    };
-    const status = statusMap[subCategory] || "pending";
-
     try {
-      const { data } = await axios.get(`/admin/reviews?status=${status}`);
+      const { data } = await axios.get(`/admin/reviews?status=${subCategory}`);
       setReviews(data);
-      console.log(data)
     } catch (error) {
-      console.error("Error fetching reviews:", error);
       alert("리뷰를 불러오는 데 실패했습니다. 다시 시도해주세요.");
     }
   };
@@ -47,19 +37,10 @@ const AdminPage = () => {
   const handleExpandReview = (id) => {
     if (reviews.length > 0) {
       setExpandedReview(expandedReview === id ? null : id);
-      console.log("Expanded Review ID:", id);
     }
   };
 
-  const closeModal = () => {
-    setRejectReason("");
-    setShowModal(false);
-  };
-
   const handleReviewAction = async (reviewId, action) => {
-    console.log("Action:", action);
-    console.log("Review ID for Action:", reviewId);
-
     if (!reviewId) {
       alert("리뷰 ID가 유효하지 않습니다. 다시 시도해주세요.");
       return;
@@ -69,20 +50,16 @@ const AdminPage = () => {
     const payload =
       action === "reject" ? { rejectionReason: rejectReason } : {};
 
-    console.log("Payload:", payload);
-
     try {
       await axios.patch(url, payload);
       alert(
         action === "approve"
-          ? "리뷰가 승인되었습니다!"
-          : "리뷰가 거절되었습니다!",
+          ? "리뷰가 승인되었습니다!" : "리뷰가 거절되었습니다!",
       );
       fetchReviews();
       closeModal();
       setExpandedReview(null);
     } catch (error) {
-      console.error(`Error ${action}ing review:`, error);
       alert("요청을 처리하는 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
@@ -93,6 +70,11 @@ const AdminPage = () => {
     } else {
       alert("잘못된 암호입니다!");
     }
+  };
+
+   const closeModal = () => {
+    setRejectReason("");
+    setShowModal(false);
   };
 
   if (!isAuthorized) {
@@ -129,32 +111,21 @@ const AdminPage = () => {
       <div className="admin-page">
         <div className="category-tabs">
           <button
-            className={activeCategory === "pending" ? "active" : ""}
-            onClick={() => setActiveCategory("pending")}
+            className="active"
           >
             Pending Reviews
           </button>
         </div>
 
         <div className="sub-category-tabs">
-          <button
-            className={subCategory === "requests" ? "active" : ""}
-            onClick={() => setSubCategory("requests")}
-          >
-            승인 요청
-          </button>
-          <button
-            className={subCategory === "approved" ? "active" : ""}
-            onClick={() => setSubCategory("approved")}
-          >
-            승인 완료
-          </button>
-          <button
-            className={subCategory === "rejected" ? "active" : ""}
-            onClick={() => setSubCategory("rejected")}
-          >
-            승인 거절
-          </button>
+          {admin_category.map((category)=>(
+            <button
+              className={subCategory === category.key ? "active" : ""}
+              onClick={() => setSubCategory(category.key)}
+            >
+              {category.title}
+            </button>
+            ))}
         </div>
 
         <div className="review-list">
@@ -201,10 +172,6 @@ const AdminPage = () => {
                     <button
                       className="reject-btn"
                       onClick={() => {
-                        console.log(
-                          "Reject Button Clicked, Review ID:",
-                          review.reviewId,
-                        );
                         setRejectReason("");
                         setCurrentReviewId(review.reviewId);
                         setShowModal(true);

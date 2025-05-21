@@ -44,7 +44,6 @@ const Mypagestatus = () => {
             alert("로그인이 필요합니다.");
             return;
         }
-
         try {
             setLoading(true);
             setError(null);

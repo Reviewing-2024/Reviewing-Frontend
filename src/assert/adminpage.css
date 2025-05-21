@@ -98,6 +98,12 @@
   border-radius: 5px;
 }
 
+.review-information a:hover{
+  color: #fff;
+  background-color: #999;
+  transition: 0.3s;
+}
+
 .review-header img,
 .review-header video{
   width: 50px;
