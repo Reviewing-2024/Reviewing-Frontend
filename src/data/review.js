@@ -74,3 +74,18 @@ export const user =
             color: "#FF9393"
         },
     ];
+
+    export const admin_category = [
+        {
+            title: "승인 요청",
+            key: "requests"
+        },
+        {
+            title: "승인 완료",
+            key: "approved"
+        },
+        {
+            title: "승인 거절",
+            key: "rejected"
+        }
+    ];
