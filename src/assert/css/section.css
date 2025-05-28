@@ -117,7 +117,7 @@
     border-radius: 7px;
   }
 
-.item:hover img {  
+.item:hover img,.item:hover video {  
     transform: translateY(-10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }

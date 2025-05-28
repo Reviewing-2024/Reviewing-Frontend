@@ -108,14 +108,10 @@ function Codeit() {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-          params: {
-            wished: wished,
-          },
-        }
+          {
+            headers: { Authorization: `Bearer ${token}` },
+            params: { wished },
+          }
       );
       setItems(prevItems => 
         prevItems.map(item => 
@@ -123,10 +119,9 @@ function Codeit() {
         )
       );
 
-      const message = response.data.wished 
-        ? "강의가 찜 목록에 추가되었습니다!" 
-        : "강의가 찜 목록에서 제거되었습니다.";
+      const message = response.data.wished ? "강의가 찜 목록에 추가되었습니다!" : "강의가 찜 목록에서 제거되었습니다.";
       alert(message);
+
     } catch (error) {
       if (error.response?.status === 600) {
         localStorage.removeItem('name');
@@ -162,8 +157,6 @@ function Codeit() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
-
-
 
   return (
     <Main 
