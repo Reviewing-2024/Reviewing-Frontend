@@ -6,11 +6,6 @@ import { SiDota2 } from "react-icons/si";
 import { SiNuxtdotjs } from "react-icons/si";
 import { RiRobot2Fill } from "react-icons/ri";
 
-import { AiFillGithub } from "react-icons/ai";
-import { FaPinterest } from "react-icons/fa";
-import { AiFillYoutube } from "react-icons/ai";
-import { AiOutlineInstagram } from "react-icons/ai";
-
 export const headerMenus = [
     {
         title: "인프런",
@@ -61,28 +56,5 @@ export const chatbotdata = [
     {
         title: "강의 추천",
         icon: <RiRobot2Fill />
-    }
-];
-
-export const snsLink = [
-    {
-        title: "github",
-        url: "https://github.com/Reviewing-2024",
-        icon: <AiFillGithub />
-    },
-    {
-        title: "youtube",
-        url: "https://www.youtube.com",
-        icon: <AiFillYoutube />
-    },
-    {
-        title: "Pinterest",
-        url: "https://kr.pinterest.com/ideas/",
-        icon: <FaPinterest />
-    },
-    {
-        title: "instagram",
-        url: "https://www.instagram.com",
-        icon: <AiOutlineInstagram />
     }
 ];
