@@ -15,7 +15,6 @@ import Codeit from './components/pages/codeit';
 import Udemy from './components/pages/udemy';
 import Fastcampus from './components/pages/fastcampus';
 import Kmooc from './components/pages/kmooc';
-import Spartacoding from './components/pages/spartacoding';
 import Search from './components/section/search';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Wishlist from './components/pages/mypage/wishlist';
@@ -39,7 +38,6 @@ const Layout = () => {
                     <Route path='/udemy' element={<Udemy />} />
                     <Route path='/fastcampus' element={<Fastcampus />} />
                     <Route path='/kmooc' element={<Kmooc />} />
-                    <Route path='/spartacoding' element={<Spartacoding />} />
                     <Route path='/search/:searchKeyword' element={<Search />} />
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
                     <Route path='/wishlist' element={<Wishlist />} />

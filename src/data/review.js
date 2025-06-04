@@ -78,7 +78,7 @@ export const user =
     export const admin_category = [
         {
             title: "승인 요청",
-            key: "requests"
+            key: "pending"
         },
         {
             title: "승인 완료",

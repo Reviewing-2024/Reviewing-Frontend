@@ -16,11 +16,9 @@ const KakaoLogin = () => {
     }
 
     const updateImage = () => {
-      if (window.innerWidth < 720) {
-        setImageSrc('/img/kakao_login_medium.png');
-      } else {
-        setImageSrc('/img/kakao_login_medium_narrow.png');
-      }
+      setImageSrc(
+        window.innerWidth < 720 ? '/img/kakao_login_medium.png': '/img/kakao_login_medium_narrow.png'
+      )  
     };
 
     updateImage();

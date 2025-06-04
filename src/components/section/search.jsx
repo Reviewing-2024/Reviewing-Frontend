@@ -155,7 +155,7 @@ function Search() {
   return (
     <Main 
     title = "검색"
-    description="리뷰잉 추천 강의입니다.">
+    description="검색 강의입니다.">
       <section id="search">
         {items.length === 0 ? (
           <div className="no-items">
@@ -166,7 +166,7 @@ function Search() {
             {items.map(item => (
               <div key={item.id} className="item">
                 <div className="item-inner">
-                  <Link className="item-title" to={`/reviews/${item.id}`} state={{ item }}>
+                 <Link className='item-title' to={`/reviews/${item.slug}`}>
                     {item.thumbnailImage ? (
                       <img src={item.thumbnailImage} alt={item.title} />
                     ) : item.thumbnailVideo ? (

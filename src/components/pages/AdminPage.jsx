@@ -8,7 +8,7 @@ import { admin_category } from "../../data/review.js";
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState("");
-  const [subCategory, setSubCategory] = useState("requests");
+  const [subCategory, setSubCategory] = useState("pending");
   const [reviews, setReviews] = useState([]);
   const [expandedReview, setExpandedReview] = useState(null);
   const [rejectReason, setRejectReason] = useState("");
