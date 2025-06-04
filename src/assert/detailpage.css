@@ -419,13 +419,13 @@ video {
     min-height: 170px;
     align-self: self-start;
   }
-  
-  .course-image {
+
+  .course-thumbnail img {
     width: 250px;
   }
 
   .course-title {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .instructor-name {

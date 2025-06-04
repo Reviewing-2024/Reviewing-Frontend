@@ -19,7 +19,6 @@ const Reviews = () => {
   const [aloading, setAloading] = useState(false);
   const [reviewloading, setReviewloadinging] = useState(false);
   const [wishLoading, setWishLoading] = useState(false);
-  const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
   const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
 
   useEffect(() => {
@@ -125,7 +124,6 @@ const Reviews = () => {
     if (newReview.file) {
       formData.append("certificationFile", newReview.file);
     }
-
 
     try {
       const response = await axios.post(
@@ -254,10 +252,9 @@ const Reviews = () => {
 
   const handleWish = async (courseId) => {
     if (!isUserLoggedIn()) return;
-    if (wishLoading || wishRequestInProgress) return;
+    if (wishLoading) return;
 
     setWishLoading(true);
-    setWishRequestInProgress(true);
     
     try {
       const token = localStorage.getItem("Authorization");
@@ -300,9 +297,6 @@ const Reviews = () => {
       await fetchCourse();
     } finally {
       setWishLoading(false);
-      setTimeout(() => {
-        setWishRequestInProgress(false);
-      }, 1000);
     }
   };
 
@@ -416,7 +410,7 @@ const Reviews = () => {
                     opacity: wishLoading ? 0.7 : 1
                   }}
                   onClick={() => handleWish(course?.id)}
-                  disabled={wishLoading || wishRequestInProgress}
+                  disabled={wishLoading}
                 >
                   {wishLoading ? (
                     <FiLoader color="#004FDE" size={12} />

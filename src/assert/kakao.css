@@ -4,7 +4,7 @@
   
 .dropdown-menu {
   position: absolute;
-  top: calc(100% + 5px);
+  top: 78px;
   right: 22px;
   background-color: #fff;
   border: 1px solid #ddd;

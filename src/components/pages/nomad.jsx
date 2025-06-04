@@ -21,7 +21,6 @@ function Nomad() {
   const [lastComments, setLastComments] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
-  const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
 
   const token = localStorage.getItem('Authorization');
 
@@ -103,7 +102,6 @@ function Nomad() {
     }
 
     setWishLoading(true);
-    setWishRequestInProgress(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
@@ -134,15 +132,12 @@ function Nomad() {
         window.location.reload();
         alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       } else {
-        console.error("위시리스트 처리 중 오류:", error);
         alert("위시리스트 처리 중 문제가 발생했습니다.");
       }
       await fetchItems();
     }finally {
       setWishLoading(false);
-      setTimeout(() => {
-        setWishRequestInProgress(false);
-      }, 1000);
+      // window.location.reload();
     }
   };
 
