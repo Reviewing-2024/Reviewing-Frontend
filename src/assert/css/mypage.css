@@ -79,7 +79,7 @@
 .review-metadata {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 10px;
   font-size: 14px;
   color: #666;
 }
@@ -107,11 +107,12 @@
   color: #999;
 }
 
-.rejected {
+.rejectionReason {
   padding: 10px;
   font-weight: 600;
   color: #444;
 }
+
 .status {
     border-radius: 100px;
 }

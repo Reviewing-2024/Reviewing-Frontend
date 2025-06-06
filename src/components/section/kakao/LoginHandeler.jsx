@@ -19,9 +19,10 @@ const LoginHandeler = () => {
       .then((res) => {
         const token = res.headers.get('Authorization');
         const accessToken = token.replace('Bearer ', '');
-        
+
         localStorage.setItem('Authorization', accessToken);
         localStorage.setItem('name', res.data.nickname); 
+        localStorage.setItem('memberId', res.data.memberId); 
         navigate('/');     
         window.location.reload();
       });

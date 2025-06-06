@@ -115,7 +115,7 @@ const Mypagestatus = () => {
                             </span>
                     </div>
                     {review.status === "REJECTED" && (
-                        <div className='rejected'>
+                        <div className='rejectionReason'>
                             거절 사유: {review.rejectionReason}
                         </div>
                     )}

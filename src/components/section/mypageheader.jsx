@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; 
-import { user, category } from '../../data/review.js';
+import { category } from '../../data/review.js';
 import { FaRegEdit } from "react-icons/fa";
 import '../../assert/css/mypageheader.css';
+import { useSelector } from 'react-redux';
 
 const Mypageheader = () => {
     const [name, setName] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [newName, setNewName] = useState('');
+
+    let userImg = useSelector((state) =>  state.img)
 
     useEffect(() => {
         const storedName = localStorage.getItem('name');
@@ -53,7 +56,7 @@ const Mypageheader = () => {
     return (
         <header id='mypageheader' role='banner'>
             <div className='mypageheader'>
-                <img src={user.src} alt='img' />
+                <img src={`${userImg}`} alt='userimg' />
                 <div className='mypageheader-inner'>
                     {isEditing ? (
                         <div>
@@ -61,7 +64,7 @@ const Mypageheader = () => {
                                 type='text'
                                 value={newName}
                                 onChange={(e) => setNewName(e.target.value)}
-                                placeholder='Enter new nickname'
+                                placeholder='새 닉네임을 입력해주세요.'
                             />
                             <button onClick={handleNicknameChange}>Save</button>
                             <button onClick={handleEditToggle}>Cancel</button>

@@ -34,7 +34,6 @@ const Header = () => {
 
         axios.get(`${process.env.REACT_APP_BASE_URL}/platform/category?platform=${platform}`)
             .then(response => {
-                console.log(response)
                 setKeywordsToDisplay(response.data);
             })
     };
