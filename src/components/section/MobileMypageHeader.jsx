@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import axios from 'axios'; 
-import { user, category } from '../../data/review.js';
+import { category } from '../../data/review.js';
 import { FaRegEdit } from "react-icons/fa";
 import { IoMenu, IoClose } from "react-icons/io5";
 import '../../assert/css/mypageheader.css';
@@ -11,8 +12,10 @@ import KakaoLogin from "./kakao/KakaoLogin";
 const MobileMypageHeader = () => {
     const [name, setName] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [newName, setNewName] = useState('');
+
+    let userImg = useSelector((state) =>  state.img)
 
     useEffect(() => {
         const storedName = localStorage.getItem('name');
@@ -74,7 +77,7 @@ const MobileMypageHeader = () => {
             </div>
             <div className={`mobilemypageheader${isMenuOpen ? 'active' : ''}`}>
                 <div className='mobilemypageheader-content'>
-                    <img src={user.src} alt='img' />
+                    <img src={`${userImg}`} alt='userimg' />
                     <div className='mobilemypageheader-inner'>
                         {isEditing ? (
                             <div>
@@ -82,7 +85,7 @@ const MobileMypageHeader = () => {
                                     type='text'
                                     value={newName}
                                     onChange={(e) => setNewName(e.target.value)}
-                                    placeholder='Enter new nickname'
+                                    placeholder='새 닉네임을 입력해주세요.'
                                 />
                                 <button onClick={handleNicknameChange}>저장</button>
                                 <button onClick={handleEditToggle}>취소</button>

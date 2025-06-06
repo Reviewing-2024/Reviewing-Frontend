@@ -39,7 +39,6 @@
 .header__keyword li {
     list-style: none;
     display:inline-flex;
-
 }
 
 .header__keyword li span {
@@ -91,7 +90,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 28px;
+    right: 100px;
     bottom: 28px;
     display: flex;
     align-items: end;
@@ -123,26 +122,4 @@
     cursor: pointer;
 }
 
-.review-button {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-  }
-  
-  .review-button button {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    background-color: #004FDE ;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-  
-  .review-button button:hover {
-    background-color: #659BE3;
-  }
-  
   
