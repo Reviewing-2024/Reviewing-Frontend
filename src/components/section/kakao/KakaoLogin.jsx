@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../../assert/kakao.css';
 import { KAKAO_AUTH_URL } from './OAuth/OAuth.js';
 import { useNavigate } from 'react-router-dom';
+import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 
 const KakaoLogin = () => {
   const [name, setName] = useState(null);
@@ -36,8 +37,14 @@ const KakaoLogin = () => {
   const handleLogout = () => {
     localStorage.removeItem('name');
     localStorage.removeItem('Authorization');
+    localStorage.removeItem('memberId');
     setName(null);
-    navigate('/');
+     ChannelService.shutdown();
+   ChannelService.boot({
+    pluginKey: process.env.REACT_APP_CHANNEL_SECRET_KEY,
+  });
+
+  navigate('/');
     window.location.reload();
 };
 
