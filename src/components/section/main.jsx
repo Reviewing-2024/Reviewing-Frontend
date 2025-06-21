@@ -11,26 +11,11 @@ const Main = ( props ) => {
         const initChannelTalk = async () => {
             const token = localStorage.getItem('Authorization');
             const storedName = localStorage.getItem('name');
+            const storedId = localStorage.getItem('memberId');
 
             try {
                 await ChannelService.shutdown();
 
-                if (typeof window !== 'undefined') {
-                    Object.keys(localStorage).forEach(key => {
-                        if (key.startsWith('ch-') || key.startsWith('channel-')) {
-                            localStorage.removeItem(key);
-                        }
-                    });
-                    document.cookie.split(";").forEach(cookie => {
-                        const eqPos = cookie.indexOf("=");
-                        const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
-                        if (name.startsWith('ch-') || name.startsWith('channel-')) {
-                            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=${window.location.hostname}`;
-                            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
-                        }
-                    });
-                }
-                await new Promise(resolve => setTimeout(resolve, 100));
 
                 await ChannelService.loadScript();
 
@@ -48,9 +33,11 @@ const Main = ( props ) => {
 
                     await ChannelService.boot({
                         pluginKey: process.env.REACT_APP_CHANNEL_SECRET_KEY,
-                        // memberId: encodedMemberId,
+                        memberId: storedId,
+                        memberHash: encodedMemberId,
                         profile: {
                             name: storedName,
+                            memberId: encodedMemberId,
                         },
                         hideDefaultLauncher: false,
                     });
