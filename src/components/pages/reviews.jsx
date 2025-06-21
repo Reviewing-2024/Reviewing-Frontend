@@ -552,14 +552,14 @@ const Reviews = () => {
               <p> 첨부하신 자료는 리뷰 승인 목적으로만 사용되며, 안전하게 보호됩니다.</p>
               <p> 리뷰와 관련 없는 개인정보나 민감한 정보를 포함하지 않도록 주의해주세요.</p>
               <div className="review-modal-buttons">
-                <button className="btn-submit" onClick={handleCreateReview}>
-                  {reviewloading ? <FiLoader /> : '리뷰 제출'}
-                </button>
                 <button
                   className="btn-cancel"
                   onClick={() => setShowReviewModal(false)}
                 >
                   취소
+                </button>
+                <button className="btn-submit" onClick={handleCreateReview}>
+                  {reviewloading ? <FiLoader /> : '리뷰 제출'}
                 </button>
               </div>
             </div>

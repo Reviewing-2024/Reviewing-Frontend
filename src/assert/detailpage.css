@@ -257,7 +257,8 @@ video {
 
 .review-modal-buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
+  gap: 20px;
 }
 
 .review-modal-buttons .btn-submit {
@@ -268,6 +269,7 @@ video {
   border-radius: 8px;
   padding: 10px 20px;
   cursor: pointer;
+  float: right;
 }
 
 .review-modal-buttons .btn-submit:hover {
