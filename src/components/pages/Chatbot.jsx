@@ -15,6 +15,31 @@ const Chatbot = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+        if (messages.length > 0) {
+            const scrollY = window.scrollY;
+
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.overflowY = 'scroll';
+            document.body.style.width = '100%';
+        } else {
+            const scrollY = document.body.style.top;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.overflowY = '';
+            document.body.style.width = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        }
+
+        return () => {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.overflowY = '';
+            document.body.style.width = '';
+        };
+    }, [messages]);
+
     const shouldHideBackground = messages.length > 0;
 
     const addMessage = (sender, message) => {
@@ -107,11 +132,6 @@ const Chatbot = () => {
 
             if (!response.ok) {
                 throw new Error('API 요청 실패');
-            }
-            if (messages.length === 0) {
-                console.error('빈배열')
-                addMessage('bot', <a>오류가 발생했습니다. <br></br>잠시 후 다시 시도해주세요.</a>);
-                return;
             }
 
             const data = await response.json();
