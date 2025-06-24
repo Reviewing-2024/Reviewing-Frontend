@@ -18,7 +18,7 @@ const KakaoLogin = () => {
 
     const updateImage = () => {
       setImageSrc(
-        window.innerWidth < 720 ? '/img/kakao_login_medium.png': '/img/kakao_login_medium_narrow.png'
+        window.innerWidth < 769 ? '/img/kakao_login_medium.png': '/img/kakao_login_medium_narrow.png'
       )  
     };
 
