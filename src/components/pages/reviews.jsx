@@ -15,8 +15,8 @@ const Reviews = () => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({});
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [aloading, setAloading] = useState(false);
+  const [likedloading, setLikedloading] = useState(false);
+  const [dislikedloading, setDislikedloading] = useState(false);
   const [reviewloading, setReviewloadinging] = useState(false);
   const [wishLoading, setWishLoading] = useState(false);
   const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
@@ -103,7 +103,7 @@ const Reviews = () => {
       return;
     }
 
-    if (loading) return;
+    if (likedloading) return;
   
     setReviewloadinging(true);
 
@@ -311,9 +311,9 @@ const Reviews = () => {
       return;
     }
   
-    if (loading) return;
+    if (likedloading) return;
   
-    setLoading(true);
+    setLikedloading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/reviews/${reviewId}/like`,
@@ -334,7 +334,7 @@ const Reviews = () => {
       console.error("Error updating like status:", error);
       alert("좋아요 상태를 업데이트하는 중 오류가 발생했습니다.");
     } finally {
-      setLoading(false);
+      setLikedloading(false);
     }
   };
   
@@ -345,9 +345,9 @@ const Reviews = () => {
       return;
     }
   
-    if (aloading) return;
+    if (dislikedloading) return;
   
-    setAloading(true);
+    setDislikedloading(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/reviews/${reviewId}/dislike`,
@@ -368,7 +368,7 @@ const Reviews = () => {
       console.error("Error updating dislike status:", error);
       alert("싫어요 상태를 업데이트하는 중 오류가 발생했습니다.");
     } finally {
-      setAloading(false);
+      setDislikedloading(false);
     }
   };
 
@@ -480,16 +480,16 @@ const Reviews = () => {
                     <button
                       className={`btn-icon ${review.liked ? "active" : ""}`}
                       onClick={() => handleLike(review.id, review.liked)}
-                      disabled={loading}
+                      disabled={likedloading}
                     >
-                      {loading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
+                      {likedloading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
                     </button>
                     <button
                       className={`btn-icon ${review.disliked ? "aactive" : ""}`}
                       onClick={() => handleDislike(review.id, review.disliked)}
-                      disabled={aloading}
+                      disabled={dislikedloading}
                     >
-                      {aloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
+                      {dislikedloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
                     </button>
                   </div>
                 </div>

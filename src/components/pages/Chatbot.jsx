@@ -51,6 +51,8 @@ const Chatbot = () => {
     };
 
     const handleKeyDown = (event) => {
+        if (loading) return;
+
         if (event.key === 'Enter' && !event.nativeEvent.isComposing && !isComposing) {
             event.preventDefault();
             handleSendMessage();
