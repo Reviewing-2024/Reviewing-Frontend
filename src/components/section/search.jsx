@@ -13,11 +13,12 @@ import { IoHeart } from 'react-icons/io5';
 
 function Search() {
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [pageloading, setPageloading] = useState(false);
   const [error, setError] = useState(null);
   const [lastCourseId, setLastCourseId] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
   const { searchKeyword } = useParams();
 
@@ -36,12 +37,13 @@ function Search() {
   const token = localStorage.getItem('Authorization');
 
   const fetchItems = useCallback(async (isInitialLoad = false) => {
-    if (loading || (!hasMore && !isInitialLoad)) return;
+    if (pageloading || (!hasMore && !isInitialLoad)) return;
   
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     try {
-      setLoading(true);
+      setPageloading(true);
+      setSearchLoading(true);
       setError(null);
   
       const params = {
@@ -80,9 +82,10 @@ function Search() {
       }
       setError(err);
     } finally {
-      setLoading(false);
+      setPageloading(false);
+      setSearchLoading(false);
     }
-  }, [loading, hasMore, items, lastCourseId, token, searchKeyword]);
+  }, [pageloading, hasMore, items, lastCourseId, token, searchKeyword]);
 
   const handleWish = async (id, wished) => {
 
@@ -136,7 +139,7 @@ function Search() {
   };
 
   const handleScroll = useCallback(() => {
-    if (loading || !hasMore) return;
+    if (pageloading || !hasMore) return;
   
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
     const buffer = 100;
@@ -144,7 +147,7 @@ function Search() {
     if (scrollHeight - scrollTop - clientHeight < buffer) {
       fetchItems(false);
     }
-  }, [loading, hasMore, fetchItems]);
+  }, [pageloading, hasMore, fetchItems]);
   
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -157,7 +160,11 @@ function Search() {
     title = "검색"
     description="검색 강의입니다.">
       <section id="search">
-        {items.length === 0 ? (
+        {searchLoading ? (
+          <div className="loading">
+            <FiLoader />
+          </div>
+        ) : pageloading && items.length === 0 ? (
           <div className="no-items">
             해당하는 강의가 없습니다.
           </div>

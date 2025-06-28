@@ -35,7 +35,7 @@
 
 .chatDiv {
     padding: 20px;
-    height: 57vh;
+    height: 55vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -45,9 +45,12 @@
     background-image: url("../../public/img/chatbot.png");
 }
 
-.no-background {
+
+.chatDiv.no-background {
+    height: 55vh;
     background-image: none;
 }
+
 
 .course a{
   text-decoration-line: none;
