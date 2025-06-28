@@ -6,6 +6,7 @@ import Main from '../section/main';
 import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import StarRatingInput from '../component/StarRatingInput'
 
 import "../../assert/detailpage.css";
 
@@ -502,21 +503,9 @@ const Reviews = () => {
             <div className="review-modal-content">
               <div className="modal-input-group">
                 <label htmlFor="rating">평점:</label>
-                <input
-                  type="number"
-                  id="rating"
-                  value={newReview.rating}
-                  onChange={(e) => {
-                    const value = Math.min(
-                      5,
-                      Math.max(0, parseFloat(e.target.value) || 0),
-                    );
-                    setNewReview((prev) => ({ ...prev, rating: value }));
-                  }}
-                  placeholder="1 ~ 5"
-                  step="0.5"
-                  min="1"
-                  max="5"
+                <StarRatingInput
+                  value={newReview.rating || 0}
+                  onChange={(val) => setNewReview((prev) => ({ ...prev, rating: val }))}
                 />
               </div>
               <div className="modal-input-group">

@@ -1,0 +1,53 @@
+.star-row {
+  display: flex;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.star-container {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.half {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  z-index: 2;
+}
+
+.left {
+  left: 0;
+}
+
+.right {
+  right: 0;
+}
+
+
+.half-star-wrapper {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+}
+
+.star-base,
+.star-clip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+
+.star-overlay {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 32px;
+}

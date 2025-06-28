@@ -20,6 +20,7 @@ function Search() {
   const [wishLoading, setWishLoading] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
+  const [searchFinished, setSearchFinished] = useState(false);
   const { searchKeyword } = useParams();
 
    useEffect(() => {
@@ -65,6 +66,8 @@ function Search() {
         const uniqueNewItems = newItems.filter(item => !existingIds.has(item.id));
         setItems(prev => [...prev, ...uniqueNewItems]);
       }
+
+      setSearchFinished(true);
   
       if (newItems.length > 0) {
         const lastItem = newItems[newItems.length - 1];
@@ -84,6 +87,7 @@ function Search() {
     } finally {
       setPageloading(false);
       setSearchLoading(false);
+      setSearchFinished(true);
     }
   }, [pageloading, hasMore, items, lastCourseId, token, searchKeyword]);
 
@@ -164,7 +168,7 @@ function Search() {
           <div className="loading">
             <FiLoader />
           </div>
-        ) : pageloading && items.length === 0 ? (
+        ) : searchFinished && items.length === 0 ? (
           <div className="no-items">
             해당하는 강의가 없습니다.
           </div>
