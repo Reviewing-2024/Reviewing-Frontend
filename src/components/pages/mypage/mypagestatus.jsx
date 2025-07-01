@@ -157,9 +157,10 @@ const Mypagestatus = () => {
                 </div>
                 <div className='review'>
                     {loading ? (
-                        <div className="loading"><FiLoader /></div>
-                    ) : reviews === null ? (
-                        <div className="loading"><FiLoader /></div>
+                        <div className="loading">
+                            <FiLoader />
+                            <div className='no-items'>리뷰를 불러오고 있습니다..</div>
+                        </div>
                     ) : reviews.length === 0 ? (
                         <div className="no-reviews">
                             <GrDocumentMissing />

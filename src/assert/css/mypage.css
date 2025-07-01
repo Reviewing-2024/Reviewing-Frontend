@@ -163,12 +163,13 @@
 .loading {
   display: flex ;
   flex-direction: column;
+  text-align: center;
   align-items: center;
   padding-top: 40px;
 }
 
 .loading svg {
-  width: 80px;
-  height: 80px;
-  color: #999;
+  width: 60px;
+  height: 60px;
+  color: #CCCCCC;
 }

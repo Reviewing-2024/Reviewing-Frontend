@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Header2 from "./header2";
+import Header from "./header";
 import MypageMobileHeader from "./MobileMypageHeader"
 
 const ResponsiveHeader = () => {
@@ -17,7 +17,7 @@ const ResponsiveHeader = () => {
     };
   }, []);
 
-  return isMobile ? <MypageMobileHeader /> : <Header2 />;
+  return isMobile ? <MypageMobileHeader /> : <Header />;
 };
 
 export default ResponsiveHeader;
