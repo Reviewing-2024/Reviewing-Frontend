@@ -109,6 +109,11 @@
         padding: 20px;
         height: 40vh;
     }
+
+    .chatDiv.no-background {
+        height: 40vh;
+        background-image: none;
+    }
     .inputDiv {
         display: flex;
         align-items: center;

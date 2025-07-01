@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 
 import './assert/layout.css';
 
-import Header from './components/section/header';
+import Aside from './components/section/aside';
 import Footer from './components/section/footer';
 import ResponsiveHeader from './components/section/ResponsiveHeader';
 
@@ -28,7 +28,7 @@ const Layout = () => {
     return (
         <>
             {!hideHeaderPaths.includes(location.pathname) && <ResponsiveHeader />}
-            {!hideHeaderPaths.includes(location.pathname) && <Header />}
+            {!hideHeaderPaths.includes(location.pathname) && <Aside />}
                 <Routes>
                     <Route path='/' element={<Home />} />
                     <Route path='/inflearn' element={<Inflearn />} />
@@ -44,7 +44,7 @@ const Layout = () => {
                     <Route path="/mypage/:status" element={<Mypagestatus />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path='/reviews/:slug' element={<Reviews />} />
-                    <Route path="*" element={ <div className='no-items'> 404 error </div> } />
+                    <Route path="/*" element={ <div className='no-items'> 404 error </div> } />
                 </Routes>
            <Footer />
         </>

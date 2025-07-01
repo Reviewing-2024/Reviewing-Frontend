@@ -61,7 +61,7 @@
     text-overflow: ellipsis;
     line-height: 1.5;
     height: auto;
-    padding-top: 8px;
+    padding-top: 10px;
 }
 
 .item-inner span {
@@ -139,6 +139,11 @@
     font-weight: 600;
     color: #888;
     padding-top: 40px;
+}
+
+.loading .no-items {
+   padding-top: 30px;
+   color: #999;
 }
 
 @media (max-width: 480px) {

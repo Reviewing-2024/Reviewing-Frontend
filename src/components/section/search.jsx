@@ -19,7 +19,6 @@ function Search() {
   const [hasMore, setHasMore] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
-  const [wishRequestInProgress, setWishRequestInProgress] = useState(false);
   const [searchFinished, setSearchFinished] = useState(false);
   const { searchKeyword } = useParams();
 
@@ -99,7 +98,6 @@ function Search() {
     }
 
     setWishLoading(true);
-    setWishRequestInProgress(true);
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
@@ -136,9 +134,6 @@ function Search() {
       await fetchItems();
     }finally {
       setWishLoading(false);
-      setTimeout(() => {
-        setWishRequestInProgress(false);
-      }, 1000);
     }
   };
 
@@ -167,6 +162,7 @@ function Search() {
         {searchLoading ? (
           <div className="loading">
             <FiLoader />
+            <div className='no-items'>강의를 불러오고 있습니다..</div>
           </div>
         ) : searchFinished && items.length === 0 ? (
           <div className="no-items">

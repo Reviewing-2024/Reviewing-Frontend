@@ -162,7 +162,7 @@ const Chatbot = () => {
             <div className='inputDiv'>
                 <input
                     type='text' 
-                    placeholder={`파이썬 기초 강의 알려줘 `}
+                    placeholder={` ex) 파이썬 기초 강의 알려줘 `}
                     value={userInput} 
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyDown={handleKeyDown}

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import HalfStar from '../component/HalfStar';
+import HalfStar from './HalfStar';
 import '../../assert/StarRatingInput.css';
 
 const StarRatingInput = ({ value = 0, onChange }) => {
