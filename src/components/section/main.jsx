@@ -5,7 +5,7 @@ import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 
-const Main = ( props ) => {
+const Main = (props) => {
 
     useEffect(() => {
         const initChannelTalk = async () => {
@@ -63,17 +63,17 @@ const Main = ( props ) => {
 
     return (
         <HelmetProvider>
-            <Helmet 
-                titleTemplate="%s | Reviewing" 
-                defaultTitle="Reviewing" 
+            <Helmet
+                titleTemplate="%s | Reviewing"
+                defaultTitle="Reviewing"
                 defer={false}
             >
                 {props.title && <title>{props.title}</title>}
                 <meta name="description" content={props.description} />
             </Helmet>
-        <main id="main" role="main">
-            {props.children} 
-        </main>
+            <main id="main" role="main">
+                {props.children}
+            </main>
         </HelmetProvider>
     )
 }

@@ -53,7 +53,7 @@ video {
 
 .course-actions {
   display: flex;
-  align-items:flex-end;
+  align-items: flex-end;
   gap: 15px;
   margin-bottom: 15px;
 }
@@ -89,9 +89,9 @@ video {
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 16px 15px 16px; 
+  padding: 16px 15px 16px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  margin: 8px 20px; 
+  margin: 8px 20px;
 }
 
 .review-card:hover {
@@ -107,23 +107,23 @@ video {
 
 .review-actions {
   display: flex;
-  justify-content: flex-start; 
-  gap: 10px; 
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .review-author {
-  font-size: 1.2rem; 
-  font-weight: 600; 
-  color: #333; 
-  font-family: 'Roboto', 'Noto Sans KR', sans-serif; 
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  font-family: 'Roboto', 'Noto Sans KR', sans-serif;
   margin: 0px 0px 0px 8px;
 }
 
 .review-content {
-  font-size: 1rem; 
-  color: #555; 
-  line-height: 1.6; 
-  font-family: 'Roboto', 'Noto Sans KR', sans-serif; 
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  font-family: 'Roboto', 'Noto Sans KR', sans-serif;
   min-height: 40px;
   background-color: #f8f8f8;
   border-radius: 6px;
@@ -369,7 +369,7 @@ video {
 
   .course-info {
     min-height: 190px;
-  }  
+  }
 
   .course-title {
     font-size: 1.6rem;
@@ -417,6 +417,7 @@ video {
   .header-section {
     min-width: 300px;
   }
+
   .course-info {
     min-height: 170px;
     align-self: self-start;
@@ -461,4 +462,3 @@ video {
   }
 
 }
-

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import axios from 'axios'; 
+import axios from 'axios';
 import { category } from '../../data/review.js';
 import { FaRegEdit } from "react-icons/fa";
 import { IoMenu, IoClose } from "react-icons/io5";
@@ -15,7 +15,7 @@ const MobileMypageHeader = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [newName, setNewName] = useState('');
 
-    let userImg = useSelector((state) =>  state.img)
+    let userImg = useSelector((state) => state.img)
 
     useEffect(() => {
         const storedName = localStorage.getItem('name');
@@ -59,16 +59,16 @@ const MobileMypageHeader = () => {
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
-      };
+    };
 
     return (
         <header id='mobilemypageheader' role='banner'>
             <div className="mobile-header-content">
                 <a
-                className="hamburger-button"
-                onClick={toggleMenu}
+                    className="hamburger-button"
+                    onClick={toggleMenu}
                 >
-                {isMenuOpen ? <IoClose size={35} /> : <IoMenu size={35} />}
+                    {isMenuOpen ? <IoClose size={35} /> : <IoMenu size={35} />}
                 </a>
                 <a className='header__logo' href="/">
                     <img className='logo' src='/img/Logo1.png'></img>
@@ -92,11 +92,11 @@ const MobileMypageHeader = () => {
                             </div>
                         ) : (
                             <div>
-                            <a className='name'>{name} </a>  
-                            <span className='edit' onClick={handleEditToggle}>
-                                <FaRegEdit />
-                            </span>
-                            </div>         
+                                <a className='name'>{name} </a>
+                                <span className='edit' onClick={handleEditToggle}>
+                                    <FaRegEdit />
+                                </span>
+                            </div>
                         )}
                     </div>
                 </div>
@@ -111,7 +111,7 @@ const MobileMypageHeader = () => {
                         ))}
                     </ul>
                 </div>
-            </div> 
+            </div>
         </header>
     );
 };

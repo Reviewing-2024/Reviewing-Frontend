@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import HalfStar from './HalfStar';
-import '../../assert/StarRatingInput.css';
+import '../../../assert/StarRatingInput.css';
 
 const StarRatingInput = ({ value = 0, onChange }) => {
   const [hover, setHover] = useState(value);
@@ -26,11 +26,11 @@ const StarRatingInput = ({ value = 0, onChange }) => {
       {Array.from({ length: 5 }, (_, idx) => (
         <div className="star-container" key={idx}>
           {hover >= idx + 1 ? (
-            <HalfStar  fill={1} />
+            <HalfStar fill={1} />
           ) : hover >= idx + 0.5 ? (
-            <HalfStar  fill={0.5} />
+            <HalfStar fill={0.5} />
           ) : (
-            <HalfStar  fill={0} />
+            <HalfStar fill={0} />
           )}
           <div
             className="half left"

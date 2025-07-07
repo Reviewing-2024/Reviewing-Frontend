@@ -1,4 +1,3 @@
-
 .inflearn__inner {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -13,7 +12,7 @@
     padding-right: 30px;
 }
 
-.sort-dropdown select{
+.sort-dropdown select {
     margin-top: 10px;
     width: 130px;
     height: 40px;
@@ -106,23 +105,24 @@
     justify-content: end;
     opacity: 0;
     transition: opacity 0.3s ease;
-  }
+}
 
-  .overlay span {
+.overlay span {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
     border-radius: 7px;
-  }
+}
 
-.item:hover img,.item:hover video {  
+.item:hover img,
+.item:hover video {
     transform: translateY(-10px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.item:hover .overlay  {
+.item:hover .overlay {
     opacity: 1;
     cursor: pointer;
 }
@@ -142,17 +142,17 @@
 }
 
 .loading .no-items {
-   padding-top: 30px;
-   color: #999;
+    padding-top: 30px;
+    color: #999;
 }
 
 @media (max-width: 480px) {
     .item-information .overlay {
         position: relative;
         opacity: 1;
-      }
-    
-      .overlay span {
+    }
+
+    .overlay span {
         position: absolute;
         display: flex;
         align-items: center;
@@ -161,7 +161,7 @@
         right: 0;
         width: 40px;
         height: auto;
-      }
+    }
 
     .overlay span:hover {
         background-color: #fdfdfd;

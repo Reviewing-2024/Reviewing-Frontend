@@ -1,0 +1,35 @@
+.no-reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.no-reviews svg {
+  width: 80px;
+  height: 80px;
+  color: #999;
+}
+
+.no-reviews a {
+  text-decoration-line: none;
+  color: #111;
+  background-color: #fff;
+  border: 1px solid #999;
+  padding: 6px 14px;
+  border-radius: 5px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  padding-top: 40px;
+}
+
+.loading svg {
+  width: 60px;
+  height: 60px;
+  color: #CCCCCC;
+}

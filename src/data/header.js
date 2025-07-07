@@ -17,13 +17,13 @@ export const headerMenus = [
         title: "패스트캠퍼스",
         icon: <SiDota2 />,
         src: "/fastcampus",
-        color: "#D4003A" 
+        color: "#D4003A"
     },
     {
         title: "코드잇",
         icon: <BsCCircleFill />,
         src: "/codeit",
-        color: "#93f" 
+        color: "#93f"
     },
     {
         title: "노마드코더",
@@ -41,7 +41,7 @@ export const headerMenus = [
         title: "K-MOOC",
         icon: <IoInfiniteSharp />,
         src: "/kmooc",
-        color: "#009488" 
+        color: "#009488"
     },
     // {
     //     title: "생활코딩",

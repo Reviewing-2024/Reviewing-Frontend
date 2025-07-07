@@ -22,7 +22,7 @@
     display: flex;
     flex-direction: row;
     font-size: 17px;
-    font-weight: 600; 
+    font-weight: 600;
     border-radius: 8px;
     padding: 8px 10px;
     gap: 10px;
@@ -33,12 +33,12 @@
 
 .header__keyword .keyword {
     padding: 0;
-    margin: 0; 
+    margin: 0;
 }
 
 .header__keyword li {
     list-style: none;
-    display:inline-flex;
+    display: inline-flex;
 }
 
 .header__keyword li span {
@@ -49,14 +49,14 @@
     margin: 5px;
     border: 2px solid #999;
     transition: 0.3s;
-    
+
 }
 
 
 .header__keyword li span:hover,
-.header__keyword li.active span  {
-    border: 2px solid #004FDE ;
-    color: #004FDE ;
+.header__keyword li.active span {
+    border: 2px solid #004FDE;
+    color: #004FDE;
     cursor: pointer;
 }
 
@@ -121,5 +121,3 @@
     font-size: 25px;
     cursor: pointer;
 }
-
-  

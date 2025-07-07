@@ -101,18 +101,18 @@ const Chatbot = () => {
                         <a
                             onClick={() => handleCourseClick(course)}
                             className="review-link"
-                            disabled={loading}                        
+                            disabled={loading}
                         >
                             {loading ? '로딩 중...' : '리뷰 보러가기'}
                         </a>
                     </p>
                 </div>
             ))}
-            
+
             {error && <div className="error-message">{error}</div>}
         </div>
     );
-    
+
 
     const handleSendMessage = async () => {
         const question = userInput.trim();
@@ -161,15 +161,15 @@ const Chatbot = () => {
             </div>
             <div className='inputDiv'>
                 <input
-                    type='text' 
+                    type='text'
                     placeholder={` ex) 파이썬 기초 강의 알려줘 `}
-                    value={userInput} 
+                    value={userInput}
                     onChange={(e) => setUserInput(e.target.value)}
                     onKeyDown={handleKeyDown}
                     onCompositionStart={handleCompositionStart}
                     onCompositionEnd={handleCompositionEnd}
                 />
-                <button 
+                <button
                     onClick={handleSendMessage}
                     disabled={loading}
                 >

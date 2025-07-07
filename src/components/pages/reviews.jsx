@@ -6,7 +6,7 @@ import Main from '../section/main';
 import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 import { FaHeart, FaRegHeart } from "react-icons/fa6";
-import StarRatingInput from '../component/StarRatingInput'
+import StarRatingInput from '../component/reviews/StarRatingInput'
 
 import "../../assert/detailpage.css";
 
@@ -24,7 +24,7 @@ const Reviews = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-}, []);
+  }, []);
 
   const isUserLoggedIn = () => {
     const token = localStorage.getItem("Authorization");
@@ -35,7 +35,7 @@ const Reviews = () => {
     return true;
   };
 
-  
+
   const fetchCourse = useCallback(async () => {
     const token = localStorage.getItem("Authorization");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
@@ -43,15 +43,13 @@ const Reviews = () => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/course`, {
-          params: { courseSlug: slug },
-          headers
-        }
+        params: { courseSlug: slug },
+        headers
+      }
       );
-      
+
       if (response.data) {
         setCourse(response.data);
-      } else {
-        alert("강의 조회중 오류가 발생하였습니다.");
       }
     } catch (error) {
       console.error("강의 정보 조회 오류:", error);
@@ -76,12 +74,12 @@ const Reviews = () => {
       try {
         const token = localStorage.getItem("Authorization");
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
-  
+
         const response = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/reviews/${course.id}`,
           { headers }
         );
-  
+
         const updatedReviews = response.data.map((review) => ({
           ...review,
           liked: review.liked ?? false,
@@ -92,11 +90,11 @@ const Reviews = () => {
         alert("리뷰를 불러오는 중 문제가 발생했습니다.");
       }
     };
-  
+
     if (course?.id) fetchReviews();
   }, [course?.id]);
 
- 
+
   const handleCreateReview = async () => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
@@ -105,7 +103,7 @@ const Reviews = () => {
     }
 
     if (likedloading) return;
-  
+
     setReviewloadinging(true);
 
 
@@ -142,62 +140,62 @@ const Reviews = () => {
       setNewReview({});
       setReviews((prev) => [...prev, response.data]);
       window.location.reload();
-      alert(`소중한 리뷰를 작성해 주셔서 감사합니다! ☺️\n작성하신 리뷰는 관리자가 신속히 검토하겠습니다!\n진행 상황은 마이페이지에서 확인하실 수 있습니다.`); 
+      alert(`소중한 리뷰를 작성해 주셔서 감사합니다! ☺️\n작성하신 리뷰는 관리자가 신속히 검토하겠습니다!\n진행 상황은 마이페이지에서 확인하실 수 있습니다.`);
     } catch (error) {
       let errorMessage = "리뷰 작성 중 문제가 발생했습니다.";
 
       if (error.response) {
-          switch (error.status) {
-              case 600 :
-                localStorage.removeItem('name');
-                localStorage.removeItem('Authorization');
-                window.location.reload();
-                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-                break;
-              case 601:
-                  errorMessage += " 이미 검토 중인 리뷰입니다.";
-                  break;
-              case 602:
-                  errorMessage += " 이미 작성된 리뷰입니다.";
-                  break;
-              case 605:
-                  errorMessage += " 이미 존재하는 찜입니다.";
-                  break;
-              case 606:
-                  errorMessage += " 존재하지 않는 찜입니다.";
-                  break;
-              case 607:
-                  errorMessage += " 이미 존재하는 좋아요입니다.";
-                  break;
-              case 608:
-                  errorMessage += " 존재하지 않는 좋아요입니다.";
-                  break;
-              case 609:
-                  errorMessage += " 이미 존재하는 싫어요입니다.";
-                  break;
-              case 610:
-                  errorMessage += " 존재하지 않는 싫어요입니다.";
-                  break;
-              case 615:
-                  errorMessage += " 리뷰 파일 크기가 1MB를 초과했습니다.";
-                  break;
-              case 616:
-                  errorMessage += " 리뷰 내용이 유효하지 않습니다. (별점 혹은 리뷰 내용을 채워주세요)";
-                  break;
-              case 617:
-                  errorMessage += " 파일을 선택해주세요.";
-                  break;
-          }
-      } 
-  
+        switch (error.status) {
+          case 600:
+            localStorage.removeItem('name');
+            localStorage.removeItem('Authorization');
+            window.location.reload();
+            alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+            break;
+          case 601:
+            errorMessage += " 이미 검토 중인 리뷰입니다.";
+            break;
+          case 602:
+            errorMessage += " 이미 작성된 리뷰입니다.";
+            break;
+          case 605:
+            errorMessage += " 이미 존재하는 찜입니다.";
+            break;
+          case 606:
+            errorMessage += " 존재하지 않는 찜입니다.";
+            break;
+          case 607:
+            errorMessage += " 이미 존재하는 좋아요입니다.";
+            break;
+          case 608:
+            errorMessage += " 존재하지 않는 좋아요입니다.";
+            break;
+          case 609:
+            errorMessage += " 이미 존재하는 싫어요입니다.";
+            break;
+          case 610:
+            errorMessage += " 존재하지 않는 싫어요입니다.";
+            break;
+          case 615:
+            errorMessage += " 리뷰 파일 크기가 1MB를 초과했습니다.";
+            break;
+          case 616:
+            errorMessage += " 리뷰 내용이 유효하지 않습니다. (별점 혹은 리뷰 내용을 채워주세요)";
+            break;
+          case 617:
+            errorMessage += " 파일을 선택해주세요.";
+            break;
+        }
+      }
+
       console.error(error.response?.data || error.message);
       alert(errorMessage);
-  }
+    }
   };
 
   const checkReviewPermission = async () => {
     if (!isUserLoggedIn()) return false;
-    
+
     setCheckingReviewPermission(true);
     try {
       const token = localStorage.getItem("Authorization");
@@ -219,13 +217,13 @@ const Reviews = () => {
             localStorage.removeItem('Authorization');
             window.location.reload();
             alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-          break;
+            break;
           case 601:
             alert("작성해주신 리뷰를 검토중 입니다! 잠시만 기다려주세요.");
-          break;  
+            break;
           case 602:
             alert("이미 리뷰를 작성한 강의입니다!");
-          break;  
+            break;
         }
         console.error("리뷰 권한 확인 중 오류:", error.response);
       } else if (error.request) {
@@ -256,7 +254,7 @@ const Reviews = () => {
     if (wishLoading) return;
 
     setWishLoading(true);
-    
+
     try {
       const token = localStorage.getItem("Authorization");
 
@@ -279,11 +277,11 @@ const Reviews = () => {
         };
       });
 
-      const message = response.data.wished ? 
-        "강의가 찜 목록에 추가되었습니다!" : 
+      const message = response.data.wished ?
+        "강의가 찜 목록에 추가되었습니다!" :
         "강의가 찜 목록에서 제거되었습니다.";
       alert(message);
-      
+
     } catch (error) {
       if (error.response?.status === 600) {
         localStorage.removeItem('name');
@@ -311,9 +309,9 @@ const Reviews = () => {
       alert("로그인이 필요합니다.");
       return;
     }
-  
+
     if (likedloading) return;
-  
+
     setLikedloading(true);
     try {
       const response = await axios.post(
@@ -324,7 +322,7 @@ const Reviews = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-  
+
       const updatedReview = response.data;
       setReviews((prevReviews) =>
         prevReviews.map((review) =>
@@ -338,16 +336,16 @@ const Reviews = () => {
       setLikedloading(false);
     }
   };
-  
+
   const handleDislike = async (reviewId, disliked) => {
     const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
     }
-  
+
     if (dislikedloading) return;
-  
+
     setDislikedloading(true);
     try {
       const response = await axios.post(
@@ -358,7 +356,7 @@ const Reviews = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-  
+
       const updatedReview = response.data;
       setReviews((prevReviews) =>
         prevReviews.map((review) =>
@@ -379,9 +377,9 @@ const Reviews = () => {
 
 
   return (
-    <Main 
-    title = "상세페이지"
-    description="추천 강의입니다.">
+    <Main
+      title="상세페이지"
+      description="추천 강의입니다.">
       <div className="detail-page">
         <div className="header-div">
           <header className="header-section">
@@ -518,7 +516,7 @@ const Reviews = () => {
                   }
                   onBlur={() => {
                     if (!newReview.contents) {
-                        alert('리뷰 내용을 입력해주세요.');
+                      alert('리뷰 내용을 입력해주세요.');
                     }
                   }}
                   placeholder={`강의를 통해 얻은 배움과 느낀 점을 공유해주세요!\n(장점, 개선점 등)\n\n무성의한 내용이나 비난/비방이나 광고성 글은 승인되지 \n않을 수 있습니다.\n\n여러분의 리뷰는 다른 학습자들에게 소중한 선택 기준이 \n됩니다! 😊`}

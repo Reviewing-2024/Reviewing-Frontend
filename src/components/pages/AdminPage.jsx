@@ -23,7 +23,7 @@ const AdminPage = () => {
       fetchReviews();
     }
   }, [subCategory, isAuthorized]);
-  
+
 
   const fetchReviews = async () => {
     try {
@@ -72,7 +72,7 @@ const AdminPage = () => {
     }
   };
 
-   const closeModal = () => {
+  const closeModal = () => {
     setRejectReason("");
     setShowModal(false);
   };
@@ -118,36 +118,35 @@ const AdminPage = () => {
         </div>
 
         <div className="sub-category-tabs">
-          {admin_category.map((category)=>(
+          {admin_category.map((category) => (
             <button
               className={subCategory === category.key ? "active" : ""}
               onClick={() => setSubCategory(category.key)}
             >
               {category.title}
             </button>
-            ))}
+          ))}
         </div>
 
         <div className="review-list">
           {reviews.map((review) => (
             <div
               key={review.reviewId}
-              className={`review-item ${
-                expandedReview === review.reviewId ? "expanded" : ""
-              }`}
+              className={`review-item ${expandedReview === review.reviewId ? "expanded" : ""
+                }`}
               onClick={() => handleExpandReview(review.reviewId)}
             >
               <div className="review-header">
                 <div className="review-left">
-                {
+                  {
                     review.courseThumbnailImage ? (
-                      <img src={review.courseThumbnailImage} alt="Course Thumbnail" className="course-thumbnail"/>
+                      <img src={review.courseThumbnailImage} alt="Course Thumbnail" className="course-thumbnail" />
                     ) : review.courseThumbnailVideo ? (
                       <video muted autoPlay loop >
-                        <source src={review.courseThumbnailVideo} type="video/mp4" alt="Course Thumbnail" className="course-thumbnail"/>
+                        <source src={review.courseThumbnailVideo} type="video/mp4" alt="Course Thumbnail" className="course-thumbnail" />
                       </video>
                     ) : (
-                      <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail"/>
+                      <img src='/img/nothing.png' alt="Course Thumbnail" className="course-thumbnail" />
                     )
                   }
                   <div className="review-information">
@@ -189,7 +188,7 @@ const AdminPage = () => {
                   <iframe
                     src={review.reviewCertification}
                     title="Review Certification"
-                    className="review-certification" 
+                    className="review-certification"
                   />
                 </div>
               )}

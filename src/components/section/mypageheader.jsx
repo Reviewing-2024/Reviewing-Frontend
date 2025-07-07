@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; 
+import axios from 'axios';
 import { category } from '../../data/review.js';
 import { FaRegEdit } from "react-icons/fa";
 import '../../assert/css/mypageheader.css';
@@ -11,7 +11,7 @@ const Mypageheader = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [newName, setNewName] = useState('');
 
-    let userImg = useSelector((state) =>  state.img)
+    let userImg = useSelector((state) => state.img)
 
     useEffect(() => {
         const storedName = localStorage.getItem('name');
@@ -71,11 +71,11 @@ const Mypageheader = () => {
                         </div>
                     ) : (
                         <div>
-                        <a className='name'>{name} </a>  
-                        <span className='edit' onClick={handleEditToggle}>
-                            <FaRegEdit />
-                        </span>
-                        </div>         
+                            <a className='name'>{name} </a>
+                            <span className='edit' onClick={handleEditToggle}>
+                                <FaRegEdit />
+                            </span>
+                        </div>
                     )}
                 </div>
             </div>

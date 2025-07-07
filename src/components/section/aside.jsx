@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import "../../assert/aside.css";
 
-import  Chatbot  from "../pages/Chatbot";
+import Chatbot from "../pages/Chatbot";
 
 const Header = () => {
     const [activeIndex, setActiveIndex] = useState(null);
@@ -23,8 +23,8 @@ const Header = () => {
         const category = keyword.slug;
         const url = `/courses/${platform}/${category}`;
 
-            navigate(url);
-       
+        navigate(url);
+
     };
 
     const handleMenuClick = (index) => {
@@ -82,7 +82,7 @@ const Header = () => {
                                     className={activeKeywordIndex === key ? 'active' : ''}
                                     onClick={() => {
                                         setActiveKeywordIndex(key);
-                                        handleKeywordClick(keyword); 
+                                        handleKeywordClick(keyword);
                                     }}
                                 >
                                     <span># {keyword.category}</span>
@@ -106,11 +106,11 @@ const Header = () => {
                     <div className="chatbot-overlay">
                         <div className="chatbot-content" onClick={(e) => e.stopPropagation()}>
                             <Chatbot />
-                            <button onClick={() => setOpenModal(false)}><MdClear/></button>
+                            <button onClick={() => setOpenModal(false)}><MdClear /></button>
                         </div>
                     </div>
                 )}
-            </div> 
+            </div>
         </header>
     );
 };
