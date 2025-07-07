@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 import "../../assert/layout.css";
 import "../../assert/header.css";
@@ -6,7 +7,6 @@ import "../../assert/header.css";
 import { IoIosSearch } from "react-icons/io";
 
 import KakaoLogin from './kakao/KakaoLogin';
-import { useNavigate } from 'react-router-dom'
 
 
 const Header2 = () => {

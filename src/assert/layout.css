@@ -5,10 +5,12 @@
     font-weight: 100;
     font-style: normal;
 }
-body, html {
+
+body,
+html {
     margin: 0;
     padding: 0;
-    font-family : 'Pretendard-Light', sans-serif;
+    font-family: 'Pretendard-Light', sans-serif;
 }
 
 #header {
@@ -19,7 +21,7 @@ body, html {
     height: calc(100vh - 72px);
     overflow-y: auto;
     z-index: 10;
-    background-color: #fdfdfd; 
+    background-color: #fdfdfd;
     padding-top: 72px;
     color: #495057;
     border-right: 2px solid #000;
@@ -48,7 +50,7 @@ body, html {
     #header {
         display: none;
     }
-    
+
     #main {
         padding-left: 0px;
     }

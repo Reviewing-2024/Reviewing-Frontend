@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useCallback  } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import Main from '../section/main';
 
-import { FaHeart, FaRegHeart  } from "react-icons/fa6";
-import { FiLoader } from "react-icons/fi";
-import { TbMessageCircle } from "react-icons/tb";
-import { IoHeart } from "react-icons/io5";
+import ItemCard from '../component/items/ItemCard'
 
 import "../../assert/css/home.css"
 
@@ -24,8 +20,8 @@ const Home = () => {
   const token = localStorage.getItem('Authorization');
 
   useEffect(() => {
-      window.scrollTo(0, 0);
-    }, []);
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     setLastCourseId(null);
@@ -39,30 +35,30 @@ const Home = () => {
 
   const fetchItems = useCallback(async (isInitialLoad = false) => {
     if (loading || (!hasMore && !isInitialLoad)) return;
-  
+
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     try {
       setLoading(true);
       setError(null);
-  
+
       const params = isInitialLoad ? {
-        sort: sortCriteria === 'fundamental' ? null : sortCriteria,
+        sort: sortCriteria,
         lastCourseId: null
       } : {
-        sort: sortCriteria === 'fundamental' ? null : sortCriteria,
+        sort: sortCriteria,
         lastCourseId: lastCourseId,
         lastRating: sortCriteria === 'rating' ? lastRating : null,
         lastComments: sortCriteria === 'comments' ? lastComments : null
       };
-  
+
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}`, {
         headers,
         params,
       });
-  
+
       const newItems = response.data;
-  
+
       if (isInitialLoad) {
         setItems(newItems);
       } else {
@@ -70,7 +66,7 @@ const Home = () => {
         const uniqueNewItems = newItems.filter(item => !existingIds.has(item.id));
         setItems(prev => [...prev, ...uniqueNewItems]);
       }
-  
+
       if (newItems.length > 0) {
         const lastItem = newItems[newItems.length - 1];
         setLastCourseId(lastItem.id);
@@ -88,10 +84,10 @@ const Home = () => {
         alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
       }
       setError(err);
-    }finally {
+    } finally {
       setLoading(false);
     }
-  }, [loading, hasMore, items, lastCourseId, lastRating, lastComments, sortCriteria, token]);
+  }, [loading, wishLoading, hasMore, items, lastCourseId, lastRating, lastComments, sortCriteria, token]);
 
   const handleWish = async (id, wished) => {
 
@@ -114,14 +110,14 @@ const Home = () => {
           },
         }
       );
-      setItems(prevItems => 
-        prevItems.map(item => 
+      setItems(prevItems =>
+        prevItems.map(item =>
           item.id === id ? { ...item, wished: !wished } : item
         )
       );
 
-      const message = response.data.wished 
-        ? "강의가 찜 목록에 추가되었습니다!" 
+      const message = response.data.wished
+        ? "강의가 찜 목록에 추가되었습니다!"
         : "강의가 찜 목록에서 제거되었습니다.";
       alert(message);
     } catch (error) {
@@ -134,7 +130,7 @@ const Home = () => {
         alert("위시리스트 처리 중 문제가 발생했습니다.");
       }
       await fetchItems();
-    }finally {
+    } finally {
       setWishLoading(false);
       // window.location.reload();
     }
@@ -142,15 +138,15 @@ const Home = () => {
 
   const handleScroll = useCallback(() => {
     if (loading || !hasMore) return;
-  
+
     const { scrollHeight, scrollTop, clientHeight } = document.documentElement;
     const buffer = 100;
-  
+
     if (scrollHeight - scrollTop - clientHeight < buffer) {
       fetchItems(false);
     }
   }, [loading, hasMore, fetchItems]);
-  
+
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -159,9 +155,9 @@ const Home = () => {
 
 
   return (
-    <Main 
-    title = "리뷰잉"
-    description="리뷰잉 추천 강의입니다.">
+    <Main
+      title="리뷰잉"
+      description="리뷰잉 추천 강의입니다.">
       <div className="home">
         <div className="banner">
           <img className='image' alt='배너 이미지' src='/img/banner.png'></img>
@@ -173,50 +169,8 @@ const Home = () => {
           </select>
         </div>
         <div className='inflearn__inner'>
-          {items.map((item, index) => (
-            <div key={`${item.id}-${index}`} className='item'>
-              <div className='item-inner'>
-                <Link className='item-title' to={`/reviews/${item.slug}`} >
-                  {
-                    item.thumbnailImage ? (
-                      <img src={item.thumbnailImage} alt={item.title} />
-                    ) : item.thumbnailVideo ? (
-                      <video muted autoPlay loop>
-                        <source src={item.thumbnailVideo} type="video/mp4" alt={item.title} />
-                      </video>
-                    ) : (
-                      <img src='/img/nothing.png' alt={item.title} />
-                    )
-                  }
-                  <span>{item.title}</span>
-                </Link>
-                <div className='item-information'>
-                  {item.teacher ? <p>{item.teacher}</p> : <p>&nbsp;</p>}
-                  <span className='item-rating'>
-                    <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                      <path fill="#FDCC0E" fillRule="evenodd" d="M8 1.3c.133 0 .263.037.375.108.113.07.203.17.262.29l1.778 3.637 3.978.583c.131.02.254.075.355.161.101.086.176.199.217.326.041.126.046.262.014.392-.031.13-.098.247-.193.34l-2.878 2.831.68 3.996c.022.131.007.267-.042.39-.05.124-.133.23-.24.31-.107.078-.234.125-.366.134-.132.01-.263-.018-.38-.08L8 12.831l-3.558 1.887c-.117.062-.248.09-.38.08-.132-.01-.259-.056-.365-.134-.107-.079-.19-.186-.24-.31-.05-.123-.065-.258-.043-.39l.68-3.997-2.88-2.83c-.094-.093-.161-.21-.193-.34-.032-.13-.027-.266.014-.393.04-.127.116-.24.217-.326.102-.086.225-.142.356-.16l3.978-.583 1.779-3.637c.059-.12.15-.22.262-.29.112-.07.242-.108.374-.108z" clipRule="evenodd" />
-                    </svg> {item.rating}
-                  </span>
-                  <span className='item-comment'>
-                  <TbMessageCircle size={16} /> {item.comments}
-                  </span>
-                  <span className='item-wishe'>
-                  <IoHeart size={16} color='#004FDE' /> {item.wishes}
-                  </span>
-                  <div className="overlay">
-                    <span onClick={() => handleWish(item.id, item.wished)}>
-                    {wishLoading ? (
-                      <FiLoader color="#004FDE" size={18} />
-                      ):item.wished ? (
-                        <FaHeart color="#004FDE" size={18} />
-                      ) : (
-                        <FaRegHeart color="#004FDE" size={18} />
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {items.map(item => (
+            <ItemCard key={item.id} item={item} handleWish={handleWish} wishLoading={wishLoading} />
           ))}
         </div>
       </div>

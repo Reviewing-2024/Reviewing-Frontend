@@ -1,5 +1,3 @@
-
-
 .inputDiv {
     display: flex;
     align-items: center;
@@ -11,6 +9,7 @@
     bottom: 0;
     right: 10px;
 }
+
 .inputDiv input {
     flex-grow: 1;
     padding: 10px 15px;
@@ -30,7 +29,7 @@
     cursor: pointer;
     font-size: 30px;
     margin-top: 15px;
-    border: none; 
+    border: none;
 }
 
 .chatDiv {
@@ -52,14 +51,14 @@
 }
 
 
-.course a{
-  text-decoration-line: none;
-  color: #111;
-  background-color: #fff;
-  border: 1px solid #999;
-  padding: 6px 14px;
-  border-radius: 5px;
-  cursor: pointer;
+.course a {
+    text-decoration-line: none;
+    color: #111;
+    background-color: #fff;
+    border: 1px solid #999;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .message {
@@ -74,7 +73,7 @@
 
 .message.user {
     align-self: flex-end;
-    background-color: #004FDE ;
+    background-color: #004FDE;
     color: white;
     text-align: left;
     font-size: 0.9em;
@@ -114,6 +113,7 @@
         height: 40vh;
         background-image: none;
     }
+
     .inputDiv {
         display: flex;
         align-items: center;
@@ -126,6 +126,7 @@
         left: auto;
         flex-grow: 1;
     }
+
     .inputDiv input {
         flex-grow: 1;
         padding: 10px;

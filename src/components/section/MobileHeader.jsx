@@ -53,97 +53,97 @@ const MobileHeader = () => {
 
   return (
     <div className='mobile-header-container'>
-        <div className="mobile-header-content">
-            <a
-            className="hamburger-button"
-            onClick={toggleMenu}
-            >
-            {isMenuOpen ? <IoClose size={35} /> : <IoMenu size={35} />}
-            </a>
-            <a className='header__logo' href="/">
-              <img className='logo' src='/img/Logo1.png'></img>
-            </a>
-            <KakaoLogin />
+      <div className="mobile-header-content">
+        <a
+          className="hamburger-button"
+          onClick={toggleMenu}
+        >
+          {isMenuOpen ? <IoClose size={35} /> : <IoMenu size={35} />}
+        </a>
+        <a className='header__logo' href="/">
+          <img className='logo' src='/img/Logo1.png'></img>
+        </a>
+        <KakaoLogin />
+      </div>
+      <div className={`mobile-header${isMenuOpen ? 'active' : ''}`}>
+        <div className="mobile-header-top">
+          <div className='mobile-search-bar'>
+            <input
+              type='search'
+              placeholder='검색어를 입력해주세요.'
+              autoComplete='off'
+              className='mobile-search-input'
+              onChange={e => setSearchInput(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  handleSearch();
+                }
+              }}
+            />
+            <button onClick={handleSearch}><IoIosSearch /></button>
+          </div>
         </div>
-        <div className={`mobile-header${isMenuOpen ? 'active' : ''}`}>  
-            <div className="mobile-header-top">
-                <div className='mobile-search-bar'>
-                <input 
-                    type='search' 
-                    placeholder='검색어를 입력해주세요.' 
-                    autoComplete='off' 
-                    className='mobile-search-input' 
-                    onChange={e => setSearchInput(e.target.value)}
-                    onKeyDown={e => {
-                    if (e.key === 'Enter') {
-                        handleSearch();
-                    }
-                    }}
-                />
-                <button onClick={handleSearch}><IoIosSearch /></button>
-                </div>
-            </div>
-            <div className='mobile-menu-container'>
-                <ul className='mobile-menu'>
-                {headerMenus.map((menu, key) => (
-                    <li
+        <div className='mobile-menu-container'>
+          <ul className='mobile-menu'>
+            {headerMenus.map((menu, key) => (
+              <li
+                key={key}
+                className={activeMenuIndex === key ? 'active' : ''}
+                onClick={() => handleMenuClick(key)}
+              >
+                <Link to={menu.src}
+                  style={{
+                    color: activeMenuIndex === key ? menu.color : '#000',
+                  }}
+                >
+                  <div>{menu.icon}</div>
+                  <div className='mobile-menu-title'>{menu.title}</div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          {categoriesToDisplay && categoriesToDisplay.length > 0 && (
+            <div className='mobile-category-container'>
+              <ul className='mobile-category-list'>
+                {categoriesToDisplay.map((category, key) => (
+                  <li
                     key={key}
-                    className={activeMenuIndex === key ? 'active' : ''}
-                    onClick={() => handleMenuClick(key)}
-                    >
-                    <Link to={menu.src}
-                    style={{
-                        color: activeMenuIndex === key ? menu.color : '#000',
-                    }}
-                    >
-                        <div>{menu.icon}</div>
-                        <div className='mobile-menu-title'>{menu.title}</div>
-                    </Link>
-                    </li>
+                    className={activeCategoryIndex === key ? 'active' : ''}
+                    onClick={() => handleCategoryClick(category)}
+                  >
+                    <span>
+                      # {category.category}
+                    </span>
+                  </li>
                 ))}
-                </ul>
-                {categoriesToDisplay && categoriesToDisplay.length > 0 && (
-                <div className='mobile-category-container'>
-                    <ul className='mobile-category-list'>
-                    {categoriesToDisplay.map((category, key) => (
-                        <li
-                        key={key}
-                        className={activeCategoryIndex === key ? 'active' : ''}
-                        onClick={() => handleCategoryClick(category)}
-                        >
-                        <span>
-                            # {category.category}
-                        </span>
-                        </li>
-                    ))}
-                    </ul>
-                </div>
-                )}
+              </ul>
             </div>
-            <div className='mobile-header__chatbot'>
-                <ul>
-                    {chatbotdata.map((chatbot, key) => (
-                        <li key={key}>
-                            <a
-                              onClick={() => {
-                                setOpenModal(true);
-                              }}
-                            >
-                                <span>{chatbot.icon} {chatbot.title}</span>
-                            </a>
-                        </li>
-                    ))}
-                </ul>
-                {openModal && (
-                    <div className="mobile-chatbot-overlay">
-                        <div className="mobile-chatbot-content" onClick={(e) => e.stopPropagation()}>
-                            <Chatbot />
-                            <button onClick={() => setOpenModal(false)}><MdClear/></button>
-                        </div>
-                    </div>
-                )}
-            </div> 
+          )}
         </div>
+        <div className='mobile-header__chatbot'>
+          <ul>
+            {chatbotdata.map((chatbot, key) => (
+              <li key={key}>
+                <a
+                  onClick={() => {
+                    setOpenModal(true);
+                  }}
+                >
+                  <span>{chatbot.icon} {chatbot.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          {openModal && (
+            <div className="mobile-chatbot-overlay">
+              <div className="mobile-chatbot-content" onClick={(e) => e.stopPropagation()}>
+                <Chatbot />
+                <button onClick={() => setOpenModal(false)}><MdClear /></button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

@@ -18,8 +18,8 @@ const KakaoLogin = () => {
 
     const updateImage = () => {
       setImageSrc(
-        window.innerWidth < 769 ? '/img/kakao_login_medium.png': '/img/kakao_login_medium_narrow.png'
-      )  
+        window.innerWidth < 769 ? '/img/kakao_login_medium.png' : '/img/kakao_login_medium_narrow.png'
+      )
     };
 
     updateImage();
@@ -33,24 +33,24 @@ const KakaoLogin = () => {
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
-  
+
   const handleLogout = () => {
     localStorage.removeItem('name');
     localStorage.removeItem('Authorization');
     localStorage.removeItem('memberId');
     setName(null);
-     ChannelService.shutdown();
-   ChannelService.boot({
-    pluginKey: process.env.REACT_APP_CHANNEL_SECRET_KEY,
-  });
+    ChannelService.shutdown();
+    ChannelService.boot({
+      pluginKey: process.env.REACT_APP_CHANNEL_SECRET_KEY,
+    });
 
-  navigate('/');
+    navigate('/');
     window.location.reload();
-};
+  };
 
 
-  
-const handleNavigate = () => {
+
+  const handleNavigate = () => {
     navigate('/mypage/all');
     setDropdownVisible(false);
   };

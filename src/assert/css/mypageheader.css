@@ -23,7 +23,7 @@
 .mypageheader-inner {
     justify-content: center;
     text-align: center;
-    padding: 20px; 
+    padding: 20px;
 }
 
 .mypageheader-inner input {
@@ -45,7 +45,7 @@
 .name {
     font-size: 25px;
     font-weight: 600;
-    
+
 }
 
 
@@ -53,13 +53,13 @@
 .mypage-menu {
     list-style: none;
     padding: 0;
-    margin-top: 20px ;
+    margin-top: 20px;
 }
 
 .mypage-menu li {
     text-decoration-line: none;
     padding: 0 5px;
-    
+
 }
 
 .mypage-menu li svg {
