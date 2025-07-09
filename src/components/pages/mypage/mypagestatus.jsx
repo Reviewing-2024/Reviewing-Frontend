@@ -2,13 +2,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
 
-import { BsCircleFill } from "react-icons/bs";
-import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
 import { GrDocumentMissing } from "react-icons/gr";
 import { review_category } from '../../../data/review.js';
 
 import Main from '../../section/main.jsx';
 import Loading from '../../component/items/Loading.jsx'
+import MypageCard from '../../component/items/MypageCard.jsx';
 import Mypageheader from '../../section/mypageheader.jsx';
 import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
 
@@ -18,6 +17,7 @@ const Mypagestatus = () => {
     const [selectedCategory, setSelectedCategory] = useState('');
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [loadingfinish, setLoadingFinished] = useState(false);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
 
@@ -69,6 +69,7 @@ const Mypagestatus = () => {
             setError(err.response?.data?.message || '리뷰를 불러오는데 실패했습니다.');
         } finally {
             setLoading(false);
+            setLoadingFinished(true);
         }
     }, [token, navigate]);
 
@@ -85,44 +86,6 @@ const Mypagestatus = () => {
     const handleCategoryClick = useCallback((category) => {
         setSelectedCategory(category.title);
     }, []);
-
-    const ReviewCard = ({ review }) => {
-        return (
-            <div className='review-card'>
-                <div className="myreview-content">
-                    <div className='myreview-top'>
-                        <span
-                            className='myreview-title'
-                            onClick={() => handleCourseClick(review)}
-                            style={{ cursor: 'pointer' }}
-                        >
-                            {review.courseTitle} <FaExternalLinkAlt />
-                        </span>
-                        <span className={`status ${review.status.toLowerCase()}`}>
-                            <BsCircleFill />
-                        </span>
-                    </div>
-                    <p className='content'>{review.contents}</p>
-                    <div className="review-metadata">
-                        <span className='createdAt'>{review.createdAt}</span>
-                        <span><FaThumbsUp /> {review.likes}</span>
-                        <span><FaThumbsDown /> {review.dislikes}</span>
-                        <span className="rating">
-                            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                <path fill="#FDCC0E" fillRule="evenodd" d="M8 1.3c.133 0 .263.037.375.108.113.07.203.17.262.29l1.778 3.637 3.978.583c.131.02.254.075.355.161.101.086.176.199.217.326.041.126.046.262.014.392-.031.13-.098.247-.193.34l-2.878 2.831.68 3.996c.022.131.007.267-.042.39-.05.124-.133.23-.24.31-.107.078-.234.125-.366.134-.132.01-.263-.018-.38-.08L8 12.831l-3.558 1.887c-.117.062-.248.09-.38.08-.132-.01-.259-.056-.365-.134-.107-.079-.19-.186-.24-.31-.05-.123-.065-.258-.043-.39l.68-3.997-2.88-2.83c-.094-.093-.161-.21-.193-.34-.032-.13-.027-.266.014-.393.04-.127.116-.24.217-.326.102-.086.225-.142.356-.16l3.978-.583 1.779-3.637c.059-.12.15-.22.262-.29.112-.07.242-.108.374-.108z" clipRule="evenodd" />
-                            </svg>
-                            {review.rating}
-                        </span>
-                    </div>
-                    {review.status === "REJECTED" && (
-                        <div className='rejectionReason'>
-                            거절 사유: {review.rejectionReason}
-                        </div>
-                    )}
-                </div>
-            </div>
-        );
-    };
 
     return (
         <Main
@@ -158,7 +121,7 @@ const Mypagestatus = () => {
                 <div className='review'>
                     {loading ? (
                         <Loading />
-                    ) : reviews.length === 0 ? (
+                    ) : loadingfinish && reviews.length === 0 ? (
                         <div className="no-reviews">
                             <GrDocumentMissing />
                             <p>표시할 리뷰가 없습니다.</p>
@@ -169,7 +132,7 @@ const Mypagestatus = () => {
                     ) : (
                         <div className='review-list'>
                             {reviews.map((review) => (
-                                <ReviewCard key={review.id} review={review} />
+                                <MypageCard key={review.id} review={review} handleCourseClick={handleCourseClick} />
                             ))}
                         </div>
                     )}

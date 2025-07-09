@@ -8,6 +8,7 @@ import '../../assert/layout.css';
 import '../../assert/css/loading.css';
 
 import ItemCard from '../component/items/ItemCard'
+import Loading from '../component/items/Loading'
 
 function Search() {
   const [items, setItems] = useState([]);
@@ -154,7 +155,10 @@ function Search() {
       title="검색"
       description="검색 강의입니다.">
       <section id="search">
-        {searchFinished && items.length === 0 ? (
+        { pageloading ? (
+          <Loading />
+        ) :
+        searchFinished && items.length === 0 ? (
           <div className="no-items">
             해당하는 강의가 없습니다.
           </div>
