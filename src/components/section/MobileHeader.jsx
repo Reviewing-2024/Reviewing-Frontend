@@ -10,7 +10,7 @@ import { headerMenus, chatbotdata } from "../../data/header";
 import "../../assert/layout.css";
 import "../../assert/mobileheader.css";
 import KakaoLogin from "./kakao/KakaoLogin";
-import Chatbot from "../pages/Chatbot";
+import Chatbot from "../pages/chatbot/Chatbot";
 
 const MobileHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

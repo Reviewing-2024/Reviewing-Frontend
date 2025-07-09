@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "../../assert/adminpage.css";
+import "../../../assert/adminpage.css";
 import axios from "axios";
-import Main from '../section/main';
+import Main from '../../section/main.jsx';
 
-import { admin_category } from "../../data/review.js";
+import { admin_category } from "../../../data/review.js";
 
 const AdminPage = () => {
   const [isAuthorized, setIsAuthorized] = useState(false);

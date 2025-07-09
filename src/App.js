@@ -24,7 +24,7 @@ import Wishlist from './components/pages/mypage/wishlist';
 
 import Loading from './components/component/items/Loading';
 
-const AdminPage = lazy(() => import('./components/pages/AdminPage'));
+const AdminPage = lazy(() => import('./components/pages/adminpage/AdminPage'));
 
 
 const Layout = () => {

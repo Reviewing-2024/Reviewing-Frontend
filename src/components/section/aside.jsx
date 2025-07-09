@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import "../../assert/aside.css";
 
-import Chatbot from "../pages/Chatbot";
+import Chatbot from "../pages/chatbot/Chatbot";
 
 const Header = () => {
     const [activeIndex, setActiveIndex] = useState(null);
