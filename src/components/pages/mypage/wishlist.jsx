@@ -18,6 +18,7 @@ import '../../../assert/css/section.css';
 const Wishlist = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingfinish, setLoadingFinished] = useState(false);
   const [error, setError] = useState(null);
   const [wishLoading, setWishLoading] = useState(false);
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const Wishlist = () => {
         setError(error.message);
       } finally {
         setLoading(false);
+        setLoadingFinished(true);
       }
     }
 
@@ -115,7 +117,7 @@ const Wishlist = () => {
         <div className='review'>
           {loading ? (
             <Loading />
-          ) : items.length === 0 ? (
+          ) : loadingfinish && items.length === 0 ? (
             <div className="no-reviews">
               <GrDocumentMissing />
               <p>찜한 강의가 없습니다.</p>
