@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Main from '../section/main';
+import Main from '../../section/main';
 
-import ItemCard from '../component/items/ItemCard'
+import ItemCard from '../../component/items/ItemCard'
 
 import '../../assert/css/section.css';
 import '../../assert/layout.css';
 
-function Nomad() {
+function Codeit() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -53,7 +53,7 @@ function Nomad() {
         lastComments: sortCriteria === 'comments' ? lastComments : null
       };
 
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/노마드코더`, {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/코드잇`, {
         headers,
         params,
       });
@@ -103,12 +103,8 @@ function Nomad() {
         `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-          params: {
-            wished: wished,
-          },
+          headers: { Authorization: `Bearer ${token}` },
+          params: { wished },
         }
       );
       setItems(prevItems =>
@@ -117,17 +113,17 @@ function Nomad() {
         )
       );
 
-      const message = response.data.wished
-        ? "강의가 찜 목록에 추가되었습니다!"
-        : "강의가 찜 목록에서 제거되었습니다.";
+      const message = response.data.wished ? "강의가 찜 목록에 추가되었습니다!" : "강의가 찜 목록에서 제거되었습니다.";
       alert(message);
+
     } catch (error) {
       if (error.response?.status === 600) {
         localStorage.removeItem('name');
         localStorage.removeItem('Authorization');
         window.location.reload();
         alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
-      } else {
+      }
+      else {
         alert("위시리스트 처리 중 문제가 발생했습니다.");
       }
       await fetchItems();
@@ -153,12 +149,11 @@ function Nomad() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-
   return (
     <Main
-      title="노마드코더"
-      description="노마드코더 강의입니다.">
-      <section id='nomad'>
+      title="코드잇"
+      description="코드잇 강의입니다.">
+      <section id='codeit'>
         <div className="sort-dropdown">
           <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
             <option value="rating">별점 높은 순</option>
@@ -175,4 +170,4 @@ function Nomad() {
   );
 }
 
-export default Nomad;
+export default Codeit;

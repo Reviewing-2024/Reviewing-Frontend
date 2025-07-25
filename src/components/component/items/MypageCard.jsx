@@ -1,6 +1,8 @@
 import { BsCircleFill } from "react-icons/bs";
 import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
 
+import { FaRegTrashAlt } from "react-icons/fa";
+
 const MypageCard = ({ review, handleCourseClick }) => {
         return (
             <div className='review-card'>

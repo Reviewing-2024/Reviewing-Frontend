@@ -10,37 +10,37 @@ export const headerMenus = [
     {
         title: "인프런",
         icon: <IoLeaf />,
-        src: "/inflearn",
+        src: "/인프런",
         color: "#00c471"
     },
     {
         title: "패스트캠퍼스",
         icon: <SiDota2 />,
-        src: "/fastcampus",
+        src: "/패스트캠퍼스",
         color: "#D4003A"
     },
     {
         title: "코드잇",
         icon: <BsCCircleFill />,
-        src: "/codeit",
+        src: "/코드잇",
         color: "#93f"
     },
     {
         title: "노마드코더",
         icon: <SiNuxtdotjs />,
-        src: "/nomad",
+        src: "/노마드코더",
         color: "#E0B800"
     },
     {
         title: "유데미",
         icon: <SiUdemy />,
-        src: "/udemy",
+        src: "/유데미",
         color: "#A435F0"
     },
     {
         title: "K-MOOC",
         icon: <IoInfiniteSharp />,
-        src: "/kmooc",
+        src: "/Kmooc",
         color: "#009488"
     },
     // {

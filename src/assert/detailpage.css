@@ -162,6 +162,10 @@ video {
   background: #659BE3;
 }
 
+.btn-icon.aactive:hover {
+  background: #E98383;
+}
+
 .review-rating {
   display: flex;
   gap: 2px;

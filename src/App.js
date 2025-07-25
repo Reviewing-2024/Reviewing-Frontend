@@ -9,18 +9,16 @@ import Footer from './components/section/footer';
 import ResponsiveHeader from './components/section/ResponsiveHeader';
 
 import Home from './components/pages/home';
-import Inflearn from './components/pages/inflearn';
-import CoursesPage from './components/pages/coursesPage';
-import Nomad from './components/pages/nomad';
-import Codeit from './components/pages/codeit';
-import Udemy from './components/pages/udemy';
-import Fastcampus from './components/pages/fastcampus';
-import Kmooc from './components/pages/kmooc';
+import PlatformCourses from './components/pages/PlatformCourses';
+import CategoryCoursesPage from './components/pages/CategoryCoursesPage';
+import Udemy from './components/pages/platform/udemy';
+import Kmooc from './components/pages/platform/kmooc';
 import LoginHandeler from './components/section/kakao/LoginHandeler';
 import Reviews from './components/pages/reviews';
 import Search from './components/section/search';
 import Mypagestatus from './components/pages/mypage/mypagestatus';
 import Wishlist from './components/pages/mypage/wishlist';
+
 
 import Loading from './components/component/items/Loading';
 
@@ -37,13 +35,10 @@ const Layout = () => {
             <Suspense fallback={<Loading />} >
                 <Routes>
                     <Route path='/' element={<Home />} />
-                    <Route path='/inflearn' element={<Inflearn />} />
-                    <Route path="/courses/:platform/:category" element={<CoursesPage />} />
-                    <Route path='/nomad' element={<Nomad />} />
-                    <Route path='/codeit' element={<Codeit />} />
-                    <Route path='/udemy' element={<Udemy />} />
-                    <Route path='/fastcampus' element={<Fastcampus />} />
-                    <Route path='/kmooc' element={<Kmooc />} />
+                    <Route path='/:platform' element={<PlatformCourses />} />
+                    <Route path="/courses/:platform/:category" element={<CategoryCoursesPage />} />
+                    <Route path='/유데미' element={<Udemy />} />
+                    <Route path='/Kmooc' element={<Kmooc />} />
                     <Route path='/search/:searchKeyword' element={<Search />} />
                     <Route path='/login/callback/kakao' element={<LoginHandeler />} />
                     <Route path='/wishlist' element={<Wishlist />} />
