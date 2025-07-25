@@ -1,5 +1,5 @@
 import React from 'react'
-import Main from '../section/main';
+import Main from '../../section/main';
 
 const udemy = () => {
   return (

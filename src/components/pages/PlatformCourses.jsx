@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Main from '../section/main';
-
-import ItemCard from '../component/items/ItemCard'
-
+import ItemCard from '../component/items/ItemCard';
 import '../../assert/css/section.css';
 import '../../assert/layout.css';
 
-const Inflearn = () => {
+
+const PlatformCourses = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,6 +17,10 @@ const Inflearn = () => {
   const [lastComments, setLastComments] = useState(null);
   const [hasMore, setHasMore] = useState(true);
   const [wishLoading, setWishLoading] = useState(false);
+
+  const { platform } = useParams();
+  
+  const description =`${platform} 강의입니다.`
 
   const token = localStorage.getItem('Authorization');
 
@@ -31,34 +35,32 @@ const Inflearn = () => {
     setHasMore(true);
     setItems([]);
     fetchItems(true);
-  }, [sortCriteria]);
-
+  }, [sortCriteria, platform]);
 
   const fetchItems = useCallback(async (isInitialLoad = false) => {
     if (loading || (!hasMore && !isInitialLoad)) return;
 
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
+    const params = isInitialLoad
+      ? { sort: sortCriteria, lastCourseId: null }
+      : {
+          sort: sortCriteria,
+          lastCourseId,
+          lastRating: sortCriteria === 'rating' ? lastRating : null,
+          lastComments: sortCriteria === 'comments' ? lastComments : null,
+        };
 
     try {
       setLoading(true);
       setError(null);
 
-      const params = isInitialLoad ? {
-        sort: sortCriteria,
-        lastCourseId: null
-      } : {
-        sort: sortCriteria,
-        lastCourseId: lastCourseId,
-        lastRating: sortCriteria === 'rating' ? lastRating : null,
-        lastComments: sortCriteria === 'comments' ? lastComments : null
-      };
-
-      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/인프런`, {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/courses/${platform}`, {
         headers,
         params,
       });
 
       const newItems = response.data;
+      const lastItem = newItems[newItems.length - 1];
 
       if (isInitialLoad) {
         setItems(newItems);
@@ -69,7 +71,6 @@ const Inflearn = () => {
       }
 
       if (newItems.length > 0) {
-        const lastItem = newItems[newItems.length - 1];
         setLastCourseId(lastItem.id);
         if (sortCriteria === 'rating') setLastRating(lastItem.rating);
         if (sortCriteria === 'comments') setLastComments(lastItem.comments);
@@ -88,10 +89,9 @@ const Inflearn = () => {
     } finally {
       setLoading(false);
     }
-  }, [loading, hasMore, items, lastCourseId, lastRating, lastComments, sortCriteria, token]);
+  }, [loading, hasMore, items, lastCourseId, lastRating, lastComments, sortCriteria, token, platform]);
 
   const handleWish = async (id, wished) => {
-
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
@@ -103,24 +103,16 @@ const Inflearn = () => {
         `${process.env.REACT_APP_BASE_URL}/courses/${id}/wish`,
         null,
         {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-          params: {
-            wished: wished,
-          },
+          headers: { Authorization: `Bearer ${token}` },
+          params: { wished },
         }
       );
+
       setItems(prevItems =>
-        prevItems.map(item =>
-          item.id === id ? { ...item, wished: !wished } : item
-        )
+        prevItems.map(item => (item.id === id ? { ...item, wished: !wished } : item))
       );
 
-      const message = response.data.wished
-        ? "강의가 찜 목록에 추가되었습니다!"
-        : "강의가 찜 목록에서 제거되었습니다.";
-      alert(message);
+      alert(response.data.wished ? "강의가 찜 목록에 추가되었습니다!" : "강의가 찜 목록에서 제거되었습니다.");
     } catch (error) {
       if (error.response?.status === 600) {
         localStorage.removeItem('name');
@@ -133,7 +125,6 @@ const Inflearn = () => {
       await fetchItems();
     } finally {
       setWishLoading(false);
-      // window.location.reload();
     }
   };
 
@@ -153,19 +144,16 @@ const Inflearn = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
-
   return (
-    <Main
-      title="인프런"
-      description="인프런 강의입니다.">
-      <section id='inflearn'>
+    <Main title={platform} description={description}>
+      <section id={platform}>
         <div className="sort-dropdown">
           <select onChange={(e) => setSortCriteria(e.target.value)} value={sortCriteria}>
             <option value="rating">별점 높은 순</option>
             <option value="comments">리뷰 많은 순</option>
           </select>
         </div>
-        <div className='inflearn__inner'>
+        <div className="inflearn__inner">
           {items.map(item => (
             <ItemCard key={item.id} item={item} handleWish={handleWish} wishLoading={wishLoading} />
           ))}
@@ -173,6 +161,6 @@ const Inflearn = () => {
       </section>
     </Main>
   );
-}
+};
 
-export default Inflearn;
+export default PlatformCourses;

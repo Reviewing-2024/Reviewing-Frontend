@@ -2,6 +2,8 @@ import React from 'react';
 import { FaThumbsDown, FaThumbsUp, FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { FiLoader } from "react-icons/fi";
 
+import { FaRegTrashAlt } from "react-icons/fa";
+
 const ReviewCard = ({ review, handleLike, likedloading, handleDislike, dislikedloading }) => {
   return (
     <div className="review-card">

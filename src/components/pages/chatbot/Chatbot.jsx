@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../../assert/chatbot.css';
+import '../../../assert/chatbot.css';
 import { IoChatboxEllipsesOutline } from "react-icons/io5";
 
 const Chatbot = () => {

@@ -6,11 +6,11 @@ import { IoIosSearch } from "react-icons/io";
 import { IoMenu, IoClose } from "react-icons/io5";
 import { MdClear } from "react-icons/md";
 
-import { headerMenus, chatbotdata } from "../../data/header";
+import { headerMenus, chatbotdata } from "../../data/aside";
 import "../../assert/layout.css";
 import "../../assert/mobileheader.css";
 import KakaoLogin from "./kakao/KakaoLogin";
-import Chatbot from "../pages/Chatbot";
+import Chatbot from "../pages/chatbot/Chatbot";
 
 const MobileHeader = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

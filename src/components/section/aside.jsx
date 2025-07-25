@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { headerMenus, chatbotdata } from "../../data/header";
+import { headerMenus, chatbotdata } from "../../data/aside";
 import { MdClear } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import "../../assert/aside.css";
 
-import Chatbot from "../pages/Chatbot";
+import Chatbot from "../pages/chatbot/Chatbot";
 
 const Header = () => {
     const [activeIndex, setActiveIndex] = useState(null);

@@ -8,7 +8,7 @@ import ItemCard from '../component/items/ItemCard'
 import '../../assert/css/section.css';
 import '../../assert/layout.css';
 
-const CoursesPage = () => {
+const CategoryCoursesPage = () => {
     const { platform, category } = useParams();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -176,4 +176,4 @@ const CoursesPage = () => {
     );
 };
 
-export default CoursesPage;
+export default CategoryCoursesPage;
