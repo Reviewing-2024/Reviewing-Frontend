@@ -1,49 +1,146 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom';
+
+import { GrDocumentMissing } from "react-icons/gr";
+import { review_category } from '../../../data/review.js';
+
+import Main from '../../section/main.jsx';
+import Loading from '../../component/items/Loading.jsx'
+import MypageCard from '../../component/items/MypageCard.jsx';
+import Mypageheader from '../../section/mypageheader.jsx';
+import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
 
 import '../../../assert/css/mypage.css';
 
-import { review, review_category } from '../../../data/review.js';
-import Mypageheader from '../../section/mypageheader.jsx';
+const Mypagestatus = () => {
+    const [selectedCategory, setSelectedCategory] = useState('');
+    const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [loadingfinish, setLoadingFinished] = useState(false);
+    const [error, setError] = useState(null);
+    const [hoverIndex, setHoverIndex] = useState(null);
 
-const MypageStatus = () => {
     const { status } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-    const filteredReviews = status ? 
-        review.filter((item) => item.status === status) : review;
+    const token = localStorage.getItem('Authorization');
+
+    useEffect(() => {
+        const matchedCategory = review_category.find(
+            (category) => `/mypage${category.src}` === location.pathname
+        );
+        if (matchedCategory) {
+            setSelectedCategory(matchedCategory.title);
+        } else {
+            const defaultCategory = review_category[0];
+            navigate(`/mypage${defaultCategory.src}`, { replace: true });
+        }
+    }, [location, navigate]);
+
+    const fetchReviews = useCallback(async () => {
+        if (!token) {
+            alert("로그인이 필요합니다.");
+            return;
+        }
+        try {
+            setLoading(true);
+            setError(null);
+
+            const url = status === 'all'
+                ? `${process.env.REACT_APP_BASE_URL}/my/reviews`
+                : `${process.env.REACT_APP_BASE_URL}/my/reviews?status=${status}`;
+
+            const response = await axios.get(url, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            setReviews(response.data);
+
+        } catch (err) {
+            if (err.response?.status === 600) {
+                localStorage.removeItem('name');
+                localStorage.removeItem('Authorization');
+                navigate('/')
+                window.location.reload();
+                alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
+            }
+            setError(err.response?.data?.message || '리뷰를 불러오는데 실패했습니다.');
+        } finally {
+            setLoading(false);
+            setLoadingFinished(true);
+        }
+    }, [token, navigate]);
+
+
+    const handleCourseClick = useCallback((review) => {
+        navigate(`/reviews/${review.courseSlug}`);
+    }
+    );
+
+    useEffect(() => {
+        fetchReviews();
+    }, [fetchReviews]);
+
+    const handleCategoryClick = useCallback((category) => {
+        setSelectedCategory(category.title);
+    }, []);
 
     return (
-        <div className='mypage'>
-            <Mypageheader /> 
+        <Main
+            title="마이페이지"
+            description="마이페이지 입니다.">
+            <div className='mypage'>
+                <ResponsiveMypageHeader />
+                <Mypageheader />
                 <div className='review_category'>
                     <ul>
-                        {review_category.map((review_category, key) => (
-                            <li key={key}>
-                                <Link to={`/mypage${review_category.src}`}>
-                                    {review_category.title}
+                        {review_category.map((category, index) => (
+                            <li
+                                key={category.src}
+                                onMouseEnter={() => setHoverIndex(index)}
+                                onMouseLeave={() => setHoverIndex(null)}
+                            >
+                                <Link
+                                    to={`/mypage${category.src}`}
+                                    className={selectedCategory === category.title ? 'active' : ''}
+                                    style={{
+                                        backgroundColor: hoverIndex === index || selectedCategory === category.title
+                                            ? category.color : '#fdfdfd',
+                                        border: `2px solid ${category.color}`
+                                    }}
+                                    onClick={() => handleCategoryClick(category)}
+                                >
+                                    {category.title}
                                 </Link>
                             </li>
                         ))}
                     </ul>
                 </div>
-            <div className='review'>
-                <p className='title'>{status}</p>
-                <div className='review-inner'>
-                    {filteredReviews.map((item) => (
-                        <div key={item.id} className='reviews'>
-                        {/* <div className='status' /> */}
-                        <div className='content'>
-                            <p>{item.user}</p> 
-                            <p>{item.content}</p>
-                            <span>{item.likes}</span>
+                <div className='review'>
+                    {loading ? (
+                        <Loading />
+                    ) : loadingfinish && reviews.length === 0 ? (
+                        <div className="no-reviews">
+                            <GrDocumentMissing />
+                            <p>표시할 리뷰가 없습니다.</p>
+                            <a type="button" href="/" target="_blank">
+                                <div>강의 리스트 보기</div>
+                            </a>
                         </div>
-                    </div>
-                    ))}
+                    ) : (
+                        <div className='review-list'>
+                            {reviews.map((review) => (
+                                <MypageCard key={review.id} review={review} handleCourseClick={handleCourseClick} />
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
-            <div className='footer' />
-        </div>
+        </Main>
     );
 };
 
-export default MypageStatus;
+
+export default Mypagestatus;

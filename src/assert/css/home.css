@@ -1,33 +1,6 @@
-
-
-.banner {
-    /* background-color: #88BAF7; */
-    background-color: rgba(136, 186, 247, 0.8);
-    border-radius: 20px 20px 0 0;
-    justify-content: center;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-    min-width: 800px;
-}
-
-.image {
-    width: 70%;
-}
-
-.banner-sb {
-    margin-top: -110px;
-    color: #fdfdfd;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.home-title {
-    margin-left: 10px;
-    background-color: #fdfdfd;
-    width: 200px;
-    height: 40px;
-    border-radius: 20px 20px 0 0 ;
-}
-
-.home-title h3 {
-    padding: 10px;
+.banner .image {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

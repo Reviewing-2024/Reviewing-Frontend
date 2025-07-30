@@ -1,0 +1,123 @@
+#header::-webkit-scrollbar {
+    display: none;
+}
+
+.header__menu .menu {
+    padding: 0;
+    margin: 0;
+}
+
+.header__menu li {
+    list-style: none;
+
+}
+
+.header__menu li svg {
+    vertical-align: middle;
+}
+
+.header__menu li a {
+    color: black;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 8px 10px;
+    gap: 10px;
+    transition: 0.3s;
+    border: 2px solid #fdfdfd;
+}
+
+
+.header__keyword .keyword {
+    padding: 0;
+    margin: 0;
+}
+
+.header__keyword li {
+    list-style: none;
+    display: inline-flex;
+}
+
+.header__keyword li span {
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 5px 8px;
+    margin: 5px;
+    border: 2px solid #999;
+    transition: 0.3s;
+
+}
+
+
+.header__keyword li span:hover,
+.header__keyword li.active span {
+    border: 2px solid #004FDE;
+    color: #004FDE;
+    cursor: pointer;
+}
+
+.header__chatbot ul {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+
+.header__chatbot li {
+    list-style: none;
+}
+
+.header__chatbot li svg {
+    vertical-align: middle;
+}
+
+.header__chatbot li a {
+    margin: 30px 0 0 40px;
+    font-size: 18px;
+    padding: 6px;
+    color: #004FDE;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 2px solid #004FDE;
+    border-radius: 10px;
+    text-decoration-line: none;
+}
+
+.chatbot-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 100px;
+    bottom: 28px;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+.chatbot-content {
+    position: relative;
+    background: #fff;
+    padding: 20px;
+    height: 57vh;
+    padding-bottom: 100px;
+    padding-top: 40px;
+    border-radius: 8px;
+    width: 20vw;
+    min-width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    border: 2px solid #004FDE;
+    z-index: 100;
+}
+
+.chatbot-content button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}

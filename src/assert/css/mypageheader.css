@@ -3,62 +3,71 @@
     top: 0;
     left: 0;
     min-height: 110vh;
-    width: 290px;
-    /* box-shadow: 0px 0px 20px  rgb(0, 0, 0.1); */
+    width: 220px;
+    border-right: 2px solid #111;
 }
 
 .mypageheader {
     padding-top: 90px;
-    
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 .mypageheader img {
-    justify-content: center;
-    align-items: center;
     width: 130px;
     height: 120px;
     border-radius: 50%;
-    margin-left: 90px;
 }
 
 .mypageheader-inner {
-    margin: 30px 30px 30px 115px; 
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
 }
 
-.mypageheader-inner a {
+.mypageheader-inner input {
+    text-align: center;
+    font-size: 23px;
+    font-weight: 600;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.mypageheader-inner button {
+    margin: 10px 11px;
+    background-color: #999;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.name {
     font-size: 25px;
     font-weight: 600;
-    
+
 }
 
-
-.edit span {
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    height: 50px;
-    font-size: 19px;
-    border-radius: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    gap: 13px;
-}
 
 
 .mypage-menu {
     list-style: none;
     padding: 0;
-    margin-top: 80px ;
+    margin-top: 20px;
 }
 
 .mypage-menu li {
     text-decoration-line: none;
     padding: 0 5px;
-    
+
+}
+
+.mypage-menu li svg {
+    vertical-align: middle;
 }
 
 .mypage-menu li a {
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     display: flex;
     height: 50px;
@@ -66,40 +75,25 @@
     text-decoration: none;
     font-size: 19px;
     border-radius: 10px;
-    margin-top: 20px;
+    margin: 10px 0 0 20px;
     gap: 13px;
-    
-    
 }
 
 .logout {
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     display: flex;
     font-size: 15px;
     padding: 30px;
-    margin-top: 70px;
+    margin-top: 90px;
 }
 
 .logout p {
     cursor: pointer;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     #mypageheader {
-        width: 220px;
-    }
-
-    .mypageheader img {
-        justify-content: center;
-        align-items: center;
-        width: 130px;
-        height: 120px;
-        border-radius: 50%;
-        margin-left: 55px;
-    }
-
-    .mypageheader-inner {
-        margin: 30px 30px 30px 80px; 
+        display: none;
     }
 }

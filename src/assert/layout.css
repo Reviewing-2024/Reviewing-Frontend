@@ -1,63 +1,62 @@
 /* 기본 스타일 */
-body, html {
+@font-face {
+    font-family: 'Pretendard-Light';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+body,
+html {
     margin: 0;
     padding: 0;
+    font-family: 'Pretendard-Light', sans-serif;
 }
 
 #header {
     position: fixed;
     left: 0;
     top: 0;
-    width: 290px;
-    height: 90vh;
+    width: 220px;
+    height: calc(100vh - 72px);
     overflow-y: auto;
     z-index: 10;
-    background-color: #fdfdfd; 
-    margin-top: 66px;
-    color: #1b1c1d;
+    background-color: #fdfdfd;
+    padding-top: 72px;
+    color: #495057;
+    border-right: 2px solid #000;
+    /* box-shadow: 5px 5px 20px; */
 }
 
-/* detail 페이지에서는 헤더 제거 */
-body.detail-page #header {
-    display: none;
-}
 
 #main {
-    max-width: 2000px;
+    /* max-width: 2000px; */
     min-height: 100vh;
     background-color: #fdfdfd;
-    padding-left: 300px;
-    padding-top: 80px;
+    padding-left: 220px;
+    padding-top: 72px;
     color: #1b1c1d
 }
 
 #footer {
     text-align: center;
     color: #1b1c1d;
-    padding: 20px 20px 20px 290px;
+    padding: 20px 20px 20px 220px;
     background-color: #fdfdfd;
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     #header {
-        width: 220px;
+        display: none;
     }
 
     #main {
-        padding-left: 220px;
+        padding-left: 0px;
     }
 
     #footer {
-        padding: 20px 20px 20px 220px;
+        padding: 20px 20px 20px 20px;
     }
 
-    /* detail 페이지에서 반응형 조정 */
-    body.detail-page #main {
-        padding-left: 0;
-    }
-
-    body.detail-page #footer {
-        padding: 20px;
-    }
 }

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import '../../../assert/kakao.css';
-import { KAKAO_AUTH_URL } from './OAuth.js';
+import { KAKAO_AUTH_URL } from './OAuth/OAuth.js';
 import { useNavigate } from 'react-router-dom';
+import * as ChannelService from '@channel.io/channel-web-sdk-loader';
 
 const KakaoLogin = () => {
   const [name, setName] = useState(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [imageSrc, setImageSrc] = useState('/img/kakao_login_medium_narrow.png');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,20 +15,43 @@ const KakaoLogin = () => {
     if (storedName) {
       setName(storedName);
     }
+
+    const updateImage = () => {
+      setImageSrc(
+        window.innerWidth < 769 ? '/img/kakao_login_medium.png' : '/img/kakao_login_medium_narrow.png'
+      )
+    };
+
+    updateImage();
+    window.addEventListener('resize', updateImage);
+
+    return () => {
+      window.removeEventListener('resize', updateImage);
+    };
   }, []);
 
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL;
   };
-  
+
   const handleLogout = () => {
     localStorage.removeItem('name');
+    localStorage.removeItem('Authorization');
+    localStorage.removeItem('memberId');
     setName(null);
+    ChannelService.shutdown();
+    ChannelService.boot({
+      pluginKey: process.env.REACT_APP_CHANNEL_SECRET_KEY,
+    });
+
+    navigate('/');
     window.location.reload();
-};
-  
-const handleNavigate = () => {
-    navigate(`/mypage`);
+  };
+
+
+
+  const handleNavigate = () => {
+    navigate('/mypage/all');
     setDropdownVisible(false);
   };
 
@@ -50,7 +75,7 @@ const handleNavigate = () => {
         </div>
       ) : (
         <p onClick={handleLogin} className="kakaobtn">
-          <img src="/img/kakao_login_medium_narrow.png" alt="Kakao Login" />
+          <img src={imageSrc} alt="Kakao Login" />
         </p>
       )}
     </div>

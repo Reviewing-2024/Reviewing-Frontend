@@ -1,0 +1,139 @@
+.inputDiv {
+    display: flex;
+    align-items: center;
+    width: 20vw;
+    min-width: 400px;
+    padding: 20px 60px 20px 0;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.inputDiv input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.inputDiv input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.inputDiv button {
+    cursor: pointer;
+    font-size: 30px;
+    margin-top: 15px;
+    border: none;
+}
+
+.chatDiv {
+    padding: 20px;
+    height: 55vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("../../public/img/chatbot.png");
+}
+
+
+.chatDiv.no-background {
+    height: 55vh;
+    background-image: none;
+}
+
+
+.course a {
+    text-decoration-line: none;
+    color: #111;
+    background-color: #fff;
+    border: 1px solid #999;
+    padding: 6px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.message {
+    padding: 12px 20px;
+    border-radius: 12px;
+    max-width: 60%;
+    font-size: 0.9em;
+    line-height: 1.6;
+    word-wrap: break-word;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: #004FDE;
+    color: white;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.message.bot {
+    align-self: flex-start;
+    background-color: #e6e9ef;
+    color: #333;
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.messageWait {
+    align-self: center;
+    color: #999;
+    font-style: italic;
+    font-size: 0.95em;
+}
+
+.chatDiv::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chatDiv::-webkit-scrollbar-thumb {
+    background-color: #4a90e2;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    .chatDiv {
+        padding: 20px;
+        height: 40vh;
+    }
+
+    .chatDiv.no-background {
+        height: 40vh;
+        background-image: none;
+    }
+
+    .inputDiv {
+        display: flex;
+        align-items: center;
+        width: 80vw;
+        min-width: 280px;
+        padding: 20px auto;
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: auto;
+        flex-grow: 1;
+    }
+
+    .inputDiv input {
+        flex-grow: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        font-size: 1em;
+        outline: none;
+        transition: border-color 0.2s;
+    }
+}
