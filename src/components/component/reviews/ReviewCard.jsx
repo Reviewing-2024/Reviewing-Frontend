@@ -4,7 +4,7 @@ import { FiLoader } from "react-icons/fi";
 
 import { FaRegTrashAlt } from "react-icons/fa";
 
-const ReviewCard = ({ review, handleLike, likedloading, handleDislike, dislikedloading }) => {
+const ReviewCard = ({ review, handleLike, likedloading, handleDislike, dislikedloading, myReview, onDeleteRequest }) => {
   return (
     <div className="review-card">
       <div className="review-header">
@@ -22,25 +22,30 @@ const ReviewCard = ({ review, handleLike, likedloading, handleDislike, dislikedl
           })}
         </div>
       </div>
-      <p className="review-content">{review.contents}</p>
+      <div className="review-content">{review.contents}</div>
       <p className="review-createdAt">{review.createdAt}</p>
       <div className="review-actions">
         <button
-          className={`btn-icon ${review.liked ? "active" : ""}`}
+          className={`btn-icon ${review.liked ? "like" : ""}`}
           onClick={() => handleLike(review.id, review.liked)}
           disabled={likedloading}
         >
           {likedloading ? <FiLoader /> : <><FaThumbsUp /> {review.likes}</>}
         </button>
         <button
-          className={`btn-icon ${review.disliked ? "aactive" : ""}`}
+          className={`btn-icon ${review.disliked ? "dislike" : ""}`}
           onClick={() => handleDislike(review.id, review.disliked)}
           disabled={dislikedloading}
         >
           {dislikedloading ? <FiLoader /> : <><FaThumbsDown /> {review.dislikes}</>}
         </button>
+        { myReview == true && (
+          <span className='review-delete'>
+            <FaRegTrashAlt onClick={() => onDeleteRequest(review)} style={{ cursor: 'pointer' }}/>
+          </span>
+        )}
+        </div>
       </div>
-    </div>
   );
 };
 

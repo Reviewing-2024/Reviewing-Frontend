@@ -1,9 +1,9 @@
+import { useState } from "react";
 import { BsCircleFill } from "react-icons/bs";
-import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt } from "react-icons/fa";
+import { FaThumbsDown, FaThumbsUp, FaExternalLinkAlt, FaRegTrashAlt } from "react-icons/fa";
 
-import { FaRegTrashAlt } from "react-icons/fa";
+const MypageCard = ({ review, handleCourseClick, onDeleteRequest  }) => {
 
-const MypageCard = ({ review, handleCourseClick }) => {
         return (
             <div className='review-card'>
                 <div className="myreview-content">
@@ -30,6 +30,9 @@ const MypageCard = ({ review, handleCourseClick }) => {
                             </svg>
                             {review.rating}
                         </span>
+                        <span className='review-delete'>
+                            <FaRegTrashAlt onClick={() => onDeleteRequest(review)} style={{ cursor: 'pointer' }} />
+                        </span>
                     </div>
                     {review.status === "REJECTED" && (
                         <div className='rejectionReason'>
@@ -42,3 +45,4 @@ const MypageCard = ({ review, handleCourseClick }) => {
     };
 
     export default MypageCard;
+    

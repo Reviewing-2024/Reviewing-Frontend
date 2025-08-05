@@ -11,6 +11,8 @@ import MypageCard from '../../component/items/MypageCard.jsx';
 import Mypageheader from '../../section/mypageheader.jsx';
 import ResponsiveMypageHeader from '../../section/ResponsiveMypageHeader.jsx';
 
+import DeleteCard from '../../component/reviews/DeleteCard.jsx';
+
 import '../../../assert/css/mypage.css';
 
 const Mypagestatus = () => {
@@ -20,6 +22,8 @@ const Mypagestatus = () => {
     const [loadingfinish, setLoadingFinished] = useState(false);
     const [error, setError] = useState(null);
     const [hoverIndex, setHoverIndex] = useState(null);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [selectedReview, setSelectedReview] = useState(null);
 
     const { status } = useParams();
     const location = useLocation();
@@ -87,6 +91,39 @@ const Mypagestatus = () => {
         setSelectedCategory(category.title);
     }, []);
 
+    const handleDeleteRequest = (review) => {
+        console.log(review);
+        setSelectedReview(review);
+        setShowDeleteModal(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+            }
+
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}/reviews/${selectedReview.reviewId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+            });
+
+            setReviews(prev => prev.filter(r => r.id !== selectedReview.reviewId));
+            setShowDeleteModal(false);
+            setSelectedReview(null);
+            window.location.reload();
+            alert('리뷰가 삭제되었습니다.');    
+        } catch (error) {
+            console.error('리뷰 삭제 실패:', error);
+            alert('리뷰 삭제 중 문제가 발생했습니다.');
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setShowDeleteModal(false);
+        setSelectedReview(null);
+    };
+
     return (
         <Main
             title="마이페이지"
@@ -132,9 +169,17 @@ const Mypagestatus = () => {
                     ) : (
                         <div className='review-list'>
                             {reviews.map((review) => (
-                                <MypageCard key={review.id} review={review} handleCourseClick={handleCourseClick} />
+                                <MypageCard key={review.id} review={review} handleCourseClick={handleCourseClick} onDeleteRequest={handleDeleteRequest} />
                             ))}
+                            {showDeleteModal && selectedReview && (
+                                <DeleteCard
+                                    onCancel={handleDeleteCancel}
+                                    onConfirm={handleDeleteConfirm}
+                                    review={selectedReview}
+                                />
+                            )}
                         </div>
+                        
                     )}
                 </div>
             </div>
