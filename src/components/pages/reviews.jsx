@@ -9,6 +9,7 @@ import StarRatingInput from '../component/reviews/StarRatingInput'
 
 import "../../assert/detailpage.css";
 import ReviewCard from "../component/reviews/ReviewCard";
+import DeleteCard from "../component/reviews/DeleteCard";
 
 const Reviews = () => {
   const { slug } = useParams();
@@ -21,13 +22,16 @@ const Reviews = () => {
   const [reviewloading, setReviewloadinging] = useState(false);
   const [wishLoading, setWishLoading] = useState(false);
   const [checkingReviewPermission, setCheckingReviewPermission] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedReview, setSelectedReview] = useState(null);
 
+  const token = localStorage.getItem("Authorization");
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const isUserLoggedIn = () => {
-    const token = localStorage.getItem("Authorization");
     if (!token || token.trim() === "") {
       alert("로그인이 필요합니다.");
       return false;
@@ -37,7 +41,6 @@ const Reviews = () => {
 
 
   const fetchCourse = useCallback(async () => {
-    const token = localStorage.getItem("Authorization");
     const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
     try {
@@ -72,7 +75,6 @@ const Reviews = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const token = localStorage.getItem("Authorization");
         const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
         const response = await axios.get(
@@ -86,6 +88,7 @@ const Reviews = () => {
           disliked: review.disliked ?? false,
         }));
         setReviews(updatedReviews);
+        console.log(reviews)
       } catch (error) {
         alert("리뷰를 불러오는 중 문제가 발생했습니다.");
       }
@@ -96,7 +99,6 @@ const Reviews = () => {
 
 
   const handleCreateReview = async () => {
-    const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
@@ -198,7 +200,6 @@ const Reviews = () => {
 
     setCheckingReviewPermission(true);
     try {
-      const token = localStorage.getItem("Authorization");
       const response = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/reviews/check/${course.id}`,
         {
@@ -256,8 +257,6 @@ const Reviews = () => {
     setWishLoading(true);
 
     try {
-      const token = localStorage.getItem("Authorization");
-
       const response = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/courses/${courseId}/wish`,
         null,
@@ -304,7 +303,6 @@ const Reviews = () => {
   };
 
   const handleLike = async (reviewId, liked) => {
-    const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
@@ -338,7 +336,6 @@ const Reviews = () => {
   };
 
   const handleDislike = async (reviewId, disliked) => {
-    const token = localStorage.getItem("Authorization");
     if (!token) {
       alert("로그인이 필요합니다.");
       return;
@@ -370,6 +367,38 @@ const Reviews = () => {
       setDislikedloading(false);
     }
   };
+
+  const handleDeleteRequest = (review) => {
+    console.log(review)
+        setSelectedReview(review);
+        setShowDeleteModal(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            if (!token) {
+            alert('로그인이 필요합니다.');
+            return;
+            }
+
+            await axios.delete(`${process.env.REACT_APP_BASE_URL}/reviews/${selectedReview.id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+            });
+
+            setReviews(prev => prev.filter(r => r.id !== selectedReview.id));
+            setShowDeleteModal(false);
+            setSelectedReview(null);
+            alert('리뷰가 삭제되었습니다.');
+        } catch (error) {
+            console.error('리뷰 삭제 실패:', error);
+            alert('리뷰 삭제 중 문제가 발생했습니다.');
+        }
+    };
+
+    const handleDeleteCancel = () => {
+        setShowDeleteModal(false);
+        setSelectedReview(null);
+    };
 
   if (!course) {
     return <div><FiLoader color="#004FDE" size={12} /></div>;
@@ -458,9 +487,17 @@ const Reviews = () => {
             ) : (
               reviews.map((review) => (
                 <ReviewCard key={review.id} review={review} handleLike={handleLike} likedloading={likedloading}
-                            handleDislike={handleDislike} dislikedloading={dislikedloading}
+                            handleDislike={handleDislike} dislikedloading={dislikedloading} myReview={review.myReview}
+                            onDeleteRequest={handleDeleteRequest}
                 />
               ))
+            )}
+            {showDeleteModal && selectedReview && (
+              <DeleteCard
+                onCancel={handleDeleteCancel}
+                onConfirm={handleDeleteConfirm}
+                review={selectedReview}
+              />
             )}
           </div>
         </section>
