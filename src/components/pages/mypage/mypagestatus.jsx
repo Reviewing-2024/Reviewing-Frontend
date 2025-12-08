@@ -66,7 +66,7 @@ const Mypagestatus = () => {
             if (err.response?.status === 600) {
                 localStorage.removeItem('name');
                 localStorage.removeItem('Authorization');
-                navigate('/')
+                navigate('/');
                 window.location.reload();
                 alert("로그인 토큰이 만료되었습니다. 다시 로그인 해주세요!");
             }
